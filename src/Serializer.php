@@ -120,10 +120,11 @@ class Serializer
 	*/
 	protected function getRanges(array $values)
 	{
-		$i     = 0;
-		$cnt   = count($values);
-		$start = $values[0];
-		$end   = $start;
+		$i      = 0;
+		$cnt    = count($values);
+		$start  = $values[0];
+		$end    = $start;
+		$ranges = [];
 		while (++$i < $cnt)
 		{
 			if ($values[$i] === $end + 1)

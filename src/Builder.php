@@ -88,7 +88,7 @@ class Builder
 			$className = __NAMESPACE__ . '\\Input\\' . $config['input'];
 			$config['input'] = new $className;
 		}
-		if (!($config['output'] instanceof InputInterface))
+		if (!($config['output'] instanceof OutputInterface))
 		{
 			$className = __NAMESPACE__ . '\\Output\\' . $config['output'];
 			$config['output'] = new $className;
