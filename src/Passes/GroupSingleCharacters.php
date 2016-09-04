@@ -1,0 +1,48 @@
+<?php
+
+/**
+* @package   s9e\RegexpBuilder
+* @copyright Copyright (c) 2016 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\RegexpBuilder\Passes;
+
+class GroupSingleCharacters extends AbstractPass
+{
+	/**
+	* {@inheritdoc}
+	*/
+	protected function processStrings(array $strings)
+	{
+		$singles = $this->getSingleCharStrings($strings);
+		$cnt     = count($singles);
+		if ($cnt > 1 && $cnt < count($strings))
+		{
+			// Remove the singles from the input, then prepend them as a new string
+			$strings = array_diff_key($strings, $singles);
+			array_unshift($strings, [array_values($singles)]);
+		}
+
+		return $strings;
+	}
+
+	/**
+	* Return an array of every single-char string in given list of strings
+	*
+	* @param  array[] $strings
+	* @return array[]
+	*/
+	protected function getSingleCharStrings(array $strings)
+	{
+		$singles = [];
+		foreach ($strings as $k => $string)
+		{
+			if (count($string) === 1 && !is_array($string[0]))
+			{
+				$singles[$k] = $string;
+			}
+		}
+
+		return $singles;
+	}
+}
