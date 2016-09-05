@@ -31,18 +31,11 @@ class MergePrefix extends AbstractPass
 	*/
 	protected function getPrefixLength(array $strings)
 	{
-		$len = 0;
+		$len = 1;
 		$cnt = count($strings[0]);
-		while (++$len < $cnt)
+		while ($len < $cnt && $this->stringsMatch($strings, $len))
 		{
-			$value = $strings[0][$len];
-			foreach ($strings as $string)
-			{
-				if (!isset($string[$len]) || $string[$len] !== $value)
-				{
-					break 2;
-				}
-			}
+			++$len;
 		}
 
 		return $len;
@@ -83,5 +76,26 @@ class MergePrefix extends AbstractPass
 		}
 
 		return $newString;
+	}
+
+	/**
+	* Test whether all given strings' elements match at given position
+	*
+	* @param  array[] $strings
+	* @param  integer $pos
+	* @return bool
+	*/
+	protected function stringsMatch(array $strings, $pos)
+	{
+		$value = $strings[0][$pos];
+		foreach ($strings as $string)
+		{
+			if (!isset($string[$pos]) || $string[$pos] !== $value)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
