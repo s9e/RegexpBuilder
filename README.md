@@ -78,3 +78,23 @@ echo $builder->build(['☺', '☹']);
 ```
 [\u2639\u263A]
 ```
+
+### Custom delimiters
+
+```php
+$strings = ['/', '(', ')', '#'];
+
+$builder = new s9e\RegexpBuilder\Builder;
+echo '/', $builder->build($strings), "/\n";
+
+$builder = new s9e\RegexpBuilder\Builder(['delimiter' => '#']);
+echo '#', $builder->build($strings), "#\n";
+
+$builder = new s9e\RegexpBuilder\Builder(['delimiter' => '()']);
+echo '(', $builder->build($strings), ')';
+```
+```
+/[#()\/]/
+#[\#()/]#
+([#\(\)/])
+```
