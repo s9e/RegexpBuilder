@@ -1,6 +1,6 @@
 {
 	"name": "s9e/regexp-builder",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"type": "library",
 	"description": "Single-purpose library that generates regular expressions that match a list of literal strings.",
 	"homepage": "https://github.com/s9e/RegexpBuilder/",
