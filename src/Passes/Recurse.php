@@ -40,6 +40,7 @@ class Recurse extends AbstractPass
 	*/
 	protected function recurseString(array $string)
 	{
+		$isOptional = $this->isOptional;
 		foreach ($string as $k => $element)
 		{
 			if (is_array($element))
@@ -47,6 +48,7 @@ class Recurse extends AbstractPass
 				$string[$k] = $this->runner->run($element);
 			}
 		}
+		$this->isOptional = $isOptional;
 
 		return $string;
 	}
