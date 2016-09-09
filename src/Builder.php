@@ -79,30 +79,21 @@ class Builder
 			'input'     => 'Bytes',
 			'output'    => 'Bytes'
 		];
-		if (!isset($config['escaper']))
-		{
-			$config['escaper'] = new Escaper($config['delimiter']);
-		}
-		if (!($config['input'] instanceof InputInterface))
-		{
-			$className = __NAMESPACE__ . '\\Input\\' . $config['input'];
-			$config['input'] = new $className;
-		}
-		if (!($config['output'] instanceof OutputInterface))
-		{
-			$className = __NAMESPACE__ . '\\Output\\' . $config['output'];
-			$config['output'] = new $className;
-		}
-		if (!isset($config['runner']))
-		{
-			$config['runner'] = new Runner;
-			$config['runner']->addPass(new MergePrefix);
-			$config['runner']->addPass(new GroupSingleCharacters);
-			$config['runner']->addPass(new Recurse($config['runner']));
-			$config['runner']->addPass(new PromoteSingleStrings);
-			$config['runner']->addPass(new MergeSuffix);
-			$config['runner']->addPass(new CoalesceSingleCharacterPrefix);
-		}
+		$config['escaper'] = new Escaper($config['delimiter']);
+
+		$className = __NAMESPACE__ . '\\Input\\' . $config['input'];
+		$config['input'] = new $className;
+
+		$className = __NAMESPACE__ . '\\Output\\' . $config['output'];
+		$config['output'] = new $className;
+
+		$config['runner'] = new Runner;
+		$config['runner']->addPass(new MergePrefix);
+		$config['runner']->addPass(new GroupSingleCharacters);
+		$config['runner']->addPass(new Recurse($config['runner']));
+		$config['runner']->addPass(new PromoteSingleStrings);
+		$config['runner']->addPass(new MergeSuffix);
+		$config['runner']->addPass(new CoalesceSingleCharacterPrefix);
 
 		return $config;
 	}
