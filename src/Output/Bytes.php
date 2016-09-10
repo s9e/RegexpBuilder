@@ -7,20 +7,16 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-use InvalidArgumentException;
-
-class Bytes implements OutputInterface
+class Bytes extends BaseImplementation
 {
+	/** {@inheritdoc} */
+	protected $maxValue = 255;
+
 	/**
 	* {@inheritdoc}
 	*/
-	public function output($value)
+	protected function outputValidValue($value)
 	{
-		if ($value > 255)
-		{
-			throw new InvalidArgumentException('Invalid byte value ' . $value);
-		}
-
 		return chr($value);
 	}
 }

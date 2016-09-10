@@ -7,12 +7,12 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-abstract class PrintableAscii implements OutputInterface
+abstract class PrintableAscii extends BaseImplementation
 {
 	/**
 	* {@inheritdoc}
 	*/
-	public function output($value)
+	protected function outputValidValue($value)
 	{
 		if ($value < 32)
 		{

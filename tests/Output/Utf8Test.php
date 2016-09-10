@@ -5,6 +5,7 @@ namespace s9e\RegexpBuilder\Tests\Output;
 use InvalidArgumentException;
 
 /**
+* @covers s9e\RegexpBuilder\Output\BaseImplementation
 * @covers s9e\RegexpBuilder\Output\Utf8
 */
 class Utf8Test extends AbstractTest
@@ -21,7 +22,7 @@ class Utf8Test extends AbstractTest
 			[0xC3, utf8_encode("\xC3")],
 			[0x2026, "\xE2\x80\xA6"],
 			[0x1F600, "\xF0\x9F\x98\x80"],
-			[0x120000, new InvalidArgumentException('Invalid UTF-8 codepoint 0x120000')]
+			[0x120000, new InvalidArgumentException('Value 1179648 is out of bounds (0..1114111)')]
 		];
 	}
 }

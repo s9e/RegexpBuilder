@@ -5,6 +5,7 @@ namespace s9e\RegexpBuilder\Tests\Output;
 use InvalidArgumentException;
 
 /**
+* @covers s9e\RegexpBuilder\Output\BaseImplementation
 * @covers s9e\RegexpBuilder\Output\JavaScript
 * @covers s9e\RegexpBuilder\Output\PrintableAscii
 */
@@ -21,7 +22,7 @@ class JavaScriptTest extends AbstractTest
 			[102, 'f'],
 			[0xC3, '\\xC3'],
 			[0x2026, '\\u2026'],
-			[0x1F600, new InvalidArgumentException('Invalid JavaScript codepoint 0x1f600')]
+			[0x1F600, new InvalidArgumentException('Value 128512 is out of bounds (0..65535)')]
 		];
 	}
 }

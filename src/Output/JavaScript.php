@@ -7,20 +7,16 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-use InvalidArgumentException;
-
 class JavaScript extends PrintableAscii
 {
+	/** {@inheritdoc} */
+	protected $maxValue = 0xFFFF;
+
 	/**
 	* {@inheritdoc}
 	*/
-	public function escapeUnicode($cp)
+	protected function escapeUnicode($cp)
 	{
-		if ($cp > 0xFFFF)
-		{
-			throw new InvalidArgumentException('Invalid JavaScript codepoint 0x' . dechex($cp));
-		}
-
 		return sprintf('\\u%04X', $cp);
 	}
 }

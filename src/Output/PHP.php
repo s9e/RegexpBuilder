@@ -9,10 +9,13 @@ namespace s9e\RegexpBuilder\Output;
 
 class PHP extends PrintableAscii
 {
+	/** {@inheritdoc} */
+	protected $maxValue = 0x10FFFF;
+
 	/**
 	* {@inheritdoc}
 	*/
-	public function escapeUnicode($cp)
+	protected function escapeUnicode($cp)
 	{
 		return sprintf('\\x{%04X}', $cp);
 	}

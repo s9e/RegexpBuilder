@@ -7,14 +7,15 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-use InvalidArgumentException;
-
-class Utf8 implements OutputInterface
+class Utf8 extends BaseImplementation
 {
+	/** {@inheritdoc} */
+	protected $maxValue = 0x10FFFF;
+
 	/**
 	* {@inheritdoc}
 	*/
-	public function output($value)
+	protected function outputValidValue($value)
 	{
 		if ($value < 0x80)
 		{
@@ -30,13 +31,9 @@ class Utf8 implements OutputInterface
 			     . chr(0x80 | (($value >> 6) & 0x3F))
 			     . chr(0x80 | ($value & 0x3F));
 		}
-		if ($value < 0x110000)
-		{
-			return chr(0xF0 | ($value >> 18))
-			     . chr(0x80 | (($value >> 12) & 0x3F))
-			     . chr(0x80 | (($value >> 6) & 0x3F))
-			     . chr(0x80 | ($value & 0x3F));
-		}
-		throw new InvalidArgumentException('Invalid UTF-8 codepoint 0x' . dechex($value));
+		return chr(0xF0 | ($value >> 18))
+		     . chr(0x80 | (($value >> 12) & 0x3F))
+		     . chr(0x80 | (($value >> 6) & 0x3F))
+		     . chr(0x80 | ($value & 0x3F));
 	}
 }
