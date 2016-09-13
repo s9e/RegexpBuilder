@@ -14,7 +14,7 @@ class MergeSuffix extends AbstractPass
 	*/
 	protected function processStrings(array $strings)
 	{
-		if (count($strings) < 2)
+		if (!$this->isEligible($strings))
 		{
 			return $strings;
 		}
@@ -29,11 +29,6 @@ class MergeSuffix extends AbstractPass
 				array_pop($strings[$i]);
 			}
 		}
-		if (empty($newString))
-		{
-			return $strings;
-		}
-
 		array_unshift($newString, $strings);
 
 		return [$newString];
@@ -57,5 +52,16 @@ class MergeSuffix extends AbstractPass
 		}
 
 		return ($suffix !== false);
+	}
+
+	/**
+	* Test whether this pass can be run on given list of strings
+	*
+	* @param  array[] $strings
+	* @return bool
+	*/
+	protected function isEligible(array $strings)
+	{
+		return (count($strings) > 1 && $this->hasMatchingSuffix($strings));
 	}
 }
