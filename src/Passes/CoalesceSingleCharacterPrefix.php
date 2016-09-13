@@ -15,13 +15,8 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	protected function processStrings(array $strings)
 	{
 		$newStrings = [];
-		foreach ($this->getEligibleStrings($strings) as $suffix => $keys)
+		foreach ($this->getEligibleKeys($strings) as $keys)
 		{
-			if (!isset($keys[1]))
-			{
-				continue;
-			}
-
 			// Create a new string to hold the merged strings and replace the first element with
 			// an empty character class
 			$newString    = $strings[$keys[0]];
@@ -38,25 +33,43 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	}
 
 	/**
+	* Filter the list of eligible keys and keep those that have at least two matches
+	*
+	* @param  array[] $eligibleKeys List of lists of keys
+	* @return array[]
+	*/
+	protected function filterEligibleKeys(array $eligibleKeys)
+	{
+		$filteredKeys = [];
+		foreach ($eligibleKeys as $k => $keys)
+		{
+			if (count($keys) > 1)
+			{
+				$filteredKeys[] = $keys;
+			}
+		}
+
+		return $filteredKeys;
+	}
+
+	/**
 	* Get a list of keys of strings eligible to be merged together, grouped by suffix
 	*
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function getEligibleStrings(array $strings)
+	protected function getEligibleKeys(array $strings)
 	{
-		$eligibleStrings = [];
+		$eligibleKeys = [];
 		foreach ($strings as $k => $string)
 		{
-			if (is_array($string[0]) || !isset($string[1]))
+			if (!is_array($string[0]) && isset($string[1]))
 			{
-				continue;
+				$suffix = serialize(array_slice($string, 1));
+				$eligibleKeys[$suffix][] = $k;
 			}
-
-			$suffix = serialize(array_slice($string, 1));
-			$eligibleStrings[$suffix][] = $k;
 		}
 
-		return $eligibleStrings;
+		return $this->filterEligibleKeys($eligibleKeys);
 	}
 }
