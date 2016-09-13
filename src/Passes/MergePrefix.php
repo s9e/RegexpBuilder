@@ -17,7 +17,7 @@ class MergePrefix extends AbstractPass
 		$newStrings = [];
 		foreach ($this->getStringsByPrefix($strings) as $prefix => $strings)
 		{
-			$newStrings[] =  (isset($strings[1])) ? $this->mergeStrings($strings) : $strings[0];
+			$newStrings[] = (isset($strings[1])) ? $this->mergeStrings($strings) : $strings[0];
 		}
 
 		return $newStrings;
