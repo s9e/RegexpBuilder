@@ -23,11 +23,7 @@ class MergeSuffix extends AbstractPass
 		while ($this->hasMatchingSuffix($strings))
 		{
 			array_unshift($newString, end($strings[0]));
-			$i = count($strings);
-			while (--$i >= 0)
-			{
-				array_pop($strings[$i]);
-			}
+			$strings = $this->pop($strings);
 		}
 		array_unshift($newString, $strings);
 
@@ -63,5 +59,30 @@ class MergeSuffix extends AbstractPass
 	protected function isEligible(array $strings)
 	{
 		return (count($strings) > 1 && $this->hasMatchingSuffix($strings));
+	}
+
+	/**
+	* Remove the last element of every string
+	*
+	* @param  array[] $strings Original strings
+	* @return array[]          Processed strings
+	*/
+	protected function pop(array $strings)
+	{
+		$cnt = count($strings);
+		$i   = $cnt;
+		while (--$i >= 0)
+		{
+			array_pop($strings[$i]);
+		}
+
+		// Remove empty elements then prepend one back at the start of the array if applicable
+		$strings = array_filter($strings);
+		if (count($strings) < $cnt)
+		{
+			array_unshift($strings, []);
+		}
+
+		return $strings;
 	}
 }
