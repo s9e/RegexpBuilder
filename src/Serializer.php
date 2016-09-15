@@ -65,21 +65,14 @@ class Serializer
 	*/
 	protected function analyzeStrings(array $strings)
 	{
-		$info  = ['quantifier' => ''];
-		$chars = [];
-		foreach ($strings as $k => $string)
+		$info = ['quantifier' => ''];
+		if ($strings[0] === [])
 		{
-			if (empty($string))
-			{
-				$info['quantifier'] = '?';
-				unset($strings[$k]);
-			}
-			elseif (!isset($string[1]))
-			{
-				$chars[$k] = $string[0];
-			}
+			$info['quantifier'] = '?';
+			unset($strings[0]);
 		}
 
+		$chars = $this->getChars($strings);
 		if (count($chars) > 1)
 		{
 			$info['chars'] = array_values($chars);
@@ -110,6 +103,26 @@ class Serializer
 		}
 
 		return $alternations;
+	}
+
+	/**
+	* Return the portion of strings that are composed of a single character
+	*
+	* @param  array[]
+	* @return array   String key => codepoint
+	*/
+	protected function getChars(array $strings)
+	{
+		$chars = [];
+		foreach ($strings as $k => $string)
+		{
+			if (count($string) === 1 && !is_array($string[0]))
+			{
+				$chars[$k] = $string[0];
+			}
+		}
+
+		return $chars;
 	}
 
 	/**

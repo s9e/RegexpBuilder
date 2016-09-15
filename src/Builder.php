@@ -58,7 +58,7 @@ class Builder
 	public function build(array $strings)
 	{
 		$strings = array_unique($strings);
-		if ($strings === [''])
+		if ($this->isEmpty($strings))
 		{
 			return '';
 		}
@@ -92,6 +92,17 @@ class Builder
 		}
 
 		return count($a) - count($b);
+	}
+
+	/**
+	* Test whether the list of strings is empty
+	*
+	* @param  string[] $strings
+	* @return bool
+	*/
+	protected function isEmpty(array $strings)
+	{
+		return (empty($strings) || $strings === ['']);
 	}
 
 	/**
