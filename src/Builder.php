@@ -38,11 +38,15 @@ class Builder
 	*/
 	public function __construct(array $config = [])
 	{
-		$config = $this->getConfig($config);
+		$config += [
+			'delimiter' => '/',
+			'input'     => 'Bytes',
+			'output'    => 'Bytes'
+		];
 
-		$this->input      = $config['input'];
-		$this->runner     = $config['runner'];
-		$this->serializer = new Serializer($config['output'], $config['escaper']);
+		$this->setInput($config['input']);
+		$this->setSerializer($config['output'], $config['delimiter']);
+		$this->setRunner();
 	}
 
 	/**
@@ -91,35 +95,47 @@ class Builder
 	}
 
 	/**
-	* Build the full config array based on given input
+	* Set the InputInterface instance in $this->input
 	*
-	* @param  array $config Sparse config
-	* @return array         Full config
+	* @param  string $inputType
+	* @return void
 	*/
-	protected function getConfig(array $config)
+	protected function setInput($inputType)
 	{
-		$config += [
-			'delimiter' => '/',
-			'input'     => 'Bytes',
-			'output'    => 'Bytes'
-		];
-		$config['escaper'] = new Escaper($config['delimiter']);
+		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
+		$this->input = new $className;
+	}
 
-		$className = __NAMESPACE__ . '\\Input\\' . $config['input'];
-		$config['input'] = new $className;
+	/**
+	* Set the Runner instance $in this->runner
+	*
+	* @return void
+	*/
+	protected function setRunner()
+	{
+		$this->runner = new Runner;
+		$this->runner->addPass(new MergePrefix);
+		$this->runner->addPass(new GroupSingleCharacters);
+		$this->runner->addPass(new Recurse($this->runner));
+		$this->runner->addPass(new PromoteSingleStrings);
+		$this->runner->addPass(new MergeSuffix);
+		$this->runner->addPass(new CoalesceSingleCharacterPrefix);
+	}
 
-		$className = __NAMESPACE__ . '\\Output\\' . $config['output'];
-		$config['output'] = new $className;
+	/**
+	* Set the Serializer instance in $this->serializer
+	*
+	* @param  string $outputType
+	* @param  string $delimiter
+	* @return void
+	*/
+	protected function setSerializer($outputType, $delimiter)
+	{
+		$className = __NAMESPACE__ . '\\Output\\' . $outputType;
+		$output    = new $className;
+		$escaper   = new Escaper($delimiter);
 
-		$config['runner'] = new Runner;
-		$config['runner']->addPass(new MergePrefix);
-		$config['runner']->addPass(new GroupSingleCharacters);
-		$config['runner']->addPass(new Recurse($config['runner']));
-		$config['runner']->addPass(new PromoteSingleStrings);
-		$config['runner']->addPass(new MergeSuffix);
-		$config['runner']->addPass(new CoalesceSingleCharacterPrefix);
-
-		return $config;
+		$this->serializer = new Serializer($output, $escaper);
 	}
 
 	/**
