@@ -30,10 +30,7 @@ class PromoteSingleStrings extends AbstractPass
 		{
 			if (is_array($element) && count($element) === 1)
 			{
-				foreach ($element[0] as $element)
-				{
-					$newString[] = $element;
-				}
+				$newString = array_merge($newString, $element[0]);
 			}
 			else
 			{
