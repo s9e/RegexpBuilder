@@ -7,8 +7,6 @@
 */
 namespace s9e\RegexpBuilder\Input;
 
-use RuntimeException;
-
 class Utf8ToSurrogates extends Utf8
 {
 	/**
