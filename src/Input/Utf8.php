@@ -38,33 +38,23 @@ class Utf8 implements InputInterface
 	/**
 	* Compute and return the Unicode codepoint for given UTF-8 char
 	*
-	* @param  string $char UTF-8 char
+	* @param  string  $char UTF-8 char
 	* @return integer
 	*/
 	protected function cp($char)
 	{
-		$size = strlen($char);
-		if ($size === 1)
+		$cp = ord($char[0]);
+		if ($cp >= 0xF0)
 		{
-			$cp = ord($char);
+			$cp = ($cp << 18) + (ord($char[1]) << 12) + (ord($char[2]) << 6) + ord($char[3]) - 0x3C82080;
 		}
-		elseif ($size === 2)
+		elseif ($cp >= 0xE0)
 		{
-			$cp = ((ord($char[0]) & 0b00011111) << 6)
-			    |  (ord($char[1]) & 0b00111111);
+			$cp = ($cp << 12) + (ord($char[1]) << 6) + ord($char[2]) - 0xE2080;
 		}
-		elseif ($size === 3)
+		elseif ($cp >= 0xC0)
 		{
-			$cp = ((ord($char[0]) & 0b00001111) << 12)
-			    | ((ord($char[1]) & 0b00111111) << 6)
-			    |  (ord($char[2]) & 0b00111111);
-		}
-		else
-		{
-			$cp = ((ord($char[0]) & 0b00000111) << 18)
-			    | ((ord($char[1]) & 0b00111111) << 12)
-			    | ((ord($char[2]) & 0b00111111) << 6)
-			    |  (ord($char[3]) & 0b00111111);
+			$cp = ($cp << 6) + ord($char[1]) - 0x3080;
 		}
 
 		return $cp;
