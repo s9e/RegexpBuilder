@@ -72,15 +72,36 @@ echo $builder->build(['☺', '☹']);
 
 ### UTF-8 input with JavaScript output
 
+For JavaScript regular expressions that do not use the `u` flag and need the higher codepoints to be split into surrogates.
+
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Utf8ToSurrogates',
 	'output' => 'JavaScript'
 ]);
-echo $builder->build(['☺', '☹']);
+echo $builder->build(['☺', '☹']), "\n";
+echo $builder->build(['😁', '😂']);
 ```
 ```
 [\u2639\u263A]
+\uD83D[\uDE01\uDE02]
+```
+
+### UTF-8 input with Unicode-aware JavaScript output
+
+For JavaScript regular expressions that use the `u` flag introduced in ECMAScript 6.
+
+```php
+$builder = new s9e\RegexpBuilder\Builder([
+	'input'  => 'Utf8',
+	'output' => 'JavaScript'
+]);
+echo $builder->build(['☺', '☹']), "\n";
+echo $builder->build(['😁', '😂']);
+```
+```
+[\u2639\u263A]
+[\u{1F601}\u{1F602}]
 ```
 
 ### Custom delimiters

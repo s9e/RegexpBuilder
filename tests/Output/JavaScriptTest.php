@@ -22,7 +22,8 @@ class JavaScriptTest extends AbstractTest
 			[102, 'f'],
 			[0xC3, '\\xC3'],
 			[0x2026, '\\u2026'],
-			[0x1F600, new InvalidArgumentException('Value 128512 is out of bounds (0..65535)')]
+			[0x1F600, '\\u{1F600}'],
+			[0x110000, new InvalidArgumentException('Value 1114112 is out of bounds (0..1114111)')]
 		];
 	}
 }

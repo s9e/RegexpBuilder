@@ -10,13 +10,13 @@ namespace s9e\RegexpBuilder\Output;
 class JavaScript extends PrintableAscii
 {
 	/** {@inheritdoc} */
-	protected $maxValue = 0xFFFF;
+	protected $maxValue = 0x10FFFF;
 
 	/**
 	* {@inheritdoc}
 	*/
 	protected function escapeUnicode($cp)
 	{
-		return sprintf('\\u%04X', $cp);
+		return sprintf(($cp > 0xFFFF) ? '\\u{%X}' : '\\u%04X', $cp);
 	}
 }
