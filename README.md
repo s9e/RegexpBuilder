@@ -46,6 +46,8 @@ echo quoted_printable_encode($builder->build(['☺', '☹']));
 
 ### Raw input with PHP output
 
+For PHP regular expressions that do not use the `u` flag.
+
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Bytes',
@@ -58,6 +60,8 @@ echo $builder->build(['☺', '☹']);
 ```
 
 ### UTF-8 input with PHP output
+
+For PHP regular expressions that use the `u` flag.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
