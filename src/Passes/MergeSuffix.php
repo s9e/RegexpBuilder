@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+/**
+* Replaces (?:aax|bbx) with (?:aa|bb)x
+*/
 class MergeSuffix extends AbstractPass
 {
 	/**

@@ -23,6 +23,36 @@ class ValidationTest extends PHPUnit_Framework_TestCase
 	{
 		return [
 			[
+				// CoalesceSingleCharacterPrefix
+				'(?:[ab]b|c)',
+				['ab', 'bb', 'c']
+			],
+			[
+				// GroupSingleCharacters
+				'a?[xy]',
+				['ax', 'ay', 'x', 'y']
+			],
+			[
+				// MergePrefix
+				'a(?:xx|yy)',
+				['axx', 'ayy']
+			],
+			[
+				// MergeSuffix
+				'(?:aa|bb)x',
+				['aax', 'bbx']
+			],
+			[
+				// PromoteSingleStrings
+				'(?:a0?|b)x',
+				['a0x', 'ax', 'bx']
+			],
+			[
+				// Recurse
+				'a[xy][01]',
+				['ax0', 'ax1', 'ay0', 'ay1']
+			],
+			[
 				'ba[rz]',
 				['bar', 'baz']
 			],

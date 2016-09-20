@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+/**
+* Replaces (?:ab|bb|c) with (?:[ab]b|c)
+*/
 class CoalesceSingleCharacterPrefix extends AbstractPass
 {
 	/**

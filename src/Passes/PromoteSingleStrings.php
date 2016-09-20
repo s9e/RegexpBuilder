@@ -7,6 +7,10 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+/**
+* Replaces alternations that only contain one string to allow other passes to replace
+* (?:a0?x|bx) with (?:a0?|b)x
+*/
 class PromoteSingleStrings extends AbstractPass
 {
 	/**

@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+/**
+* Replaces (?:axx|ayy) with a(?:xx|yy)
+*/
 class MergePrefix extends AbstractPass
 {
 	/**

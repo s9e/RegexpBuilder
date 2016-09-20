@@ -9,6 +9,9 @@ namespace s9e\RegexpBuilder\Passes;
 
 use s9e\RegexpBuilder\Runner;
 
+/**
+* Enables passes to be run recursively into alternations to replace a(?:x0|x1|y0|y1) with a[xy][01]
+*/
 class Recurse extends AbstractPass
 {
 	/**
