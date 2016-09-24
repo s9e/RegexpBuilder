@@ -15,7 +15,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function processStrings(array $strings)
+	protected function runPass(array $strings)
 	{
 		$newStrings = [];
 		foreach ($this->getEligibleKeys($strings) as $keys)

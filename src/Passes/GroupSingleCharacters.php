@@ -15,7 +15,7 @@ class GroupSingleCharacters extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function processStrings(array $strings)
+	protected function runPass(array $strings)
 	{
 		$singles = $this->getSingleCharStrings($strings);
 		$cnt     = count($singles);

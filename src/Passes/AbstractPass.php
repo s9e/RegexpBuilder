@@ -20,7 +20,10 @@ abstract class AbstractPass implements PassInterface
 	public function run(array $strings)
 	{
 		$strings = $this->beforeRun($strings);
-		$strings = $this->processStrings($strings);
+		if ($this->canRun($strings))
+		{
+			$strings = $this->runPass($strings);
+		}
 		$strings = $this->afterRun($strings);
 
 		return $strings;
@@ -60,10 +63,21 @@ abstract class AbstractPass implements PassInterface
 	}
 
 	/**
-	* Process a given list of strings
+	* Test whether this pass can be run on a given list of strings
+	*
+	* @param  array[] $strings
+	* @return bool
+	*/
+	protected function canRun(array $strings)
+	{
+		return true;
+	}
+
+	/**
+	* Run this pass on a list of strings
 	*
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	abstract protected function processStrings(array $strings);
+	abstract protected function runPass(array $strings);
 }

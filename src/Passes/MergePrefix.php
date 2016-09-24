@@ -15,7 +15,7 @@ class MergePrefix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function processStrings(array $strings)
+	protected function runPass(array $strings)
 	{
 		$newStrings = [];
 		foreach ($this->getStringsByPrefix($strings) as $prefix => $strings)

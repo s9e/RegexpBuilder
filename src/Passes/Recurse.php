@@ -30,7 +30,7 @@ class Recurse extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function processStrings(array $strings)
+	protected function runPass(array $strings)
 	{
 		return array_map([$this, 'recurseString'], $strings);
 	}

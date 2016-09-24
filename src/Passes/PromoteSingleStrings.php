@@ -16,7 +16,7 @@ class PromoteSingleStrings extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function processStrings(array $strings)
+	protected function runPass(array $strings)
 	{
 		return array_map([$this, 'promoteSingleStrings'], $strings);
 	}

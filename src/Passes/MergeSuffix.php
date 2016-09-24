@@ -15,13 +15,16 @@ class MergeSuffix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function processStrings(array $strings)
+	protected function canRun(array $strings)
 	{
-		if (!$this->isEligible($strings))
-		{
-			return $strings;
-		}
+		return (count($strings) > 1 && $this->hasMatchingSuffix($strings));
+	}
 
+	/**
+	* {@inheritdoc}
+	*/
+	protected function runPass(array $strings)
+	{
 		$newString = [];
 		while ($this->hasMatchingSuffix($strings))
 		{
@@ -51,17 +54,6 @@ class MergeSuffix extends AbstractPass
 		}
 
 		return ($suffix !== false);
-	}
-
-	/**
-	* Test whether this pass can be run on given list of strings
-	*
-	* @param  array[] $strings
-	* @return bool
-	*/
-	protected function isEligible(array $strings)
-	{
-		return (count($strings) > 1 && $this->hasMatchingSuffix($strings));
 	}
 
 	/**
