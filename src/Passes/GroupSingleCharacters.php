@@ -37,15 +37,6 @@ class GroupSingleCharacters extends AbstractPass
 	*/
 	protected function getSingleCharStrings(array $strings)
 	{
-		$singles = [];
-		foreach ($strings as $k => $string)
-		{
-			if (count($string) === 1 && !is_array($string[0]))
-			{
-				$singles[$k] = $string;
-			}
-		}
-
-		return $singles;
+		return array_filter($strings, [$this, 'isSingleCharString']);
 	}
 }

@@ -80,4 +80,15 @@ abstract class AbstractPass implements PassInterface
 	* @return array[]
 	*/
 	abstract protected function runPass(array $strings);
+
+	/**
+	* Test whether given string contains a single value
+	*
+	* @param  array $string
+	* @return bool
+	*/
+	protected function isSingleCharString(array $string)
+	{
+		return (count($string) === 1 && !is_array($string[0]));
+	}
 }
