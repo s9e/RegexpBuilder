@@ -242,6 +242,14 @@ class ValidationTest extends PHPUnit_Framework_TestCase
 					'aaccyy', 'aaddyy', 'bbccyy', 'bbddyy'
 				]
 			],
+			[
+				'(?:[1-7][0-7]?|0)',
+				array_map('decoct', range(0, 63))
+			],
+			[
+				'[0-9a-f][0-9a-f]',
+				array_map('bin2hex', array_map('chr', range(0, 255)))
+			],
 		];
 	}
 }
