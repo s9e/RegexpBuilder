@@ -9,6 +9,7 @@ namespace s9e\RegexpBuilder;
 
 use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Output\OutputInterface;
+use s9e\RegexpBuilder\Passes\CoalesceOptionalStrings;
 use s9e\RegexpBuilder\Passes\CoalesceSingleCharacterPrefix;
 use s9e\RegexpBuilder\Passes\GroupSingleCharacters;
 use s9e\RegexpBuilder\Passes\MergePrefix;
@@ -129,6 +130,7 @@ class Builder
 		$this->runner->addPass(new GroupSingleCharacters);
 		$this->runner->addPass(new Recurse($this->runner));
 		$this->runner->addPass(new PromoteSingleStrings);
+		$this->runner->addPass(new CoalesceOptionalStrings);
 		$this->runner->addPass(new MergeSuffix);
 		$this->runner->addPass(new CoalesceSingleCharacterPrefix);
 	}

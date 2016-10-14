@@ -23,6 +23,11 @@ class ValidationTest extends PHPUnit_Framework_TestCase
 	{
 		return [
 			[
+				// CoalesceOptionalStrings
+				'a?b?',
+				['', 'a', 'ab', 'b']
+			],
+			[
 				// CoalesceSingleCharacterPrefix
 				'(?:[ab]b|c)',
 				['ab', 'bb', 'c']
@@ -249,6 +254,44 @@ class ValidationTest extends PHPUnit_Framework_TestCase
 			[
 				'[0-9a-f][0-9a-f]',
 				array_map('bin2hex', array_map('chr', range(0, 255)))
+			],
+			[
+				// This shouldn't be Gooo?o?o?o?o?gle because it would backtrack exponentially
+				'Goo(?:o(?:o(?:o(?:oo?)?)?)?)?gle',
+				[
+					'Google',
+					'Gooogle',
+					'Goooogle',
+					'Gooooogle',
+					'Goooooogle',
+					'Gooooooogle'
+				]
+			],
+			[
+				'(?:12?3?|23?|3)',
+				['1', '12', '123', '13', '2', '23', '3']
+			],
+			[
+				'1?2?3?',
+				['', '1', '12', '123', '13', '2', '23', '3']
+			],
+			[
+				'J[0-4]?(?:Z[MW])?',
+				[
+					'J',   'J0',   'J1',   'J2',   'J3',   'J4',
+					'JZM', 'J0ZM', 'J1ZM', 'J2ZM', 'J3ZM', 'J4ZM',
+					'JZW', 'J0ZW', 'J1ZW', 'J2ZW', 'J3ZW', 'J4ZW'
+				]
+			],
+			[
+				'J[0-4]?(?:Z[MW]V?)?',
+				[
+					'J',    'J0',    'J1',    'J2',    'J3',    'J4',
+					'JZM',  'J0ZM',  'J1ZM',  'J2ZM',  'J3ZM',  'J4ZM',
+					'JZW',  'J0ZW',  'J1ZW',  'J2ZW',  'J3ZW',  'J4ZW',
+					'JZMV', 'J0ZMV', 'J1ZMV', 'J2ZMV', 'J3ZMV', 'J4ZMV',
+					'JZWV', 'J0ZWV', 'J1ZWV', 'J2ZWV', 'J3ZWV', 'J4ZWV'
+				]
 			],
 		];
 	}

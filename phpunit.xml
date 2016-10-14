@@ -22,6 +22,7 @@
 			<file>tests/Output/JavaScriptTest.php</file>
 			<file>tests/Output/PHPTest.php</file>
 			<file>tests/Output/Utf8Test.php</file>
+			<file>tests/Passes/CoalesceOptionalStringsTest.php</file>
 			<file>tests/Passes/CoalesceSingleCharacterPrefixTest.php</file>
 			<file>tests/Passes/GroupSingleCharactersTest.php</file>
 			<file>tests/Passes/MergePrefixTest.php</file>

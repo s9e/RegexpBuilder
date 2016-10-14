@@ -82,7 +82,42 @@ abstract class AbstractPass implements PassInterface
 	abstract protected function runPass(array $strings);
 
 	/**
-	* Test whether given string contains a single value
+	* Test whether given string has an optional suffix
+	*
+	* @param  array $string
+	* @return bool
+	*/
+	protected function hasOptionalSuffix(array $string)
+	{
+		$suffix = end($string);
+
+		return (is_array($suffix) && $suffix[0] === []);
+	}
+
+	/**
+	* Test whether given string contains a single alternations made of single values
+	*
+	* @param  array $string
+	* @return bool
+	*/
+	protected function isCharacterClassString(array $string)
+	{
+		return ($this->isSingleAlternationString($string) && $this->isSingleCharStringList($string[0]));
+	}
+
+	/**
+	* Test whether given string contains one single element that is an alternation
+	*
+	* @param  array
+	* @return bool
+	*/
+	protected function isSingleAlternationString(array $string)
+	{
+		return (count($string) === 1 && is_array($string[0]));
+	}
+
+	/**
+	* Test whether given string contains a single character value
 	*
 	* @param  array $string
 	* @return bool
@@ -90,5 +125,24 @@ abstract class AbstractPass implements PassInterface
 	protected function isSingleCharString(array $string)
 	{
 		return (count($string) === 1 && !is_array($string[0]));
+	}
+
+	/**
+	* Test whether given list of strings contains nothing but single-char strings
+	*
+	* @param  array[] $strings
+	* @return bool
+	*/
+	protected function isSingleCharStringList(array $strings)
+	{
+		foreach ($strings as $string)
+		{
+			if (!$this->isSingleCharString($string))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
