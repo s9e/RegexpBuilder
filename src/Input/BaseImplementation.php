@@ -7,18 +7,17 @@
 */
 namespace s9e\RegexpBuilder\Input;
 
-interface InputInterface
+abstract class BaseImplementation implements InputInterface
 {
 	/**
-	* @param array $options
+	* {@inheritdoc}
 	*/
-	public function __construct(array $options = []);
+	public function __construct(array $options = [])
+	{
+	}
 
 	/**
-	* Split given string into a list of values
-	*
-	* @param  string    $string
-	* @return integer[]
+	* {@inheritdoc}
 	*/
-	public function split($string);
+	abstract public function split($string);
 }

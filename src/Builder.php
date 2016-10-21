@@ -40,13 +40,15 @@ class Builder
 	public function __construct(array $config = [])
 	{
 		$config += [
-			'delimiter' => '/',
-			'input'     => 'Bytes',
-			'output'    => 'Bytes'
+			'delimiter'     => '/',
+			'input'         => 'Bytes',
+			'inputOptions'  => [],
+			'output'        => 'Bytes',
+			'outputOptions' => []
 		];
 
-		$this->setInput($config['input']);
-		$this->setSerializer($config['output'], $config['delimiter']);
+		$this->setInput($config['input'], $config['inputOptions']);
+		$this->setSerializer($config['output'], $config['outputOptions'], $config['delimiter']);
 		$this->setRunner();
 	}
 
@@ -110,12 +112,13 @@ class Builder
 	* Set the InputInterface instance in $this->input
 	*
 	* @param  string $inputType
+	* @param  array  $inputOptions
 	* @return void
 	*/
-	protected function setInput($inputType)
+	protected function setInput($inputType, array $inputOptions)
 	{
 		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
-		$this->input = new $className;
+		$this->input = new $className($inputOptions);
 	}
 
 	/**
@@ -139,13 +142,14 @@ class Builder
 	* Set the Serializer instance in $this->serializer
 	*
 	* @param  string $outputType
+	* @param  array  $outputOptions
 	* @param  string $delimiter
 	* @return void
 	*/
-	protected function setSerializer($outputType, $delimiter)
+	protected function setSerializer($outputType, array $outputOptions, $delimiter)
 	{
 		$className = __NAMESPACE__ . '\\Output\\' . $outputType;
-		$output    = new $className;
+		$output    = new $className($outputOptions);
 		$escaper   = new Escaper($delimiter);
 
 		$this->serializer = new Serializer($output, $escaper);

@@ -22,6 +22,13 @@ abstract class BaseImplementation implements OutputInterface
 	protected $minValue = 0;
 
 	/**
+	* @param array $options
+	*/
+	public function __construct(array $options = [])
+	{
+	}
+
+	/**
 	* {@inheritdoc}
 	*/
 	public function output($value)

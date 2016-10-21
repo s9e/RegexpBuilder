@@ -9,7 +9,7 @@ namespace s9e\RegexpBuilder\Input;
 
 use InvalidArgumentException;
 
-class Utf8 implements InputInterface
+class Utf8 extends BaseImplementation
 {
 	/**
 	* {@inheritdoc}
@@ -25,7 +25,7 @@ class Utf8 implements InputInterface
 	}
 
 	/**
-	* Convert a list of UTF-8 characters to a list of Unicode codepoint
+	* Convert a list of UTF-8 characters into a list of Unicode codepoint
 	*
 	* @param  string[]  $chars
 	* @return integer[]

@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Input;
 
-class Bytes implements InputInterface
+class Bytes extends BaseImplementation
 {
 	/**
 	* {@inheritdoc}

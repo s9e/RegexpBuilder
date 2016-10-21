@@ -10,10 +10,10 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 	/**
 	* @dataProvider getOutputTests
 	*/
-	public function test($original, $expected)
+	public function test($original, $expected, $options = [])
 	{
 		$className = 's9e\\RegexpBuilder\\Output\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
-		$output = new $className;
+		$output = new $className($options);
 
 		if ($expected instanceof Exception)
 		{
