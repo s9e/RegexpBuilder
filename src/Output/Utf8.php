@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
+use InvalidArgumentException;
+
 class Utf8 extends BaseImplementation
 {
 	/** {@inheritdoc} */
@@ -35,5 +37,18 @@ class Utf8 extends BaseImplementation
 		     . chr(0x80 | (($value >> 12) & 0x3F))
 		     . chr(0x80 | (($value >> 6) & 0x3F))
 		     . chr(0x80 | ($value & 0x3F));
+	}
+
+	/**
+	* {@inheritdoc}
+	*/
+	protected function validate($value)
+	{
+		if ($value >= 0xD800 && $value <= 0xDFFF)
+		{
+			throw new InvalidArgumentException(sprintf('Surrogate 0x%X is not a valid UTF-8 character', $value));
+		}
+
+		parent::validate($value);
 	}
 }

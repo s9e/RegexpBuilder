@@ -33,12 +33,23 @@ abstract class BaseImplementation implements OutputInterface
 	*/
 	public function output($value)
 	{
+		$this->validate($value);
+
+		return $this->outputValidValue($value);
+	}
+
+	/**
+	* Validate given value
+	*
+	* @param  integer $value
+	* @return void
+	*/
+	protected function validate($value)
+	{
 		if ($value < $this->minValue || $value > $this->maxValue)
 		{
 			throw new InvalidArgumentException('Value ' . $value . ' is out of bounds (' . $this->minValue . '..' . $this->maxValue . ')');
 		}
-
-		return $this->outputValidValue($value);
 	}
 
 	/**
