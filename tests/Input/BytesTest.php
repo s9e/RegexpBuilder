@@ -3,6 +3,7 @@
 namespace s9e\RegexpBuilder\Tests\Input;
 
 /**
+* @covers s9e\RegexpBuilder\Input\BaseImplementation
 * @covers s9e\RegexpBuilder\Input\Bytes
 */
 class BytesTest extends AbstractTest
