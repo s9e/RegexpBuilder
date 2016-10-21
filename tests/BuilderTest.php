@@ -35,6 +35,14 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 			],
 			[
 				[
+					'foo',
+					'fool',
+					'bar'
+				],
+				'(?:bar|fool?)'
+			],
+			[
+				[
 					"\xF0",
 					"\xFF"
 				],
