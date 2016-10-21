@@ -17,7 +17,6 @@
 			<file>tests/EscaperTest.php</file>
 			<file>tests/Input/BytesTest.php</file>
 			<file>tests/Input/Utf8Test.php</file>
-			<file>tests/Input/Utf8ToSurrogatesTest.php</file>
 			<file>tests/Output/BytesTest.php</file>
 			<file>tests/Output/JavaScriptTest.php</file>
 			<file>tests/Output/PHPTest.php</file>

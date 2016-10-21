@@ -80,8 +80,9 @@ For JavaScript regular expressions that do not use the `u` flag and need the hig
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
-	'input'  => 'Utf8ToSurrogates',
-	'output' => 'JavaScript'
+	'input'        => 'Utf8',
+	'inputOptions' => ['useSurrogates' => true],
+	'output'       => 'JavaScript'
 ]);
 echo $builder->build(['☺', '☹']), "\n";
 echo $builder->build(['😁', '😂']);

@@ -79,7 +79,11 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 					"\xF0\x9F\x98\x81"
 				],
 				'\\uD83D[\\uDE00\\uDE01]',
-				['input' => 'Utf8ToSurrogates', 'output' => 'JavaScript']
+				[
+					'input'        => 'Utf8',
+					'inputOptions' => ['useSurrogates' => true],
+					'output'       => 'JavaScript'
+				]
 			],
 			[
 				[
@@ -97,7 +101,11 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 					"\xF0\x9F\x98\x80"
 				],
 				'(?:\\uD7FB\\uD7FB|\\uD83D\\uDE00|\\uF900\\uF900)',
-				['input' => 'Utf8ToSurrogates', 'output' => 'JavaScript']
+				[
+					'input'        => 'Utf8',
+					'inputOptions' => ['useSurrogates' => true],
+					'output'       => 'JavaScript'
+				]
 			],
 		];
 	}

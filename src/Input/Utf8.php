@@ -12,6 +12,19 @@ use InvalidArgumentException;
 class Utf8 extends BaseImplementation
 {
 	/**
+	* @var bool Whether to use surrogates to represent higher codepoints
+	*/
+	protected $useSurrogates;
+
+	/**
+	* {@inheritdoc}
+	*/
+	public function __construct(array $options = [])
+	{
+		$this->useSurrogates = !empty($options['useSurrogates']);
+	}
+
+	/**
 	* {@inheritdoc}
 	*/
 	public function split($string)
@@ -21,7 +34,7 @@ class Utf8 extends BaseImplementation
 			throw new InvalidArgumentException('Invalid UTF-8 string');
 		}
 
-		return $this->charsToCodepoints($matches[0]);
+		return ($this->useSurrogates) ? $this->charsToCodepointsWithSurrogates($matches[0]) : $this->charsToCodepoints($matches[0]);
 	}
 
 	/**
@@ -33,6 +46,32 @@ class Utf8 extends BaseImplementation
 	protected function charsToCodepoints(array $chars)
 	{
 		return array_map([$this, 'cp'], $chars);
+	}
+
+	/**
+	* Convert a list of UTF-8 characters into a list of Unicode codepoint with surrogates
+	*
+	* @param  string[]  $chars
+	* @return integer[]
+	*/
+	protected function charsToCodepointsWithSurrogates(array $chars)
+	{
+		$codepoints = [];
+		foreach ($chars as $char)
+		{
+			$cp = $this->cp($char);
+			if ($cp < 0x10000)
+			{
+				$codepoints[] = $cp;
+			}
+			else
+			{
+				$codepoints[] = 0xD7C0 + ($cp >> 10);
+				$codepoints[] = 0xDC00 + ($cp & 0x3FF);
+			}
+		}
+
+		return $codepoints;
 	}
 
 	/**
