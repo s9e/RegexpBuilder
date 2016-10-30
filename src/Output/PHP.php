@@ -17,6 +17,6 @@ class PHP extends PrintableAscii
 	*/
 	protected function escapeUnicode($cp)
 	{
-		return sprintf('\\x{%04X}', $cp);
+		return sprintf('\\x{%04' . $this->hexCase . '}', $cp);
 	}
 }

@@ -128,3 +128,27 @@ echo '(', $builder->build($strings), ')';
 #[\#()/]#
 ([#\(\)/])
 ```
+
+### Lowercase hexadecimal representation
+
+By default, the `PHP` and `JavaScript` output uses uppercase hexadecimal symbols, e.g. `\xAB`. This can be changed to lowercase using the `outputOptions` setting.
+
+```php
+$builder = new s9e\RegexpBuilder\Builder([
+	'input'         => 'Bytes',
+	'output'        => 'PHP',
+	'outputOptions' => ['case' => 'lower']
+]);
+echo $builder->build(['☺', '☹']),"\n";
+
+$builder = new s9e\RegexpBuilder\Builder([
+	'input'         => 'Utf8',
+	'output'        => 'JavaScript',
+	'outputOptions' => ['case' => 'lower']
+]);
+echo $builder->build(['☺', '☹']);
+```
+```
+\xe2\x98[\xb9\xba]
+[\u2639\u263a]
+```

@@ -10,21 +10,16 @@ namespace s9e\RegexpBuilder\Output;
 abstract class PrintableAscii extends BaseImplementation
 {
 	/**
+	* @var string 'x' for lowercase hexadecimal symbols, 'X' for uppercase
+	*/
+	protected $hexCase;
+
+	/**
 	* {@inheritdoc}
 	*/
-	protected function outputValidValue($value)
+	public function __construct(array $options = [])
 	{
-		if ($value < 32)
-		{
-			return $this->escapeControlCode($value);
-		}
-
-		if ($value < 127)
-		{
-			return chr($value);
-		}
-
-		return ($value > 255) ? $this->escapeUnicode($value) : $this->escapeAscii($value);
+		$this->hexCase = (isset($options['case']) && $options['case'] === 'lower') ? 'x' : 'X';
 	}
 
 	/**
@@ -35,7 +30,7 @@ abstract class PrintableAscii extends BaseImplementation
 	*/
 	protected function escapeAscii($cp)
 	{
-		return '\\x' . sprintf('%02X', $cp);
+		return '\\x' . sprintf('%02' . $this->hexCase, $cp);
 	}
 
 	/**
@@ -58,4 +53,22 @@ abstract class PrintableAscii extends BaseImplementation
 	* @return string
 	*/
 	abstract protected function escapeUnicode($cp);
+
+	/**
+	* {@inheritdoc}
+	*/
+	protected function outputValidValue($value)
+	{
+		if ($value < 32)
+		{
+			return $this->escapeControlCode($value);
+		}
+
+		if ($value < 127)
+		{
+			return chr($value);
+		}
+
+		return ($value > 255) ? $this->escapeUnicode($value) : $this->escapeAscii($value);
+	}
 }
