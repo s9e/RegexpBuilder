@@ -31,7 +31,7 @@ echo $builder->build(['☺', '☹']);
 
 ### Raw input with raw output
 
-Note that the output is shown here MIME-encoded as it is not possible to display raw bytes in UTF-8.
+Note that the output is shown here MIME-encoded as it is not possible to display raw bytes in UTF-8. Raw output is most suitable when the result is saved in binary form, e.g. in a data cache.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
@@ -46,7 +46,7 @@ echo quoted_printable_encode($builder->build(['☺', '☹']));
 
 ### Raw input with PHP output
 
-For PHP regular expressions that do not use the `u` flag.
+For PHP regular expressions that do not use the `u` flag. PHP output is most suitable for regexps that are copied into PHP sources. The output itself is ASCII, with non-ASCII and non-printable characters escaped.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
@@ -76,7 +76,7 @@ echo $builder->build(['☺', '☹']);
 
 ### UTF-8 input with JavaScript output
 
-For JavaScript regular expressions that do not use the `u` flag and need the higher codepoints to be split into surrogates.
+For JavaScript regular expressions that do not use the `u` flag and need the higher codepoints to be split into surrogates. The regexp itself uses only ASCII characters, with non-ASCII and non-printable characters escaped.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
