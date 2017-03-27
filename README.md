@@ -46,7 +46,7 @@ echo quoted_printable_encode($builder->build(['☺', '☹']));
 
 ### Raw input with PHP output
 
-For PHP regular expressions that do not use the `u` flag. PHP output is most suitable for regexps that are copied into PHP sources. The output itself is ASCII, with non-ASCII and non-printable characters escaped.
+For PHP regular expressions that do not use the `u` flag. PHP output is most suitable for regexps that are used into PHP sources, in conjunction with `var_export()`. The output itself is ASCII, with non-ASCII and non-printable characters escaped.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
