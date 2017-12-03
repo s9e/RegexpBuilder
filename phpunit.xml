@@ -13,24 +13,7 @@
 >
 	<testsuites>
 		<testsuite name="RegexpBuilder">
-			<file>tests/BuilderTest.php</file>
-			<file>tests/EscaperTest.php</file>
-			<file>tests/Input/BytesTest.php</file>
-			<file>tests/Input/Utf8Test.php</file>
-			<file>tests/Output/BytesTest.php</file>
-			<file>tests/Output/JavaScriptTest.php</file>
-			<file>tests/Output/PHPTest.php</file>
-			<file>tests/Output/Utf8Test.php</file>
-			<file>tests/Passes/CoalesceOptionalStringsTest.php</file>
-			<file>tests/Passes/CoalesceSingleCharacterPrefixTest.php</file>
-			<file>tests/Passes/GroupSingleCharactersTest.php</file>
-			<file>tests/Passes/MergePrefixTest.php</file>
-			<file>tests/Passes/MergeSuffixTest.php</file>
-			<file>tests/Passes/PromoteSingleStringsTest.php</file>
-			<file>tests/Passes/RecurseTest.php</file>
-			<file>tests/SerializerTest.php</file>
-			<file>tests/RunnerTest.php</file>
-			<file>tests/ValidationTest.php</file>
+			<directory>tests</directory>
 		</testsuite>
 	</testsuites>
 
