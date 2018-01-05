@@ -176,7 +176,7 @@ class Serializer
 	/**
 	* Test whether a list of strings contains only one single quantifiable string
 	*
-	* @param  string[] $strings
+	* @param  array[] $strings
 	* @return bool
 	*/
 	protected function isSingleQuantifiableString(array $strings)
