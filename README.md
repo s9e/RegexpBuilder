@@ -1,4 +1,4 @@
-s9e\RegexpBuilder is a single-purpose library that generates regular expressions that match a list of literal strings.
+s9e\RegexpBuilder is a single-purpose library that generates regular expressions that match a list of strings.
 
 [![Build Status](https://api.travis-ci.org/s9e/RegexpBuilder.svg?branch=master)](https://travis-ci.org/s9e/RegexpBuilder)
 [![Code Coverage](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/?branch=master)
