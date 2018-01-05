@@ -7,6 +7,7 @@
 */
 namespace s9e\RegexpBuilder;
 
+use s9e\RegexpBuilder\MetaCharacters;
 use s9e\RegexpBuilder\Output\OutputInterface;
 
 class Serializer
@@ -17,17 +18,24 @@ class Serializer
 	protected $escaper;
 
 	/**
+	* @var MetaCharacters
+	*/
+	protected $meta;
+
+	/**
 	* @var OutputInterface
 	*/
 	protected $output;
 
 	/**
 	* @param OutputInterface $output
+	* @parm  MetaCharacters  $meta
 	* @param Escaper         $escaper
 	*/
-	public function __construct(OutputInterface $output, Escaper $escaper)
+	public function __construct(OutputInterface $output, MetaCharacters $meta, Escaper $escaper)
 	{
 		$this->escaper = $escaper;
+		$this->meta    = $meta;
 		$this->output  = $output;
 	}
 
@@ -39,11 +47,16 @@ class Serializer
 	*/
 	public function serializeStrings(array $strings)
 	{
-		$info = $this->analyzeStrings($strings);
-		$alternations = $this->buildAlternations($info);
-		$expr = implode('|', $alternations);
+		$info         = $this->analyzeStrings($strings);
+		$alternations = array_map([$this, 'serializeString'], $info['strings']);
+		if (!empty($info['chars']))
+		{
+			// Prepend the character class to the list of alternations
+			array_unshift($alternations, $this->serializeCharacterClass($info['chars']));
+		}
 
-		if (count($alternations) > 1 || $this->isOneOptionalString($info))
+		$expr = implode('|', $alternations);
+		if ($this->needsParentheses($info))
 		{
 			$expr = '(?:' . $expr . ')';
 		}
@@ -65,7 +78,7 @@ class Serializer
 	*/
 	protected function analyzeStrings(array $strings)
 	{
-		$info = ['quantifier' => ''];
+		$info = ['alternationsCount' => 0, 'quantifier' => ''];
 		if ($strings[0] === [])
 		{
 			$info['quantifier'] = '?';
@@ -75,48 +88,29 @@ class Serializer
 		$chars = $this->getChars($strings);
 		if (count($chars) > 1)
 		{
+			++$info['alternationsCount'];
 			$info['chars'] = array_values($chars);
-			$strings = array_diff_key($strings, $chars);
+			$strings       = array_diff_key($strings, $chars);
 		}
 
-		$info['strings'] = array_values($strings);
+		$info['strings']            = array_values($strings);
+		$info['alternationsCount'] += count($strings);
 
 		return $info;
-	}
-
-	/**
-	* Build the list of alternations based on given info
-	*
-	* @param  array    $info
-	* @return string[]
-	*/
-	protected function buildAlternations(array $info)
-	{
-		$alternations = [];
-		if (!empty($info['chars']))
-		{
-			$alternations[] = $this->serializeCharacterClass($info['chars']);
-		}
-		foreach ($info['strings'] as $string)
-		{
-			$alternations[] = $this->serializeString($string);
-		}
-
-		return $alternations;
 	}
 
 	/**
 	* Return the portion of strings that are composed of a single character
 	*
 	* @param  array[]
-	* @return array   String key => codepoint
+	* @return array   String key => value
 	*/
 	protected function getChars(array $strings)
 	{
 		$chars = [];
 		foreach ($strings as $k => $string)
 		{
-			if (count($string) === 1 && !is_array($string[0]))
+			if ($this->isChar($string))
 			{
 				$chars[$k] = $string[0];
 			}
@@ -156,15 +150,49 @@ class Serializer
 	}
 
 	/**
-	* Test whether a string is optional and has more than one character
+	* Test whether given string represents a single character
+	*
+	* @param  array $string
+	* @return bool
+	*/
+	protected function isChar(array $string)
+	{
+		return count($string) === 1 && !is_array($string[0]) && $this->meta->isChar($string[0]);
+	}
+
+	/**
+	* Test whether an expression is quantifiable based on the strings info
 	*
 	* @param  array $info
 	* @return bool
 	*/
-	protected function isOneOptionalString(array $info)
+	protected function isQuantifiable(array $info)
 	{
-		// Test whether the first string has a quantifier and more than one element
-		return (!empty($info['quantifier']) && isset($info['strings'][0][1]));
+		$strings = $info['strings'];
+
+		return empty($strings) || $this->isSingleQuantifiableString($strings);
+	}
+
+	/**
+	* Test whether a list of strings contains only one single quantifiable string
+	*
+	* @param  string[] $strings
+	* @return bool
+	*/
+	protected function isSingleQuantifiableString(array $strings)
+	{
+		return count($strings) === 1 && count($strings[0]) === 1 && $this->meta->isQuantifiable($strings[0][0]);
+	}
+
+	/**
+	* Test whether an expression needs parentheses based on the strings info
+	*
+	* @param  array $info
+	* @return bool
+	*/
+	protected function needsParentheses(array $info)
+	{
+		return ($info['alternationsCount'] > 1 || ($info['quantifier'] && !$this->isQuantifiable($info)));
 	}
 
 	/**
@@ -178,19 +206,52 @@ class Serializer
 		$expr = '[';
 		foreach ($this->getRanges($values) as list($start, $end))
 		{
-			$expr .= $this->escaper->escapeCharacterClass($this->output->output($start));
+			$expr .= $this->serializeCharacterClassUnit($start);
 			if ($end > $start)
 			{
 				if ($end > $start + 1)
 				{
 					$expr .= '-';
 				}
-				$expr .= $this->escaper->escapeCharacterClass($this->output->output($end));
+				$expr .= $this->serializeCharacterClassUnit($end);
 			}
 		}
 		$expr .= ']';
 
 		return $expr;
+	}
+
+	/**
+	* Serialize a given value to be used in a character class
+	*
+	* @param  integer $value
+	* @return string
+	*/
+	protected function serializeCharacterClassUnit($value)
+	{
+		return $this->serializeValue($value, 'escapeCharacterClass');
+	}
+
+	/**
+	* Serialize an element from a string
+	*
+	* @param  array|integer $element
+	* @return string
+	*/
+	protected function serializeElement($element)
+	{
+		return (is_array($element)) ? $this->serializeStrings($element) : $this->serializeLiteral($element);
+	}
+
+	/**
+	* Serialize a given value to be used as a literal
+	*
+	* @param  integer $value
+	* @return string
+	*/
+	protected function serializeLiteral($value)
+	{
+		return $this->serializeValue($value, 'escapeLiteral');
 	}
 
 	/**
@@ -201,12 +262,18 @@ class Serializer
 	*/
 	protected function serializeString(array $string)
 	{
-		$expr = '';
-		foreach ($string as $element)
-		{
-			$expr .= (is_array($element)) ? $this->serializeStrings($element) : $this->escaper->escapeLiteral($this->output->output($element));
-		}
+		return implode('', array_map([$this, 'serializeElement'], $string));
+	}
 
-		return $expr;
+	/**
+	* Serialize a given value
+	*
+	* @param  integer $value
+	* @param  string  $escapeMethod
+	* @return string
+	*/
+	protected function serializeValue($value, $escapeMethod)
+	{
+		return ($value < 0) ? $this->meta->getExpression($value) : $this->escaper->$escapeMethod($this->output->output($value));
 	}
 }

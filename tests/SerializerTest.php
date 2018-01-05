@@ -4,7 +4,9 @@ namespace s9e\RegexpBuilder\Tests;
 
 use PHPUnit_Framework_TestCase;
 use s9e\RegexpBuilder\Escaper;
-use s9e\RegexpBuilder\Output\Bytes;
+use s9e\RegexpBuilder\Input\Bytes as Input;
+use s9e\RegexpBuilder\MetaCharacters;
+use s9e\RegexpBuilder\Output\Bytes as Output;
 use s9e\RegexpBuilder\Serializer;
 
 /**
@@ -17,7 +19,7 @@ class SerializerTest extends PHPUnit_Framework_TestCase
 	*/
 	public function test($original, $expected)
 	{
-		$serializer = new Serializer(new Bytes, new Escaper);
+		$serializer = new Serializer(new Output, new MetaCharacters(new Input), new Escaper);
 		$this->assertSame($expected, $serializer->serializeStrings($original, false));
 	}
 

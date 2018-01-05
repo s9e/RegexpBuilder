@@ -107,6 +107,31 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 					'output'       => 'JavaScript'
 				]
 			],
+			[
+				['x?'],
+				'x.',
+				['meta' => ['?' => '.']]
+			],
+			[
+				['x', 'x?'],
+				'x.?',
+				['meta' => ['?' => '.']]
+			],
+			[
+				['x?', 'xa', 'xb'],
+				'x[\\dab]',
+				['meta' => ['?' => '\\d']]
+			],
+			[
+				['b', 'bX'],
+				'b(?:xx)?',
+				['meta' => ['X' => 'xx']]
+			],
+			[
+				["\n", '.'],
+				'(?:\\n|.)',
+				['meta' => ['.' => '.'], 'output' => 'PHP']
+			],
 		];
 	}
 }

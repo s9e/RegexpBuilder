@@ -152,3 +152,34 @@ echo $builder->build(['☺', '☹']);
 \xe2\x98[\xb9\xba]
 [\u2639\u263a]
 ```
+
+### Adding meta-characters
+
+Some individual characters can be used to represent arbitrary expressions in the input strings. The requirements are that:
+
+ 1. Only single characters (as per the input encoding) can be used. For example, `?` is allowed but not `??`.
+ 2. The regular expression must be valid on its own. For example, `.*` is valid but not `+`.
+
+In the following example, we emulate Bash-style jokers by mapping `?` to `.` and `*` to `.*`.
+
+```php
+$builder = new s9e\RegexpBuilder\Builder([
+	'meta' => ['?' => '.', '*' => '.*']
+]);
+echo $builder->build(['foo?', 'bar*']);
+```
+```
+(?:bar.*|foo.)
+```
+
+In the following example, we map `X` to `\d`. Note that sequences produced by meta-characters may appear in character classes if the result is valid.
+
+```php
+$builder = new s9e\RegexpBuilder\Builder([
+	'meta' => ['X' => '\\d']
+]);
+echo $builder->build(['a', 'b', 'X']);
+```
+```
+[\dab]
+```

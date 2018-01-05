@@ -25,6 +25,11 @@ class Builder
 	protected $input;
 
 	/**
+	* @var MetaCharacters
+	*/
+	protected $meta;
+
+	/**
 	* @var Runner
 	*/
 	protected $runner;
@@ -43,11 +48,13 @@ class Builder
 			'delimiter'     => '/',
 			'input'         => 'Bytes',
 			'inputOptions'  => [],
+			'meta'          => [],
 			'output'        => 'Bytes',
 			'outputOptions' => []
 		];
 
 		$this->setInput($config['input'], $config['inputOptions']);
+		$this->setMeta($config['meta']);
 		$this->setSerializer($config['output'], $config['outputOptions'], $config['delimiter']);
 		$this->setRunner();
 	}
@@ -68,6 +75,7 @@ class Builder
 
 		$strings = $this->splitStrings($strings);
 		usort($strings, __CLASS__ . '::compareStrings');
+		$strings = $this->meta->replaceMeta($strings);
 		$strings = $this->runner->run($strings);
 
 		return $this->serializer->serializeStrings($strings);
@@ -122,6 +130,21 @@ class Builder
 	}
 
 	/**
+	* Set the MetaCharacters instance in $this->meta
+	*
+	* @param  array $map
+	* @return void
+	*/
+	protected function setMeta(array $map)
+	{
+		$this->meta = new MetaCharacters($this->input);
+		foreach ($map as $char => $expr)
+		{
+			$this->meta->add($char, $expr);
+		}
+	}
+
+	/**
 	* Set the Runner instance $in this->runner
 	*
 	* @return void
@@ -152,7 +175,7 @@ class Builder
 		$output    = new $className($outputOptions);
 		$escaper   = new Escaper($delimiter);
 
-		$this->serializer = new Serializer($output, $escaper);
+		$this->serializer = new Serializer($output, $this->meta, $escaper);
 	}
 
 	/**
