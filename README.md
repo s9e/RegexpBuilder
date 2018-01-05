@@ -153,7 +153,7 @@ echo $builder->build(['☺', '☹']);
 [\u2639\u263a]
 ```
 
-### Adding meta-characters
+### Using meta-characters
 
 Some individual characters can be used to represent arbitrary expressions in the input strings. The requirements are that:
 
