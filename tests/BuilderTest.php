@@ -132,6 +132,10 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 				'(?:\\n|.)',
 				['meta' => ['.' => '.'], 'output' => 'PHP']
 			],
+			[
+				['^', '_'],
+				'[\\^_]'
+			],
 		];
 	}
 }

@@ -111,7 +111,7 @@ class SerializerTest extends PHPUnit_Framework_TestCase
 					[94],
 					[123]
 				],
-				'[\\]^{]'
+				'[\\]\\^{]'
 			],
 			[
 				[

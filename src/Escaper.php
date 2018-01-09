@@ -12,7 +12,7 @@ class Escaper
 	/**
 	* @var array Characters to escape in a character class
 	*/
-	public $inCharacterClass = ['-' => '\\-', '\\' => '\\\\', ']' => '\\]'];
+	public $inCharacterClass = ['-' => '\\-', '\\' => '\\\\', ']' => '\\]', '^' => '\\^'];
 
 	/**
 	* @var array Characters to escape outside of a character class
