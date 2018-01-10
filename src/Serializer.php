@@ -157,7 +157,7 @@ class Serializer
 	*/
 	protected function isChar(array $string)
 	{
-		return count($string) === 1 && !is_array($string[0]) && $this->meta->isChar($string[0]);
+		return count($string) === 1 && is_int($string[0]) && $this->meta->isChar($string[0]);
 	}
 
 	/**
