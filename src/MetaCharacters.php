@@ -93,7 +93,7 @@ class MetaCharacters
 	* @param  integer $value
 	* @return bool
 	*/
-	public function isChar($value)
+	public static function isChar($value)
 	{
 		return ($value >= 0 || ($value & self::IS_CHAR));
 	}
@@ -104,7 +104,7 @@ class MetaCharacters
 	* @param  integer $value
 	* @return bool
 	*/
-	public function isQuantifiable($value)
+	public static function isQuantifiable($value)
 	{
 		return ($value >= 0 || ($value & self::IS_QUANTIFIABLE));
 	}

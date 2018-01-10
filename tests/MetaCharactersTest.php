@@ -80,8 +80,9 @@ class MetaCharactersTest extends PHPUnit_Framework_TestCase
 		foreach ($map as $c => $methodName)
 		{
 			$assertMethod = (strpos($properties, $c) === false) ? 'assertFalse' : 'assertTrue';
-			$msg = $methodName . '(' . var_export($expr, true) . ')';
-			$this->$assertMethod($meta->$methodName($strings[0][0]), $msg);
+			$msg          = $methodName . '(' . var_export($expr, true) . ')';
+
+			$this->$assertMethod(MetaCharacters::$methodName($strings[0][0]), $msg);
 		}
 	}
 

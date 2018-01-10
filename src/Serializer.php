@@ -157,7 +157,7 @@ class Serializer
 	*/
 	protected function isChar(array $string)
 	{
-		return count($string) === 1 && is_int($string[0]) && $this->meta->isChar($string[0]);
+		return count($string) === 1 && is_int($string[0]) && MetaCharacters::isChar($string[0]);
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Serializer
 	*/
 	protected function isSingleQuantifiableString(array $strings)
 	{
-		return count($strings) === 1 && count($strings[0]) === 1 && $this->meta->isQuantifiable($strings[0][0]);
+		return count($strings) === 1 && count($strings[0]) === 1 && MetaCharacters::isQuantifiable($strings[0][0]);
 	}
 
 	/**
