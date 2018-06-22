@@ -142,14 +142,17 @@ class MetaCharacters
 	*/
 	protected function computeValue($expr)
 	{
-		$value = (1 + count($this->meta)) * -4;
-		if ($this->exprIsChar($expr))
+		$properties = [
+			'exprIsChar'         => self::IS_CHAR,
+			'exprIsQuantifiable' => self::IS_QUANTIFIABLE
+		];
+		$value = (1 + count($this->meta)) * -pow(2, count($properties));
+		foreach ($properties as $methodName => $bitValue)
 		{
-			$value |= self::IS_CHAR;
-		}
-		if ($this->exprIsQuantifiable($expr))
-		{
-			$value |= self::IS_QUANTIFIABLE;
+			if ($this->$methodName($expr))
+			{
+				$value |= $bitValue;
+			}
 		}
 
 		return $value;
