@@ -94,7 +94,7 @@ echo '/', $builder->build(['😁', '😂']), '/';
 
 ### UTF-8 input with Unicode-aware JavaScript output
 
-For JavaScript regular expressions that use the `u` flag introduced in ECMAScript 6.
+For JavaScript regular expressions that use the `u` flag introduced in ECMAScript 6. In that case, you can simply forgo using surrogates.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
