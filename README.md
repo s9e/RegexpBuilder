@@ -8,10 +8,10 @@ s9e\RegexpBuilder is a single-purpose library that generates regular expressions
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder;
-echo $builder->build(['foo', 'bar', 'baz']);
+echo '/', $builder->build(['foo', 'bar', 'baz']), '/';
 ```
 ```
-(?:ba[rz]|foo)
+/(?:ba[rz]|foo)/
 ```
 
 ## Examples
@@ -23,10 +23,10 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Utf8',
 	'output' => 'Utf8'
 ]);
-echo $builder->build(['☺', '☹']);
+echo '/', $builder->build(['☺', '☹']), '/u';
 ```
 ```
-[☹☺]
+/[☹☺]/u
 ```
 
 ### Raw input with raw output
@@ -38,10 +38,10 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Bytes',
 	'output' => 'Bytes'
 ]);
-echo quoted_printable_encode($builder->build(['☺', '☹']));
+echo '/', quoted_printable_encode($builder->build(['☺', '☹'])), '/';
 ```
 ```
-=E2=98[=B9=BA]
+/=E2=98[=B9=BA]/
 ```
 
 ### Raw input with PHP output
@@ -53,10 +53,10 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Bytes',
 	'output' => 'PHP'
 ]);
-echo $builder->build(['☺', '☹']);
+echo '/', $builder->build(['☺', '☹']), '/';
 ```
 ```
-\xE2\x98[\xB9\xBA]
+/\xE2\x98[\xB9\xBA]/
 ```
 
 ### UTF-8 input with PHP output
@@ -68,10 +68,10 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Utf8',
 	'output' => 'PHP'
 ]);
-echo $builder->build(['☺', '☹']);
+echo '/', $builder->build(['☺', '☹']), '/u';
 ```
 ```
-[\x{2639}\x{263A}]
+/[\x{2639}\x{263A}]/u
 ```
 
 ### UTF-8 input with JavaScript output
@@ -84,12 +84,12 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'inputOptions' => ['useSurrogates' => true],
 	'output'       => 'JavaScript'
 ]);
-echo $builder->build(['☺', '☹']), "\n";
-echo $builder->build(['😁', '😂']);
+echo '/', $builder->build(['☺', '☹']), "/\n";
+echo '/', $builder->build(['😁', '😂']), '/';
 ```
 ```
-[\u2639\u263A]
-\uD83D[\uDE01\uDE02]
+/[\u2639\u263A]/
+/\uD83D[\uDE01\uDE02]/
 ```
 
 ### UTF-8 input with Unicode-aware JavaScript output
@@ -101,12 +101,12 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Utf8',
 	'output' => 'JavaScript'
 ]);
-echo $builder->build(['☺', '☹']), "\n";
-echo $builder->build(['😁', '😂']);
+echo '/', $builder->build(['☺', '☹']), "/u\n";
+echo '/', $builder->build(['😁', '😂']), '/u';
 ```
 ```
-[\u2639\u263A]
-[\u{1F601}\u{1F602}]
+/[\u2639\u263A]/u
+/[\u{1F601}\u{1F602}]/u
 ```
 
 ### Custom delimiters
@@ -139,18 +139,18 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'output'        => 'PHP',
 	'outputOptions' => ['case' => 'lower']
 ]);
-echo $builder->build(['☺', '☹']),"\n";
+echo '/', $builder->build(['☺', '☹']), "/\n";
 
 $builder = new s9e\RegexpBuilder\Builder([
 	'input'         => 'Utf8',
 	'output'        => 'JavaScript',
 	'outputOptions' => ['case' => 'lower']
 ]);
-echo $builder->build(['☺', '☹']);
+echo '/', $builder->build(['☺', '☹']), '/';
 ```
 ```
-\xe2\x98[\xb9\xba]
-[\u2639\u263a]
+/\xe2\x98[\xb9\xba]/
+/[\u2639\u263a]/
 ```
 
 ### Using meta-characters
@@ -166,10 +166,10 @@ In the following example, we emulate Bash-style jokers by mapping `?` to `.` and
 $builder = new s9e\RegexpBuilder\Builder([
 	'meta' => ['?' => '.', '*' => '.*']
 ]);
-echo $builder->build(['foo?', 'bar*']);
+echo '/', $builder->build(['foo?', 'bar*']), '/';
 ```
 ```
-(?:bar.*|foo.)
+/(?:bar.*|foo.)/
 ```
 
 In the following example, we map `X` to `\d`. Note that sequences produced by meta-characters may appear in character classes if the result is valid.
@@ -178,8 +178,8 @@ In the following example, we map `X` to `\d`. Note that sequences produced by me
 $builder = new s9e\RegexpBuilder\Builder([
 	'meta' => ['X' => '\\d']
 ]);
-echo $builder->build(['a', 'b', 'X']);
+echo '/', $builder->build(['a', 'b', 'X']), '/';
 ```
 ```
-[\dab]
+/[\dab]/
 ```
