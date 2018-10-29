@@ -13,7 +13,8 @@ use s9e\RegexpBuilder\Input\InputInterface;
 class MetaCharacters
 {
 	/**
-	* @const Bit value that indicates whether a meta-character represents a single character
+	* @const Bit value that indicates whether a meta-character represents a single character usable
+	*        in a character class
 	*/
 	const IS_CHAR = 1;
 
@@ -88,7 +89,7 @@ class MetaCharacters
 	}
 
 	/**
-	* Return whether a given value represents a single character
+	* Return whether a given value represents a single character usable in a character class
 	*
 	* @param  integer $value
 	* @return bool
