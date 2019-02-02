@@ -24,6 +24,9 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 			// an empty character class
 			$newString    = $strings[$keys[0]];
 			$newString[0] = [];
+
+			// Fill the character class with the prefix of each string in this group before removing
+			// the original string
 			foreach ($keys as $key)
 			{
 				$newString[0][] = [$strings[$key][0]];
