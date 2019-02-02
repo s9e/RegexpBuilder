@@ -68,41 +68,17 @@ class Builder
 	public function build(array $strings)
 	{
 		$strings = array_unique($strings);
+		sort($strings);
 		if ($this->isEmpty($strings))
 		{
 			return '';
 		}
 
 		$strings = $this->splitStrings($strings);
-		usort($strings, __CLASS__ . '::compareStrings');
 		$strings = $this->meta->replaceMeta($strings);
 		$strings = $this->runner->run($strings);
 
 		return $this->serializer->serializeStrings($strings);
-	}
-
-	/**
-	* Compare two split strings
-	*
-	* Will sort strings in ascending order
-	*
-	* @param  integer[] $a
-	* @param  integer[] $b
-	* @return integer
-	*/
-	protected function compareStrings(array $a, array $b)
-	{
-		$i   = -1;
-		$cnt = min(count($a), count($b));
-		while (++$i < $cnt)
-		{
-			if ($a[$i] !== $b[$i])
-			{
-				return $a[$i] - $b[$i];
-			}
-		}
-
-		return count($a) - count($b);
 	}
 
 	/**
