@@ -136,6 +136,10 @@ class BuilderTest extends PHPUnit_Framework_TestCase
 				['^', '_'],
 				'[\\^_]'
 			],
+			[
+				['[foo]', '[bar]'],
+				'\\[(?:bar|foo)]'
+			],
 		];
 	}
 }
