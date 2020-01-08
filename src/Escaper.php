@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -41,7 +41,7 @@ class Escaper
 	* @param  string $char Original character
 	* @return string       Escaped character
 	*/
-	public function escapeCharacterClass($char)
+	public function escapeCharacterClass($char): string
 	{
 		return (isset($this->inCharacterClass[$char])) ? $this->inCharacterClass[$char] : $char;
 	}
@@ -52,7 +52,7 @@ class Escaper
 	* @param  string $char Original character
 	* @return string       Escaped character
 	*/
-	public function escapeLiteral($char)
+	public function escapeLiteral($char): string
 	{
 		return (isset($this->inLiteral[$char])) ? $this->inLiteral[$char] : $char;
 	}

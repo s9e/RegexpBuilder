@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class PHP extends PrintableAscii
 	/**
 	* {@inheritdoc}
 	*/
-	protected function escapeUnicode($cp)
+	protected function escapeUnicode($cp): string
 	{
 		return sprintf('\\x{%04' . $this->hexCase . '}', $cp);
 	}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -17,7 +17,7 @@ abstract class AbstractPass implements PassInterface
 	/**
 	* {@inheritdoc}
 	*/
-	public function run(array $strings)
+	public function run(array $strings): array
 	{
 		$strings = $this->beforeRun($strings);
 		if ($this->canRun($strings))
@@ -35,7 +35,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function afterRun(array $strings)
+	protected function afterRun(array $strings): array
 	{
 		if ($this->isOptional && $strings[0] !== [])
 		{
@@ -51,7 +51,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function beforeRun(array $strings)
+	protected function beforeRun(array $strings): array
 	{
 		$this->isOptional = (isset($strings[0]) && $strings[0] === []);
 		if ($this->isOptional)
@@ -68,7 +68,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array[] $strings
 	* @return bool
 	*/
-	protected function canRun(array $strings)
+	protected function canRun(array $strings): bool
 	{
 		return true;
 	}
@@ -87,7 +87,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array $string
 	* @return bool
 	*/
-	protected function hasOptionalSuffix(array $string)
+	protected function hasOptionalSuffix(array $string): bool
 	{
 		$suffix = end($string);
 
@@ -100,7 +100,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array $string
 	* @return bool
 	*/
-	protected function isCharacterClassString(array $string)
+	protected function isCharacterClassString(array $string): bool
 	{
 		return ($this->isSingleAlternationString($string) && $this->isSingleCharStringList($string[0]));
 	}
@@ -111,7 +111,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array
 	* @return bool
 	*/
-	protected function isSingleAlternationString(array $string)
+	protected function isSingleAlternationString(array $string): bool
 	{
 		return (count($string) === 1 && is_array($string[0]));
 	}
@@ -122,7 +122,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array $string
 	* @return bool
 	*/
-	protected function isSingleCharString(array $string)
+	protected function isSingleCharString(array $string): bool
 	{
 		return (count($string) === 1 && !is_array($string[0]));
 	}
@@ -133,7 +133,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array[] $strings
 	* @return bool
 	*/
-	protected function isSingleCharStringList(array $strings)
+	protected function isSingleCharStringList(array $strings): bool
 	{
 		foreach ($strings as $string)
 		{

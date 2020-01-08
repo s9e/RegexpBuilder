@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace s9e\RegexpBuilder\Tests\Input;
 

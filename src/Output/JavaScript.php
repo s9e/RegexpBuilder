@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class JavaScript extends PrintableAscii
 	/**
 	* {@inheritdoc}
 	*/
-	protected function escapeUnicode($cp)
+	protected function escapeUnicode($cp): string
 	{
 		$format = ($cp > 0xFFFF) ? '\\u{%' . $this->hexCase . '}' : '\\u%04' . $this->hexCase;
 

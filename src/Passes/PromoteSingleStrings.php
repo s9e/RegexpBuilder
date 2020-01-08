@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -16,7 +16,7 @@ class PromoteSingleStrings extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		return array_map([$this, 'promoteSingleStrings'], $strings);
 	}
@@ -27,7 +27,7 @@ class PromoteSingleStrings extends AbstractPass
 	* @param  array $string Original string
 	* @return array         Modified string
 	*/
-	protected function promoteSingleStrings(array $string)
+	protected function promoteSingleStrings(array $string): array
 	{
 		$newString = [];
 		foreach ($string as $element)

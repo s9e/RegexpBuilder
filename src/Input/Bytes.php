@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -12,7 +12,7 @@ class Bytes extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	public function split($string)
+	public function split($string): array
 	{
 		if ($string === '')
 		{

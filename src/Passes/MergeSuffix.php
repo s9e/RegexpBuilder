@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class MergeSuffix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function canRun(array $strings)
+	protected function canRun(array $strings): bool
 	{
 		return (count($strings) > 1 && $this->hasMatchingSuffix($strings));
 	}
@@ -23,7 +23,7 @@ class MergeSuffix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		$newString = [];
 		while ($this->hasMatchingSuffix($strings))
@@ -42,7 +42,7 @@ class MergeSuffix extends AbstractPass
 	* @param  array[] $strings
 	* @return bool
 	*/
-	protected function hasMatchingSuffix(array $strings)
+	protected function hasMatchingSuffix(array $strings): bool
 	{
 		$suffix = end($strings[1]);
 		foreach ($strings as $string)
@@ -62,7 +62,7 @@ class MergeSuffix extends AbstractPass
 	* @param  array[] $strings Original strings
 	* @return array[]          Processed strings
 	*/
-	protected function pop(array $strings)
+	protected function pop(array $strings): array
 	{
 		$cnt = count($strings);
 		$i   = $cnt;

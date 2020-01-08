@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -65,7 +65,7 @@ class Builder
 	* @param  string[] $strings Literal strings to be matched
 	* @return string            Regular expression (without delimiters)
 	*/
-	public function build(array $strings)
+	public function build(array $strings): string
 	{
 		$strings = array_unique($strings);
 		sort($strings);
@@ -87,7 +87,7 @@ class Builder
 	* @param  string[] $strings
 	* @return bool
 	*/
-	protected function isEmpty(array $strings)
+	protected function isEmpty(array $strings): bool
 	{
 		return (empty($strings) || $strings === ['']);
 	}
@@ -99,7 +99,7 @@ class Builder
 	* @param  array  $inputOptions
 	* @return void
 	*/
-	protected function setInput($inputType, array $inputOptions)
+	protected function setInput($inputType, array $inputOptions): void
 	{
 		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
 		$this->input = new $className($inputOptions);
@@ -111,7 +111,7 @@ class Builder
 	* @param  array $map
 	* @return void
 	*/
-	protected function setMeta(array $map)
+	protected function setMeta(array $map): void
 	{
 		$this->meta = new MetaCharacters($this->input);
 		foreach ($map as $char => $expr)
@@ -125,7 +125,7 @@ class Builder
 	*
 	* @return void
 	*/
-	protected function setRunner()
+	protected function setRunner(): void
 	{
 		$this->runner = new Runner;
 		$this->runner->addPass(new MergePrefix);
@@ -145,7 +145,7 @@ class Builder
 	* @param  string $delimiter
 	* @return void
 	*/
-	protected function setSerializer($outputType, array $outputOptions, $delimiter)
+	protected function setSerializer($outputType, array $outputOptions, $delimiter): void
 	{
 		$className = __NAMESPACE__ . '\\Output\\' . $outputType;
 		$output    = new $className($outputOptions);
@@ -160,7 +160,7 @@ class Builder
 	* @param  string[] $strings List of strings
 	* @return array[]           List of arrays
 	*/
-	protected function splitStrings(array $strings)
+	protected function splitStrings(array $strings): array
 	{
 		return array_map([$this->input, 'split'], $strings);
 	}

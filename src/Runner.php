@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -22,7 +22,7 @@ class Runner
 	* @param  PassInterface $pass
 	* @return void
 	*/
-	public function addPass(PassInterface $pass)
+	public function addPass(PassInterface $pass): void
 	{
 		$this->passes[] = $pass;
 	}
@@ -33,7 +33,7 @@ class Runner
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	public function run(array $strings)
+	public function run(array $strings): array
 	{
 		foreach ($this->passes as $pass)
 		{

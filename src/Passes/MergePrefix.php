@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class MergePrefix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		$newStrings = [];
 		foreach ($this->getStringsByPrefix($strings) as $prefix => $strings)
@@ -32,7 +32,7 @@ class MergePrefix extends AbstractPass
 	* @param  array[] $strings
 	* @return integer
 	*/
-	protected function getPrefixLength(array $strings)
+	protected function getPrefixLength(array $strings): int
 	{
 		$len = 1;
 		$cnt = count($strings[0]);
@@ -52,7 +52,7 @@ class MergePrefix extends AbstractPass
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function getStringsByPrefix(array $strings)
+	protected function getStringsByPrefix(array $strings): array
 	{
 		$byPrefix = [];
 		foreach ($strings as $string)
@@ -69,7 +69,7 @@ class MergePrefix extends AbstractPass
 	* @param  array[] $strings
 	* @return array
 	*/
-	protected function mergeStrings(array $strings)
+	protected function mergeStrings(array $strings): array
 	{
 		$len       = $this->getPrefixLength($strings);
 		$newString = array_slice($strings[0], 0, $len);
@@ -88,7 +88,7 @@ class MergePrefix extends AbstractPass
 	* @param  integer $pos
 	* @return bool
 	*/
-	protected function stringsMatch(array $strings, $pos)
+	protected function stringsMatch(array $strings, $pos): bool
 	{
 		$value = $strings[0][$pos];
 		foreach ($strings as $string)

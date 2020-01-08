@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class GroupSingleCharacters extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		$singles = $this->getSingleCharStrings($strings);
 		$cnt     = count($singles);
@@ -35,7 +35,7 @@ class GroupSingleCharacters extends AbstractPass
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function getSingleCharStrings(array $strings)
+	protected function getSingleCharStrings(array $strings): array
 	{
 		return array_filter($strings, [$this, 'isSingleCharString']);
 	}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		$newStrings = [];
 		foreach ($this->getEligibleKeys($strings) as $keys)
@@ -44,7 +44,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	* @param  array[] $eligibleKeys List of lists of keys
 	* @return array[]
 	*/
-	protected function filterEligibleKeys(array $eligibleKeys)
+	protected function filterEligibleKeys(array $eligibleKeys): array
 	{
 		$filteredKeys = [];
 		foreach ($eligibleKeys as $k => $keys)
@@ -64,7 +64,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function getEligibleKeys(array $strings)
+	protected function getEligibleKeys(array $strings): array
 	{
 		$eligibleKeys = [];
 		foreach ($strings as $k => $string)

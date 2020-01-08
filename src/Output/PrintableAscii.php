@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -28,7 +28,7 @@ abstract class PrintableAscii extends BaseImplementation
 	* @param  integer $cp
 	* @return string
 	*/
-	protected function escapeAscii($cp)
+	protected function escapeAscii($cp): string
 	{
 		return '\\x' . sprintf('%02' . $this->hexCase, $cp);
 	}
@@ -39,7 +39,7 @@ abstract class PrintableAscii extends BaseImplementation
 	* @param  integer $cp
 	* @return string
 	*/
-	protected function escapeControlCode($cp)
+	protected function escapeControlCode($cp): string
 	{
 		$table = [9 => '\\t', 10 => '\\n', 13 => '\\r'];
 
@@ -57,7 +57,7 @@ abstract class PrintableAscii extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	protected function outputValidValue($value)
+	protected function outputValidValue($value): string
 	{
 		if ($value < 32)
 		{

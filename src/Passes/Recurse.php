@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -30,7 +30,7 @@ class Recurse extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		return array_map([$this, 'recurseString'], $strings);
 	}
@@ -41,7 +41,7 @@ class Recurse extends AbstractPass
 	* @param  array $string
 	* @return array
 	*/
-	protected function recurseString(array $string)
+	protected function recurseString(array $string): array
 	{
 		$isOptional = $this->isOptional;
 		foreach ($string as $k => $element)

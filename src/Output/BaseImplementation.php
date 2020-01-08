@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -31,7 +31,7 @@ abstract class BaseImplementation implements OutputInterface
 	/**
 	* {@inheritdoc}
 	*/
-	public function output($value)
+	public function output($value): string
 	{
 		$this->validate($value);
 
@@ -44,7 +44,7 @@ abstract class BaseImplementation implements OutputInterface
 	* @param  integer $value
 	* @return void
 	*/
-	protected function validate($value)
+	protected function validate($value): void
 	{
 		if ($value < $this->minValue || $value > $this->maxValue)
 		{

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -15,7 +15,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function canRun(array $strings)
+	protected function canRun(array $strings): bool
 	{
 		return ($this->isOptional && count($strings) > 1);
 	}
@@ -23,7 +23,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	/**
 	* {@inheritdoc}
 	*/
-	protected function runPass(array $strings)
+	protected function runPass(array $strings): array
 	{
 		foreach ($this->getPrefixGroups($strings) as $suffix => $prefixStrings)
 		{
@@ -47,7 +47,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	* @param  array   $suffix
 	* @return array[]
 	*/
-	protected function buildCoalescedStrings(array $prefixStrings, array $suffix)
+	protected function buildCoalescedStrings(array $prefixStrings, array $suffix): array
 	{
 		$strings = $this->runPass($this->buildPrefix($prefixStrings));
 		if ($this->isSingleOptionalAlternation($strings))
@@ -74,7 +74,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function buildPrefix(array $strings)
+	protected function buildPrefix(array $strings): array
 	{
 		$prefix = [];
 		foreach ($strings as $string)
@@ -95,7 +95,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	protected function buildSuffix(array $strings)
+	protected function buildSuffix(array $strings): array
 	{
 		$suffix = [[]];
 		foreach ($strings as $string)
@@ -122,7 +122,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	* @param  array[] $strings
 	* @return array
 	*/
-	protected function getPrefixGroups(array $strings)
+	protected function getPrefixGroups(array $strings): array
 	{
 		$groups = [];
 		foreach ($strings as $k => $string)
@@ -142,7 +142,7 @@ class CoalesceOptionalStrings extends AbstractPass
 	* @param  array $strings
 	* @return bool
 	*/
-	protected function isSingleOptionalAlternation(array $strings)
+	protected function isSingleOptionalAlternation(array $strings): bool
 	{
 		return (count($strings) === 1 && is_array($strings[0][0]) && $strings[0][0][0] === []);
 	}

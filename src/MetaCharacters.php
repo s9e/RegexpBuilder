@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -53,7 +53,7 @@ class MetaCharacters
 	* @param  string $expr Regular expression
 	* @return void
 	*/
-	public function add($char, $expr)
+	public function add($char, $expr): void
 	{
 		$split = $this->input->split($char);
 		if (count($split) !== 1)
@@ -78,7 +78,7 @@ class MetaCharacters
 	* @param  integer $metaValue
 	* @return string
 	*/
-	public function getExpression($metaValue)
+	public function getExpression($metaValue): string
 	{
 		if (!isset($this->exprs[$metaValue]))
 		{
@@ -94,7 +94,7 @@ class MetaCharacters
 	* @param  integer $value
 	* @return bool
 	*/
-	public static function isChar($value)
+	public static function isChar($value): bool
 	{
 		return ($value >= 0 || ($value & self::IS_CHAR));
 	}
@@ -105,7 +105,7 @@ class MetaCharacters
 	* @param  integer $value
 	* @return bool
 	*/
-	public static function isQuantifiable($value)
+	public static function isQuantifiable($value): bool
 	{
 		return ($value >= 0 || ($value & self::IS_QUANTIFIABLE));
 	}
@@ -116,7 +116,7 @@ class MetaCharacters
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	public function replaceMeta(array $strings)
+	public function replaceMeta(array $strings): array
 	{
 		foreach ($strings as &$string)
 		{
@@ -141,7 +141,7 @@ class MetaCharacters
 	* @param  string  $expr Regular expression
 	* @return integer
 	*/
-	protected function computeValue($expr)
+	protected function computeValue($expr): int
 	{
 		$properties = [
 			'exprIsChar'         => self::IS_CHAR,
@@ -165,7 +165,7 @@ class MetaCharacters
 	* @param  string $expr
 	* @return bool
 	*/
-	protected function exprIsChar($expr)
+	protected function exprIsChar($expr): bool
 	{
 		$regexps = [
 			// Escaped literal or escape sequence such as \w but not \R
@@ -187,7 +187,7 @@ class MetaCharacters
 	* @param  string $expr
 	* @return bool
 	*/
-	protected function exprIsQuantifiable($expr)
+	protected function exprIsQuantifiable($expr): bool
 	{
 		$regexps = [
 			// A dot or \R
@@ -207,7 +207,7 @@ class MetaCharacters
 	* @param  string[] $regexps
 	* @return bool
 	*/
-	protected function matchesAny($expr, array $regexps)
+	protected function matchesAny($expr, array $regexps): bool
 	{
 		foreach ($regexps as $regexp)
 		{

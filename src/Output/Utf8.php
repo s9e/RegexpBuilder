@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
 * @package   s9e\RegexpBuilder
@@ -17,7 +17,7 @@ class Utf8 extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	protected function outputValidValue($value)
+	protected function outputValidValue($value): string
 	{
 		if ($value < 0x80)
 		{
@@ -42,7 +42,7 @@ class Utf8 extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	protected function validate($value)
+	protected function validate($value): void
 	{
 		if ($value >= 0xD800 && $value <= 0xDFFF)
 		{
