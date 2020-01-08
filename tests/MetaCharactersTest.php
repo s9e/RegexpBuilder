@@ -57,7 +57,7 @@ class MetaCharactersTest extends TestCase
 	*/
 	public function testGetExpressionException()
 	{
-		$this->expectException('InvalidArgumentException', "Invalid meta value -1");
+		$this->expectException('InvalidArgumentException', 'Invalid meta value -1');
 		$this->getMeta([])->getExpression(-1);
 	}
 
