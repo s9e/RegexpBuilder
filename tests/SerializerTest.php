@@ -2,7 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Escaper;
 use s9e\RegexpBuilder\Input\Bytes as Input;
 use s9e\RegexpBuilder\MetaCharacters;
@@ -12,7 +12,7 @@ use s9e\RegexpBuilder\Serializer;
 /**
 * @covers s9e\RegexpBuilder\Serializer
 */
-class SerializerTest extends PHPUnit_Framework_TestCase
+class SerializerTest extends TestCase
 {
 	/**
 	* @dataProvider getSerializerTests

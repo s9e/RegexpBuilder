@@ -2,13 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
 
 /**
 * @covers s9e\RegexpBuilder\Builder
 */
-class BuilderTest extends PHPUnit_Framework_TestCase
+class BuilderTest extends TestCase
 {
 	/**
 	* @dataProvider getBuilderTests

@@ -2,13 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Escaper;
 
 /**
 * @covers s9e\RegexpBuilder\Escaper
 */
-class EscaperTest extends PHPUnit_Framework_TestCase
+class EscaperTest extends TestCase
 {
 	/**
 	* @dataProvider getEscapeCharacterClassTests

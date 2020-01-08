@@ -3,9 +3,9 @@
 namespace s9e\RegexpBuilder\Tests\Output;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTest extends PHPUnit_Framework_TestCase
+abstract class AbstractTest extends TestCase
 {
 	/**
 	* @dataProvider getOutputTests
@@ -17,7 +17,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
 		if ($expected instanceof Exception)
 		{
-			$this->setExpectedException(get_class($expected), $expected->getMessage());
+			$this->expectException(get_class($expected), $expected->getMessage());
 		}
 
 		$this->assertSame($expected, $output->output($original));

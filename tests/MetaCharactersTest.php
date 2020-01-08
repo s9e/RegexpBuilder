@@ -2,14 +2,14 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Input\Utf8;
 use s9e\RegexpBuilder\MetaCharacters;
 
 /**
 * @covers s9e\RegexpBuilder\MetaCharacters
 */
-class MetaCharactersTest extends PHPUnit_Framework_TestCase
+class MetaCharactersTest extends TestCase
 {
 	protected function getMeta(array $map = [])
 	{
@@ -24,21 +24,19 @@ class MetaCharactersTest extends PHPUnit_Framework_TestCase
 
 	/**
 	* @testdox Using multiple chars as meta-character throws an exception
-	* @expectedException InvalidArgumentException
-	* @expectedExceptionMessage Meta-characters must be represented by exactly one character
 	*/
 	public function testMultipleCharsException()
 	{
+		$this->expectException('InvalidArgumentException', 'Meta-characters must be represented by exactly one character');
 		$this->getMeta(['xx' => 'x']);
 	}
 
 	/**
 	* @testdox Invalid expressions throw an exception
-	* @expectedException InvalidArgumentException
-	* @expectedExceptionMessage Invalid expression '+++'
 	*/
 	public function testInvalidExceptionException()
 	{
+		$this->expectException('InvalidArgumentException', "Invalid expression '+++'");
 		$this->getMeta(['x' => '+++']);
 	}
 
@@ -56,11 +54,10 @@ class MetaCharactersTest extends PHPUnit_Framework_TestCase
 
 	/**
 	* @testdox getExpression() throws an exception on unknown meta values
-	* @expectedException InvalidArgumentException
-	* @expectedExceptionMessage Invalid meta value -1
 	*/
 	public function testGetExpressionException()
 	{
+		$this->expectException('InvalidArgumentException', "Invalid meta value -1");
 		$this->getMeta([])->getExpression(-1);
 	}
 

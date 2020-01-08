@@ -2,9 +2,9 @@
 
 namespace s9e\RegexpBuilder\Tests\Passes;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTest extends PHPUnit_Framework_TestCase
+abstract class AbstractTest extends TestCase
 {
 	/**
 	* @dataProvider getPassTests

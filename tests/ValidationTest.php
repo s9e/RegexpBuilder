@@ -2,13 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
 
 /**
 * @coversNothing
 */
-class ValidationTest extends PHPUnit_Framework_TestCase
+class ValidationTest extends TestCase
 {
 	/**
 	* @dataProvider getValidationTests

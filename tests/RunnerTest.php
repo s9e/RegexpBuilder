@@ -2,13 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Runner;
 
 /**
 * @covers s9e\RegexpBuilder\Runner
 */
-class RunnerTest extends PHPUnit_Framework_TestCase
+class RunnerTest extends TestCase
 {
 	public function testRun()
 	{

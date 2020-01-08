@@ -2,14 +2,14 @@
 
 namespace s9e\RegexpBuilder\Tests\Passes;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Passes\Recurse;
 
 /**
 * @covers s9e\RegexpBuilder\Passes\AbstractPass
 * @covers s9e\RegexpBuilder\Passes\Recurse
 */
-class RecurseTest extends PHPUnit_Framework_TestCase
+class RecurseTest extends TestCase
 {
 	public function test()
 	{
