@@ -28,7 +28,7 @@ abstract class PrintableAscii extends BaseImplementation
 	* @param  integer $cp
 	* @return string
 	*/
-	protected function escapeAscii($cp): string
+	protected function escapeAscii(int $cp): string
 	{
 		return '\\x' . sprintf('%02' . $this->hexCase, $cp);
 	}
@@ -39,7 +39,7 @@ abstract class PrintableAscii extends BaseImplementation
 	* @param  integer $cp
 	* @return string
 	*/
-	protected function escapeControlCode($cp): string
+	protected function escapeControlCode(int $cp): string
 	{
 		$table = [9 => '\\t', 10 => '\\n', 13 => '\\r'];
 
@@ -52,12 +52,12 @@ abstract class PrintableAscii extends BaseImplementation
 	* @param  integer $cp Unicode codepoint
 	* @return string
 	*/
-	abstract protected function escapeUnicode($cp);
+	abstract protected function escapeUnicode(int $cp): string;
 
 	/**
 	* {@inheritdoc}
 	*/
-	protected function outputValidValue($value): string
+	protected function outputValidValue(int $value): string
 	{
 		if ($value < 32)
 		{

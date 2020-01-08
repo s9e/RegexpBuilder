@@ -79,7 +79,7 @@ abstract class AbstractPass implements PassInterface
 	* @param  array[] $strings
 	* @return array[]
 	*/
-	abstract protected function runPass(array $strings);
+	abstract protected function runPass(array $strings): array;
 
 	/**
 	* Test whether given string has an optional suffix

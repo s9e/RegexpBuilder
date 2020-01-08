@@ -15,5 +15,5 @@ interface PassInterface
 	* @param  array[] $strings Original strings
 	* @return array[]          Modified strings
 	*/
-	public function run(array $strings);
+	public function run(array $strings): array;
 }

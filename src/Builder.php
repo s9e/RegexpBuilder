@@ -99,7 +99,7 @@ class Builder
 	* @param  array  $inputOptions
 	* @return void
 	*/
-	protected function setInput($inputType, array $inputOptions): void
+	protected function setInput(string $inputType, array $inputOptions): void
 	{
 		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
 		$this->input = new $className($inputOptions);
@@ -145,7 +145,7 @@ class Builder
 	* @param  string $delimiter
 	* @return void
 	*/
-	protected function setSerializer($outputType, array $outputOptions, $delimiter): void
+	protected function setSerializer(string $outputType, array $outputOptions, string $delimiter): void
 	{
 		$className = __NAMESPACE__ . '\\Output\\' . $outputType;
 		$output    = new $className($outputOptions);

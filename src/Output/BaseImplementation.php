@@ -31,7 +31,7 @@ abstract class BaseImplementation implements OutputInterface
 	/**
 	* {@inheritdoc}
 	*/
-	public function output($value): string
+	public function output(int $value): string
 	{
 		$this->validate($value);
 
@@ -44,7 +44,7 @@ abstract class BaseImplementation implements OutputInterface
 	* @param  integer $value
 	* @return void
 	*/
-	protected function validate($value): void
+	protected function validate(int $value): void
 	{
 		if ($value < $this->minValue || $value > $this->maxValue)
 		{
@@ -58,5 +58,5 @@ abstract class BaseImplementation implements OutputInterface
 	* @param  integer $value
 	* @return string
 	*/
-	abstract protected function outputValidValue($value);
+	abstract protected function outputValidValue(int $value): string;
 }

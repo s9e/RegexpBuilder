@@ -27,7 +27,7 @@ class Utf8 extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	public function split($string): array
+	public function split(string $string): array
 	{
 		if (preg_match_all('(.)us', $string, $matches) === false)
 		{
@@ -80,7 +80,7 @@ class Utf8 extends BaseImplementation
 	* @param  string  $char UTF-8 char
 	* @return integer
 	*/
-	protected function cp($char): int
+	protected function cp(string $char): int
 	{
 		$cp = ord($char[0]);
 		if ($cp >= 0xF0)

@@ -19,5 +19,5 @@ abstract class BaseImplementation implements InputInterface
 	/**
 	* {@inheritdoc}
 	*/
-	abstract public function split($string);
+	abstract public function split(string $string): array;
 }

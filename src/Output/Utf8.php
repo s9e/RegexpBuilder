@@ -17,7 +17,7 @@ class Utf8 extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	protected function outputValidValue($value): string
+	protected function outputValidValue(int $value): string
 	{
 		if ($value < 0x80)
 		{
@@ -42,7 +42,7 @@ class Utf8 extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	protected function validate($value): void
+	protected function validate(int $value): void
 	{
 		if ($value >= 0xD800 && $value <= 0xDFFF)
 		{

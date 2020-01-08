@@ -12,7 +12,7 @@ class Bytes extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	public function split($string): array
+	public function split(string $string): array
 	{
 		if ($string === '')
 		{

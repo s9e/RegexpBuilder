@@ -15,5 +15,5 @@ interface OutputInterface
 	* @param  integer $value
 	* @return string
 	*/
-	public function output($value);
+	public function output(int $value): string;
 }

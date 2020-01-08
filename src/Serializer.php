@@ -227,7 +227,7 @@ class Serializer
 	* @param  integer $value
 	* @return string
 	*/
-	protected function serializeCharacterClassUnit($value): string
+	protected function serializeCharacterClassUnit(int $value): string
 	{
 		return $this->serializeValue($value, 'escapeCharacterClass');
 	}
@@ -249,7 +249,7 @@ class Serializer
 	* @param  integer $value
 	* @return string
 	*/
-	protected function serializeLiteral($value): string
+	protected function serializeLiteral(int $value): string
 	{
 		return $this->serializeValue($value, 'escapeLiteral');
 	}
@@ -272,7 +272,7 @@ class Serializer
 	* @param  string  $escapeMethod
 	* @return string
 	*/
-	protected function serializeValue($value, $escapeMethod): string
+	protected function serializeValue(int $value, string $escapeMethod): string
 	{
 		return ($value < 0) ? $this->meta->getExpression($value) : $this->escaper->$escapeMethod($this->output->output($value));
 	}

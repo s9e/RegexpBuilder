@@ -15,7 +15,7 @@ class Bytes extends BaseImplementation
 	/**
 	* {@inheritdoc}
 	*/
-	protected function outputValidValue($value): string
+	protected function outputValidValue(int $value): string
 	{
 		return chr($value);
 	}

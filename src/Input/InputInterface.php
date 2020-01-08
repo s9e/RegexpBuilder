@@ -20,5 +20,5 @@ interface InputInterface
 	* @param  string    $string
 	* @return integer[]
 	*/
-	public function split($string);
+	public function split(string $string): array;
 }

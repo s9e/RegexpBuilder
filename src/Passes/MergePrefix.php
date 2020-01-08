@@ -88,7 +88,7 @@ class MergePrefix extends AbstractPass
 	* @param  integer $pos
 	* @return bool
 	*/
-	protected function stringsMatch(array $strings, $pos): bool
+	protected function stringsMatch(array $strings, int $pos): bool
 	{
 		$value = $strings[0][$pos];
 		foreach ($strings as $string)
