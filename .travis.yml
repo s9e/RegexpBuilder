@@ -11,7 +11,7 @@ before_script:
   - sh -c "if [ '$COVERAGE' ]; then wget https://scrutinizer-ci.com/ocular.phar -O /tmp/ocular.phar; fi"
   - composer install
 script:
-  - sh -c "if [ '$COVERAGE' ]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover /tmp/clover.xml; fi"
+  - sh -c "if [ '$COVERAGE' ]; then vendor/bin/phpunit --coverage-clover /tmp/clover.xml; fi"
   - sh -c "if [ -z '$COVERAGE' ]; then vendor/bin/phpunit; fi"
 after_script:
   - sh -c "if [ '$COVERAGE' ]; then php /tmp/ocular.phar code-coverage:upload --format=php-clover /tmp/clover.xml; fi"
