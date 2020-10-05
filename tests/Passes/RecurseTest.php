@@ -17,15 +17,10 @@ class RecurseTest extends TestCase
 		             ->disableOriginalConstructor()
 		             ->getMock();
 
-		$mock->expects($this->at(0))
+		$mock->expects($this->exactly(2))
 		     ->method('run')
-		     ->with([0, 1, 2])
-		     ->will($this->returnValue([0, 1]));
-
-		$mock->expects($this->at(1))
-		     ->method('run')
-		     ->with([1, 2, 3])
-		     ->will($this->returnValue([2, 3]));
+		     ->withConsecutive([[0, 1, 2]], [[1, 2, 3]])
+		     ->willReturnOnConsecutiveCalls([0, 1], [2, 3]);
 
 		$pass = new Recurse($mock);
 		$this->assertSame(
