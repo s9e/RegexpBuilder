@@ -122,6 +122,24 @@ class CoalesceOptionalStringsTest extends AbstractTest
 					]
 				]
 			],
+			[
+				[
+					[],
+					[
+						1,
+						[[], [2]]
+					],
+					[[[1, 2]]]
+				],
+				[
+					[],
+					[
+						1,
+						[[], [2]]
+					],
+					[[[1, 2]]]
+				]
+			],
 		];
 	}
 }
