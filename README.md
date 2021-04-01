@@ -1,10 +1,11 @@
-s9e\RegexpBuilder is a single-purpose library that generates a regular expression that matches a given list of strings.
+s9e\RegexpBuilder is a single-purpose library that generates a regular expression that matches a given list of strings. It is best suited for efficiently finding a list of literals inside of a text.
 
-Simply put, given `['foo', 'bar', 'baz']` as input, the library will generate `(?:ba[rz]|foo)`.
+Simply put, given `['foo', 'bar', 'baz']` as input, the library will generate `(?:ba[rz]|foo)`, a regular expression that can match any of the strings `foo`, `bar`, or `baz`.
 
 [![Build Status](https://api.travis-ci.org/s9e/RegexpBuilder.svg?branch=master)](https://travis-ci.org/s9e/RegexpBuilder)
 [![Code Coverage](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/?branch=master)
+
 
 ## Usage
 
@@ -15,6 +16,7 @@ echo '/', $builder->build(['foo', 'bar', 'baz']), '/';
 ```
 /(?:ba[rz]|foo)/
 ```
+
 
 ## Examples
 
@@ -31,6 +33,7 @@ echo '/', $builder->build(['☺', '☹']), '/u';
 /[☹☺]/u
 ```
 
+
 ### Raw input with raw output
 
 Note that the output is shown here MIME-encoded as it is not possible to display raw bytes in UTF-8. Raw output is most suitable when the result is saved in binary form, e.g. in a data cache.
@@ -45,6 +48,7 @@ echo '/', quoted_printable_encode($builder->build(['☺', '☹'])), '/';
 ```
 /=E2=98[=B9=BA]/
 ```
+
 
 ### Raw input with PHP output
 
@@ -61,6 +65,7 @@ echo '/', $builder->build(['☺', '☹']), '/';
 /\xE2\x98[\xB9\xBA]/
 ```
 
+
 ### UTF-8 input with PHP output
 
 For PHP regular expressions that use the `u` flag.
@@ -75,6 +80,7 @@ echo '/', $builder->build(['☺', '☹']), '/u';
 ```
 /[\x{2639}\x{263A}]/u
 ```
+
 
 ### UTF-8 input with JavaScript output
 
@@ -94,6 +100,7 @@ echo '/', $builder->build(['😁', '😂']), '/';
 /\uD83D[\uDE01\uDE02]/
 ```
 
+
 ### UTF-8 input with Unicode-aware JavaScript output
 
 For JavaScript regular expressions that use the `u` flag introduced in ECMAScript 6. In that case, you can simply forgo using surrogates.
@@ -110,6 +117,7 @@ echo '/', $builder->build(['😁', '😂']), '/u';
 /[\u2639\u263A]/u
 /[\u{1F601}\u{1F602}]/u
 ```
+
 
 ### Custom delimiters
 
@@ -130,6 +138,7 @@ echo '(', $builder->build($strings), ')';
 #[\#()/]#
 ([#\(\)/])
 ```
+
 
 ### Lowercase hexadecimal representation
 
@@ -154,6 +163,7 @@ echo '/', $builder->build(['☺', '☹']), '/';
 /\xe2\x98[\xb9\xba]/
 /[\u2639\u263a]/
 ```
+
 
 ### Using meta-characters
 
