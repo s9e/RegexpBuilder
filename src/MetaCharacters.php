@@ -135,8 +135,8 @@ class MetaCharacters
 	/**
 	* Compute and return a value for given expression
 	*
-	* Values are meant to be a unique negative integer. The last 2 bits indicate whether the
-	* expression is quantifiable and/or represents a single character.
+	* Values are meant to be a unique negative integer. The least significant bits are used to
+	* store the expression's properties
 	*
 	* @param  string  $expr Regular expression
 	* @return integer
@@ -144,11 +144,11 @@ class MetaCharacters
 	protected function computeValue(string $expr): int
 	{
 		$properties = [
-			'exprIsChar'         => self::IS_CHAR,
-			'exprIsQuantifiable' => self::IS_QUANTIFIABLE
+			self::IS_CHAR         => 'exprIsChar',
+			self::IS_QUANTIFIABLE => 'exprIsQuantifiable'
 		];
-		$value = (1 + count($this->meta)) * -pow(2, count($properties));
-		foreach ($properties as $methodName => $bitValue)
+		$value = (1 + count($this->meta)) * -(2 ** count($properties));
+		foreach ($properties as $bitValue => $methodName)
 		{
 			if ($this->$methodName($expr))
 			{
