@@ -43,7 +43,7 @@ abstract class PrintableAscii extends BaseImplementation
 	{
 		$table = [9 => '\\t', 10 => '\\n', 13 => '\\r'];
 
-		return (isset($table[$cp])) ? $table[$cp] : $this->escapeAscii($cp);
+		return $table[$cp] ?? $this->escapeAscii($cp);
 	}
 
 	/**

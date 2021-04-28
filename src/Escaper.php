@@ -43,7 +43,7 @@ class Escaper
 	*/
 	public function escapeCharacterClass(string $char): string
 	{
-		return (isset($this->inCharacterClass[$char])) ? $this->inCharacterClass[$char] : $char;
+		return $this->inCharacterClass[$char] ?? $char;
 	}
 
 	/**
@@ -54,6 +54,6 @@ class Escaper
 	*/
 	public function escapeLiteral(string $char): string
 	{
-		return (isset($this->inLiteral[$char])) ? $this->inLiteral[$char] : $char;
+		return $this->inLiteral[$char] ?? $char;
 	}
 }
