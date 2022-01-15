@@ -13,10 +13,21 @@ class ValidationTest extends TestCase
 	/**
 	* @dataProvider getValidationTests
 	*/
-	public function test($expected, $original, $config = [])
+	public function test($expected, $strings, $config = [])
 	{
 		$builder = new Builder($config);
-		$this->assertSame($expected, $builder->build($original));
+		$actual  = $builder->build($strings);
+		$this->assertSame($expected, $actual);
+
+		if (!isset($config['meta']) && !isset($config['output']))
+		{
+			$config += ['delimiter' => '/'];
+			$regexp = $config['delimiter'][0] . '^' . $actual . '$' . substr($config['delimiter'], -1);
+			foreach ($strings as $string)
+			{
+				$this->assertMatchesRegularExpression($regexp, $string);
+			}
+		}
 	}
 
 	public function getValidationTests()
