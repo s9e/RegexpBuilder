@@ -102,8 +102,8 @@ class Serializer
 	/**
 	* Return the portion of strings that are composed of a single character
 	*
-	* @param  array[]
-	* @return array   String key => value
+	* @param  array<int, array> $strings
+	* @return array<int, int>            String key => value
 	*/
 	protected function getChars(array $strings): array
 	{

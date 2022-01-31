@@ -10,12 +10,12 @@ namespace s9e\RegexpBuilder;
 class Escaper
 {
 	/**
-	* @var array Characters to escape in a character class
+	* @var array<string> Characters to escape in a character class
 	*/
 	public $inCharacterClass = ['-' => '\\-', '\\' => '\\\\', ']' => '\\]', '^' => '\\^'];
 
 	/**
-	* @var array Characters to escape outside of a character class
+	* @var array<string> Characters to escape outside of a character class
 	*/
 	public $inLiteral = [
 		'$'  => '\\$',  '(' => '\\(', ')' => '\\)', '*' => '\\*',
