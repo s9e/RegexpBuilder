@@ -21,5 +21,8 @@
 		"psr-4": {
 			"s9e\\RegexpBuilder\\Tests\\": "tests"
 		}
+	},
+	"scripts": {
+		"test": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text"
 	}
 }
