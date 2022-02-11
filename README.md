@@ -2,7 +2,7 @@ s9e\RegexpBuilder is a single-purpose library that generates a regular expressio
 
 Simply put, given `['foo', 'bar', 'baz']` as input, the library will generate `(?:ba[rz]|foo)`, a regular expression that can match any of the strings `foo`, `bar`, or `baz`.
 
-[![Build Status](https://api.travis-ci.org/s9e/RegexpBuilder.svg?branch=master)](https://travis-ci.org/s9e/RegexpBuilder)
+[![Build status](https://github.com/s9e/RegexpBuilder/actions/workflows/build.yml/badge.svg)](https://github.com/s9e/RegexpBuilder/actions/workflows/build.yml)
 [![Code Coverage](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/?branch=master)
 
