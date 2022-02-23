@@ -8,6 +8,7 @@
 namespace s9e\RegexpBuilder\Passes;
 
 /**
+* Replaces (?:aa|b|cc|d) with (?:[bd]|aa|cc)
 * Enables other passes to replace (?:[xy]|a[xy]) with a?[xy]
 */
 class GroupSingleCharacters extends AbstractPass
