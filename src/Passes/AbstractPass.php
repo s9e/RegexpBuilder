@@ -95,7 +95,7 @@ abstract class AbstractPass implements PassInterface
 	}
 
 	/**
-	* Test whether given string contains a single alternations made of single values
+	* Test whether given string contains a single alternation made of single values
 	*
 	* @param  array $string
 	* @return bool
