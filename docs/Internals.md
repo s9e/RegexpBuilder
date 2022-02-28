@@ -1,5 +1,6 @@
 ### Process outline
 
+ 0. Sort the input strings and remove duplicates.
  1. Split each input string into a numerically-indexed array of numeric values, which are either byte values or codepoints depending the configuration.
  2. Execute each pass in order. Each pass receives the whole list of strings.
  3. Serialize the array of values into a PHP string.
@@ -60,15 +61,15 @@ An alternation may start with an empty string. It means the whole group is optio
 	[97, 98, 99]  // "a", "b", "c"
 ]
 ```
-Note that the expressions `(?:abc)?` and `(?:|abc)` are executed differently by regexp engines. The expression `(?:abc|)` would be more semantically correct and future versions may correct this implementation.
+Empty strings are always found at the beginning of a group because strings are sorted (and remain) in lexicographical order and empty strings naturally appear before non-empty strings. Note that the expressions `(?:abc)?` and `(?:|abc)` are executed differently by regexp engines. The expression `(?:abc|)` would be more semantically correct and future versions may correct this implementation.
 
 
 ### Passes
 
- - CoalesceOptionalStrings replaces `(?:ab?|b)?` with `a?b?`
- - CoalesceSingleCharacterPrefix replaces `(?:ab|bb|c)` with `(?:[ab]b|c)`
- - GroupSingleCharacters replaces `(?:aa|b|cc|d)` with `(?:[bd]|aa|cc)`
- - MergePrefix replaces `(?:axx|ayy)` with `a(?:xx|yy)`
- - MergeSuffix replaces `(?:aax|bbx)` with `(?:aa|bb)x`
- - PromoteSingleStrings replaces `(?:ab)` with `ab`
- - Recurse runs all passes on each alternation in each string
+ - **CoalesceOptionalStrings** replaces `(?:ab?|b)?` with `a?b?`
+ - **CoalesceSingleCharacterPrefix** replaces `(?:ab|bb|c)` with `(?:[ab]b|c)`
+ - **GroupSingleCharacters** replaces `(?:aa|b|cc|d)` with `(?:[bd]|aa|cc)`
+ - **MergePrefix** replaces `(?:axx|ayy)` with `a(?:xx|yy)`
+ - **MergeSuffix** replaces `(?:aax|bbx)` with `(?:aa|bb)x`
+ - **PromoteSingleStrings** replaces `(?:ab)` with `ab`
+ - **Recurse** runs all passes on each alternation in each string
