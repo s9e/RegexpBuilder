@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
+use function chr, sprintf;
+
 abstract class PrintableAscii extends BaseImplementation
 {
 	/**

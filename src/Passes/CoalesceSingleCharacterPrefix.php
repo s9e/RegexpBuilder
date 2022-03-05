@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use function array_merge, array_slice, count, is_array, serialize;
+
 /**
 * Replaces (?:ab|bb|c) with (?:[ab]b|c)
 */

@@ -7,6 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use function array_map, is_array;
 use s9e\RegexpBuilder\Runner;
 
 /**

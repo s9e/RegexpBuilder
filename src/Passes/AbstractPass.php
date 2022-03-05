@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use const false, true;
+use function array_shift, array_unshift, count, end, is_array;
+
 abstract class AbstractPass implements PassInterface
 {
 	/**

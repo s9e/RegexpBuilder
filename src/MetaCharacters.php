@@ -8,6 +8,7 @@
 namespace s9e\RegexpBuilder;
 
 use InvalidArgumentException;
+use function count, preg_match;
 use s9e\RegexpBuilder\Input\InputInterface;
 
 class MetaCharacters

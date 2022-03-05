@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use const false, true;
+use function array_slice, count;
+
 /**
 * Replaces (?:axx|ayy) with a(?:xx|yy)
 */

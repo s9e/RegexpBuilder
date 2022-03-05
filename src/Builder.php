@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder;
 
+use const SORT_STRING;
+use function array_map, array_unique, sort;
 use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Output\OutputInterface;
 use s9e\RegexpBuilder\Passes\CoalesceOptionalStrings;

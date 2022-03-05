@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder\Input;
 
+use function array_map, str_split;
+
 class Bytes extends BaseImplementation
 {
 	/**

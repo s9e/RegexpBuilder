@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use const false;
+use function array_diff_key, array_pop, array_unshift, count, end, is_array, serialize, unserialize;
+
 /**
 * Replaces (?:ab?|b)? with a?b?
 */

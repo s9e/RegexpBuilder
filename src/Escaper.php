@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder;
 
+use function str_split;
+
 class Escaper
 {
 	/**

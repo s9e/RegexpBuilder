@@ -8,6 +8,7 @@
 namespace s9e\RegexpBuilder\Input;
 
 use InvalidArgumentException;
+use function array_map, ord, preg_match_all;
 
 class Utf8 extends BaseImplementation
 {

@@ -7,6 +7,9 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use const false, true;
+use function array_filter, array_pop, array_unshift, count, end;
+
 /**
 * Replaces (?:aax|bbx) with (?:aa|bb)x
 */

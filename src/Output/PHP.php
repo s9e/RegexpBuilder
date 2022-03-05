@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
+use function sprintf;
+
 class PHP extends PrintableAscii
 {
 	/** {@inheritdoc} */
