@@ -304,6 +304,26 @@ class ValidationTest extends TestCase
 					'JZWV', 'J0ZWV', 'J1ZWV', 'J2ZWV', 'J3ZWV', 'J4ZWV'
 				]
 			],
+			[
+				// Pressure the CoalesceOptionalStrings pass with 2^10 strings
+				'0?1?2?3?4?5?6?7?8?9?',
+				array_map(
+					function ($n)
+					{
+						$str = '';
+						for ($i = 0; $i < 10; ++$i)
+						{
+							if ($n & (2 ** $i))
+							{
+								$str .= (string) $i;
+							}
+						}
+
+						return $str;
+					},
+					range(0, 2 ** 10)
+				)
+			],
 		];
 	}
 }
