@@ -324,6 +324,11 @@ class ValidationTest extends TestCase
 					range(0, 2 ** 10)
 				)
 			],
+			[
+				// Ensure that strings are sorted lexicographically, not in "natural" sort order
+				'8?9?a?',
+				['', '8', '9', '89', 'a', '8a', '9a', '89a']
+			],
 		];
 	}
 }

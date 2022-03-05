@@ -68,7 +68,7 @@ class Builder
 	public function build(array $strings): string
 	{
 		$strings = array_unique($strings);
-		sort($strings);
+		sort($strings, SORT_STRING);
 		if ($this->isEmpty($strings))
 		{
 			return '';
