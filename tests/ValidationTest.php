@@ -329,6 +329,13 @@ class ValidationTest extends TestCase
 				'8?9?a?',
 				['', '8', '9', '89', 'a', '8a', '9a', '89a']
 			],
+			[
+				// CoalesceSingleCharacterPrefix should ignore expressions that do not represent a
+				// single character
+				'(?:[\\dab]x|\\bx|\\d+x|zz)',
+				['ax', 'bx', '?x', '*x', '#x', 'zz'],
+				['meta' => ['*' => '\\d+', '#' => '\\b', '?' => '\\d']]
+			],
 		];
 	}
 }
