@@ -8,7 +8,7 @@
 namespace s9e\RegexpBuilder\Passes;
 
 use const false, true;
-use function array_slice, count;
+use function array_slice, end;
 
 /**
 * Replaces (?:axx|ayy) with a(?:xx|yy)
@@ -27,24 +27,6 @@ class MergePrefix extends AbstractPass
 		}
 
 		return $newStrings;
-	}
-
-	/**
-	* Get the number of leading elements common to all given strings
-	*
-	* @param  array[] $strings
-	* @return integer
-	*/
-	protected function getPrefixLength(array $strings): int
-	{
-		$len = 1;
-		$cnt = count($strings[0]);
-		while ($len < $cnt && $this->stringsMatch($strings, $len))
-		{
-			++$len;
-		}
-
-		return $len;
 	}
 
 	/**
@@ -74,34 +56,23 @@ class MergePrefix extends AbstractPass
 	*/
 	protected function mergeStrings(array $strings): array
 	{
-		$len       = $this->getPrefixLength($strings);
-		$newString = array_slice($strings[0], 0, $len);
+		// Compare the first string of the list to the last and find how many elements they have in
+		// common. We can skip the strings in between as long as they remain sorted in lexicographic
+		// order
+		$first  = $strings[0];
+		$last   = end($strings);
+		$offset = 1;
+		while (isset($first[$offset]) && $first[$offset] === $last[$offset])
+		{
+			++$offset;
+		}
+
+		$newString = array_slice($first, 0, $offset);
 		foreach ($strings as $string)
 		{
-			$newString[$len][] = array_slice($string, $len);
+			$newString[$offset][] = array_slice($string, $offset);
 		}
 
 		return $newString;
-	}
-
-	/**
-	* Test whether all given strings' elements match at given position
-	*
-	* @param  array[] $strings
-	* @param  integer $pos
-	* @return bool
-	*/
-	protected function stringsMatch(array $strings, int $pos): bool
-	{
-		$value = $strings[0][$pos];
-		foreach ($strings as $string)
-		{
-			if (!isset($string[$pos]) || $string[$pos] !== $value)
-			{
-				return false;
-			}
-		}
-
-		return true;
 	}
 }
