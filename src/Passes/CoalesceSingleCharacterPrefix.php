@@ -50,7 +50,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 	protected function filterEligibleKeys(array $eligibleKeys): array
 	{
 		$filteredKeys = [];
-		foreach ($eligibleKeys as $k => $keys)
+		foreach ($eligibleKeys as $keys)
 		{
 			if (count($keys) > 1)
 			{
