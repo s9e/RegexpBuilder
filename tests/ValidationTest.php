@@ -40,7 +40,7 @@ class ValidationTest extends TestCase
 			],
 			[
 				// CoalesceSingleCharacterPrefix
-				'(?:[ab]b|c)',
+				'[ab]b|c',
 				['ab', 'bb', 'c']
 			],
 			[
@@ -130,7 +130,7 @@ class ValidationTest extends TestCase
 				['best', 'boost', 'bust']
 			],
 			[
-				'(?:b(?:oo)?st|cool)',
+				'b(?:oo)?st|cool',
 				['boost', 'bst', 'cool']
 			],
 			[
@@ -166,13 +166,13 @@ class ValidationTest extends TestCase
 				['axx', 'ayy', 'bbxx', 'bbyy']
 			],
 			[
-				'(?:a(?:xx|yy)|bb(?:xx|yy)|c)',
+				'a(?:xx|yy)|bb(?:xx|yy)|c',
 				['axx', 'ayy', 'bbxx', 'bbyy', 'c']
 			],
 			[
 				// Ensure it doesn't become (?:c|(?:a|bb)(?:xx|yy)|azz) even though it would be
 				// shorter, because having fewer alternations at the top level is more important
-				'(?:a(?:xx|yy|zz)|bb(?:xx|yy)|c)',
+				'a(?:xx|yy|zz)|bb(?:xx|yy)|c',
 				['axx', 'ayy', 'azz', 'bbxx', 'bbyy', 'c']
 			],
 			[
@@ -192,7 +192,7 @@ class ValidationTest extends TestCase
 				['ax', 'ay', 'bx', 'by']
 			],
 			[
-				'(?:[ab][xy]|c)',
+				'[ab][xy]|c',
 				['ax', 'ay', 'bx', 'by', 'c']
 			],
 			[
@@ -204,15 +204,15 @@ class ValidationTest extends TestCase
 				['03', '04', '13', '14', '3', '4']
 			],
 			[
-				'(?:a[xy]|bb[xy]|c)',
+				'a[xy]|bb[xy]|c',
 				['ax', 'ay', 'bbx', 'bby', 'c']
 			],
 			[
-				'(?:[ab][xy]|c|dd[xy])',
+				'[ab][xy]|c|dd[xy]',
 				['ax', 'ay', 'bx', 'by', 'c', 'ddx', 'ddy']
 			],
 			[
-				'(?:[ab][xy]|[cd][XY]|[ef]|gg)',
+				'[ab][xy]|[cd][XY]|[ef]|gg',
 				['ax', 'ay', 'bx', 'by', 'cX', 'cY', 'dX', 'dY', 'e', 'f', 'gg']
 			],
 			[
@@ -235,15 +235,15 @@ class ValidationTest extends TestCase
 				[]
 			],
 			[
-				'(?:[yz]|bar|foo)',
+				'[yz]|bar|foo',
 				['foo', 'bar', 'y', 'z']
 			],
 			[
-				'(?:[yz]|ba[rz]|foo)',
+				'[yz]|ba[rz]|foo',
 				['foo', 'bar', 'baz', 'y', 'z']
 			],
 			[
-				'(?:a(?:a(?:cc|dd))?|bb(?:cc|dd))',
+				'a(?:a(?:cc|dd))?|bb(?:cc|dd)',
 				['a', 'aacc', 'aadd', 'bbcc', 'bbdd']
 			],
 			[
@@ -259,7 +259,7 @@ class ValidationTest extends TestCase
 				]
 			],
 			[
-				'(?:[1-7][0-7]?|0)',
+				'[1-7][0-7]?|0',
 				array_map('decoct', range(0, 63))
 			],
 			[
@@ -279,7 +279,7 @@ class ValidationTest extends TestCase
 				]
 			],
 			[
-				'(?:12?3?|23?|3)',
+				'12?3?|23?|3',
 				['1', '12', '123', '13', '2', '23', '3']
 			],
 			[
@@ -332,7 +332,7 @@ class ValidationTest extends TestCase
 			[
 				// CoalesceSingleCharacterPrefix should ignore expressions that do not represent a
 				// single character
-				'(?:[\\dab]x|\\bx|\\d+x|zz)',
+				'[\\dab]x|\\bx|\\d+x|zz',
 				['ax', 'bx', '?x', '*x', '#x', 'zz'],
 				['meta' => ['*' => '\\d+', '#' => '\\b', '?' => '\\d']]
 			],

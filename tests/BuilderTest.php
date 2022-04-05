@@ -10,6 +10,15 @@ use s9e\RegexpBuilder\Builder;
 */
 class BuilderTest extends TestCase
 {
+	public function testStandalone()
+	{
+		$builder = new Builder;
+		$this->assertEquals('bar|foo', $builder->build(['foo', 'bar']));
+
+		$builder->standalone = false;
+		$this->assertEquals('(?:bar|foo)', $builder->build(['foo', 'bar']));
+	}
+
 	/**
 	* @dataProvider getBuilderTests
 	*/
@@ -31,7 +40,7 @@ class BuilderTest extends TestCase
 					'foo',
 					'bar'
 				],
-				'(?:bar|foo)'
+				'bar|foo'
 			],
 			[
 				[
@@ -39,7 +48,7 @@ class BuilderTest extends TestCase
 					'fool',
 					'bar'
 				],
-				'(?:bar|fool?)'
+				'bar|fool?'
 			],
 			[
 				[
@@ -91,7 +100,7 @@ class BuilderTest extends TestCase
 					"\xEF\xA4\x80\xEF\xA4\x80",
 					"\xF0\x9F\x98\x80\xF0\x9F\x98\x80"
 				],
-				'(?:\\x{D7FB}\\x{D7FB}|\\x{F900}\\x{F900}|\\x{1F600}\\x{1F600})',
+				'\\x{D7FB}\\x{D7FB}|\\x{F900}\\x{F900}|\\x{1F600}\\x{1F600}',
 				['input' => 'Utf8', 'output' => 'PHP']
 			],
 			[
@@ -100,7 +109,7 @@ class BuilderTest extends TestCase
 					"\xEF\xA4\x80\xEF\xA4\x80",
 					"\xF0\x9F\x98\x80"
 				],
-				'(?:\\uD7FB\\uD7FB|\\uF900\\uF900|\\uD83D\\uDE00)',
+				'\\uD7FB\\uD7FB|\\uF900\\uF900|\\uD83D\\uDE00',
 				[
 					'input'        => 'Utf8',
 					'inputOptions' => ['useSurrogates' => true],
@@ -129,7 +138,7 @@ class BuilderTest extends TestCase
 			],
 			[
 				["\n", '.'],
-				'(?:\\n|.)',
+				'\\n|.',
 				['meta' => ['.' => '.'], 'output' => 'PHP']
 			],
 			[

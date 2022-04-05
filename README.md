@@ -1,6 +1,6 @@
 s9e\RegexpBuilder is a single-purpose library that generates a regular expression that matches a given list of strings. It is best suited for efficiently finding a list of literals inside of a text.
 
-Simply put, given `['foo', 'bar', 'baz']` as input, the library will generate `(?:ba[rz]|foo)`, a regular expression that can match any of the strings `foo`, `bar`, or `baz`.
+Simply put, given `['foo', 'bar', 'baz']` as input, the library will generate `ba[rz]|foo`, a regular expression that can match any of the strings `foo`, `bar`, or `baz`.
 
 [![Build status](https://github.com/s9e/RegexpBuilder/actions/workflows/build.yml/badge.svg)](https://github.com/s9e/RegexpBuilder/actions/workflows/build.yml)
 [![Code Coverage](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/s9e/RegexpBuilder/?branch=master)
@@ -14,7 +14,7 @@ $builder = new s9e\RegexpBuilder\Builder;
 echo '/', $builder->build(['foo', 'bar', 'baz']), '/';
 ```
 ```
-/(?:ba[rz]|foo)/
+/ba[rz]|foo/
 ```
 
 
@@ -181,7 +181,7 @@ $builder = new s9e\RegexpBuilder\Builder([
 echo '/', $builder->build(['foo?', 'bar*']), '/';
 ```
 ```
-/(?:bar.*|foo.)/
+/bar.*|foo./
 ```
 
 In the following example, we map `X` to `\d`. Note that sequences produced by meta-characters may appear in character classes if the result is valid.

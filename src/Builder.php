@@ -42,6 +42,12 @@ class Builder
 	public Serializer $serializer;
 
 	/**
+	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
+	*           will be put into a non-capturing group
+	*/
+	public bool $standalone = true;
+
+	/**
 	* @param array $config
 	*/
 	public function __construct(array $config = [])
@@ -80,7 +86,7 @@ class Builder
 		$strings = $this->meta->replaceMeta($strings);
 		$strings = $this->runner->run($strings);
 
-		return $this->serializer->serializeStrings($strings);
+		return $this->serializer->serializeStrings($strings, !$this->standalone);
 	}
 
 	/**
