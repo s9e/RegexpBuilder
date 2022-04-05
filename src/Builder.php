@@ -24,22 +24,22 @@ class Builder
 	/**
 	* @var InputInterface
 	*/
-	protected $input;
+	public InputInterface $input;
 
 	/**
 	* @var MetaCharacters
 	*/
-	protected $meta;
+	public MetaCharacters $meta;
 
 	/**
 	* @var Runner
 	*/
-	protected $runner;
+	public Runner $runner;
 
 	/**
 	* @var Serializer
 	*/
-	protected $serializer;
+	public Serializer $serializer;
 
 	/**
 	* @param array $config

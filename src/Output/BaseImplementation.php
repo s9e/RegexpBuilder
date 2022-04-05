@@ -12,14 +12,14 @@ use InvalidArgumentException;
 abstract class BaseImplementation implements OutputInterface
 {
 	/**
-	* @var integer
+	* @var integer Upper limit for valid values
 	*/
-	protected $maxValue = 0;
+	protected int $maxValue = 0;
 
 	/**
-	* @var integer
+	* @var integer Lower limit for valid values
 	*/
-	protected $minValue = 0;
+	protected int $minValue = 0;
 
 	/**
 	* @param array $options

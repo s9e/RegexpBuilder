@@ -15,7 +15,7 @@ abstract class AbstractPass implements PassInterface
 	/**
 	* @var bool Whether the current set of strings is optional
 	*/
-	protected $isOptional;
+	protected bool $isOptional;
 
 	/**
 	* {@inheritdoc}

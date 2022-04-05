@@ -14,12 +14,12 @@ class Escaper
 	/**
 	* @var array<string> Characters to escape in a character class
 	*/
-	public $inCharacterClass = ['-' => '\\-', '\\' => '\\\\', ']' => '\\]', '^' => '\\^'];
+	public array $inCharacterClass = ['-' => '\\-', '\\' => '\\\\', ']' => '\\]', '^' => '\\^'];
 
 	/**
 	* @var array<string> Characters to escape outside of a character class
 	*/
-	public $inLiteral = [
+	public array $inLiteral = [
 		'$'  => '\\$',  '(' => '\\(', ')' => '\\)', '*' => '\\*',
 		'+'  => '\\+',  '.' => '\\.', '?' => '\\?', '[' => '\\[',
 		'\\' => '\\\\', '^' => '\\^', '{' => '\\{', '|' => '\\|'

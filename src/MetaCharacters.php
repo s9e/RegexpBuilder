@@ -17,27 +17,27 @@ class MetaCharacters
 	* @const Bit value that indicates whether a meta-character represents a single character usable
 	*        in a character class
 	*/
-	const IS_CHAR = 1;
+	protected const IS_CHAR = 1;
 
 	/**
 	* @const Bit value that indicates whether a meta-character represents a quantifiable expression
 	*/
-	const IS_QUANTIFIABLE = 2;
+	protected const IS_QUANTIFIABLE = 2;
 
 	/**
 	* @var array Map of meta values and the expression they represent
 	*/
-	protected $exprs = [];
+	protected array $exprs = [];
 
 	/**
 	* @var InputInterface
 	*/
-	protected $input;
+	protected InputInterface $input;
 
 	/**
 	* @var array Map of meta-characters' codepoints and their value
 	*/
-	protected $meta = [];
+	protected array $meta = [];
 
 	/**
 	* @param InputInterface $input

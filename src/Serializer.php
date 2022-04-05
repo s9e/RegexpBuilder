@@ -16,17 +16,17 @@ class Serializer
 	/**
 	* @var Escaper
 	*/
-	protected $escaper;
+	protected Escaper $escaper;
 
 	/**
 	* @var MetaCharacters
 	*/
-	protected $meta;
+	protected MetaCharacters $meta;
 
 	/**
 	* @var OutputInterface
 	*/
-	protected $output;
+	protected OutputInterface $output;
 
 	/**
 	* @param OutputInterface $output

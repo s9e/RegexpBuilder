@@ -14,7 +14,7 @@ abstract class PrintableAscii extends BaseImplementation
 	/**
 	* @var string 'x' for lowercase hexadecimal symbols, 'X' for uppercase
 	*/
-	protected $hexCase;
+	protected string $hexCase;
 
 	/**
 	* {@inheritdoc}

@@ -14,7 +14,7 @@ class Runner
 	/**
 	* @var PassInterface[]
 	*/
-	protected $passes = [];
+	protected array $passes = [];
 
 	/**
 	* Add a pass to the list

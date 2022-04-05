@@ -13,7 +13,7 @@ use function chr, sprintf;
 class Utf8 extends BaseImplementation
 {
 	/** {@inheritdoc} */
-	protected $maxValue = 0x10FFFF;
+	protected int $maxValue = 0x10FFFF;
 
 	/**
 	* {@inheritdoc}

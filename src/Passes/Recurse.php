@@ -18,7 +18,7 @@ class Recurse extends AbstractPass
 	/**
 	* @var Runner
 	*/
-	protected $runner;
+	protected Runner $runner;
 
 	/**
 	* @param Runner $runner

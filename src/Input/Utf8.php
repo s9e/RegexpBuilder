@@ -15,7 +15,7 @@ class Utf8 extends BaseImplementation
 	/**
 	* @var bool Whether to use surrogates to represent higher codepoints
 	*/
-	protected $useSurrogates;
+	public bool $useSurrogates = false;
 
 	/**
 	* {@inheritdoc}

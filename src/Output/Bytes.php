@@ -12,7 +12,7 @@ use function chr;
 class Bytes extends BaseImplementation
 {
 	/** {@inheritdoc} */
-	protected $maxValue = 255;
+	protected int $maxValue = 255;
 
 	/**
 	* {@inheritdoc}

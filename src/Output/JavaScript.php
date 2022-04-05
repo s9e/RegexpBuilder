@@ -12,7 +12,7 @@ use function sprintf;
 class JavaScript extends PrintableAscii
 {
 	/** {@inheritdoc} */
-	protected $maxValue = 0x10FFFF;
+	protected int $maxValue = 0x10FFFF;
 
 	/**
 	* {@inheritdoc}
