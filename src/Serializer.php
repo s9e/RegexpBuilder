@@ -44,9 +44,10 @@ class Serializer
 	* Serialize given strings into a regular expression
 	*
 	* @param  array[] $strings
+	* @param  bool    $groupAlternations Whether alternations should be parenthesized into a group
 	* @return string
 	*/
-	public function serializeStrings(array $strings): string
+	public function serializeStrings(array $strings, bool $groupAlternations = true): string
 	{
 		$info         = $this->analyzeStrings($strings);
 		$alternations = array_map([$this, 'serializeString'], $info['strings']);
@@ -57,7 +58,7 @@ class Serializer
 		}
 
 		$expr = implode('|', $alternations);
-		if ($this->needsParentheses($info))
+		if ($this->needsParentheses($info, $groupAlternations))
 		{
 			$expr = '(?:' . $expr . ')';
 		}
@@ -189,11 +190,13 @@ class Serializer
 	* Test whether an expression needs parentheses based on the strings info
 	*
 	* @param  array $info
+	* @param  bool  $groupAlternations Whether alternations should be parenthesized into a group
 	* @return bool
 	*/
-	protected function needsParentheses(array $info): bool
+	protected function needsParentheses(array $info, bool $groupAlternations): bool
 	{
-		return ($info['alternationsCount'] > 1 || ($info['quantifier'] && !$this->isQuantifiable($info)));
+		return (($groupAlternations  && $info['alternationsCount'] > 1)
+		     || ($info['quantifier'] && !$this->isQuantifiable($info)));
 	}
 
 	/**

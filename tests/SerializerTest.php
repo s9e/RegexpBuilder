@@ -17,10 +17,16 @@ class SerializerTest extends TestCase
 	/**
 	* @dataProvider getSerializerTests
 	*/
-	public function test($original, $expected)
+	public function test($original, $expected, bool $groupAlternations = null)
 	{
+		$args = [$original];
+		if (isset($groupAlternations))
+		{
+			$args[] = $groupAlternations;
+		}
+
 		$serializer = new Serializer(new Output, new MetaCharacters(new Input), new Escaper);
-		$this->assertSame($expected, $serializer->serializeStrings($original, false));
+		$this->assertSame($expected, $serializer->serializeStrings(...$args));
 	}
 
 	public function getSerializerTests()
@@ -129,6 +135,31 @@ class SerializerTest extends TestCase
 					[101]
 				],
 				'[a-e]'
+			],
+			[
+				[
+					[97, 97],
+					[98, 98]
+				],
+				'(?:aa|bb)',
+				true
+			],
+			[
+				[
+					[97, 97],
+					[98, 98]
+				],
+				'aa|bb',
+				false
+			],
+			[
+				[
+					[],
+					[97, 97],
+					[98, 98]
+				],
+				'(?:aa|bb)?',
+				false
 			],
 		];
 	}
