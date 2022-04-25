@@ -242,7 +242,7 @@ class Serializer
 	* @param  array|int $element
 	* @return string
 	*/
-	protected function serializeElement($element): string
+	protected function serializeElement(array|int $element): string
 	{
 		return (is_array($element)) ? $this->serializeStrings($element) : $this->serializeLiteral($element);
 	}
