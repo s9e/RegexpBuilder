@@ -12,7 +12,7 @@ interface OutputInterface
 	/**
 	* Serialize a value into a character
 	*
-	* @param  integer $value
+	* @param  int    $value
 	* @return string
 	*/
 	public function output(int $value): string;

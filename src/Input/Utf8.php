@@ -42,7 +42,7 @@ class Utf8 extends BaseImplementation
 	* Convert a list of UTF-8 characters into a list of Unicode codepoint
 	*
 	* @param  string[]  $chars
-	* @return integer[]
+	* @return int[]
 	*/
 	protected function charsToCodepoints(array $chars): array
 	{
@@ -53,7 +53,7 @@ class Utf8 extends BaseImplementation
 	* Convert a list of UTF-8 characters into a list of Unicode codepoint with surrogates
 	*
 	* @param  string[]  $chars
-	* @return integer[]
+	* @return int[]
 	*/
 	protected function charsToCodepointsWithSurrogates(array $chars): array
 	{
@@ -79,7 +79,7 @@ class Utf8 extends BaseImplementation
 	* Compute and return the Unicode codepoint for given UTF-8 char
 	*
 	* @param  string  $char UTF-8 char
-	* @return integer
+	* @return int
 	*/
 	protected function cp(string $char): int
 	{

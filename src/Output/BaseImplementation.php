@@ -12,12 +12,12 @@ use InvalidArgumentException;
 abstract class BaseImplementation implements OutputInterface
 {
 	/**
-	* @var integer Upper limit for valid values
+	* @var int Upper limit for valid values
 	*/
 	protected int $maxValue = 0;
 
 	/**
-	* @var integer Lower limit for valid values
+	* @var int Lower limit for valid values
 	*/
 	protected int $minValue = 0;
 
@@ -41,7 +41,7 @@ abstract class BaseImplementation implements OutputInterface
 	/**
 	* Validate given value
 	*
-	* @param  integer $value
+	* @param  int  $value
 	* @return void
 	*/
 	protected function validate(int $value): void
@@ -55,7 +55,7 @@ abstract class BaseImplementation implements OutputInterface
 	/**
 	* Serialize a valid value into a character
 	*
-	* @param  integer $value
+	* @param  int    $value
 	* @return string
 	*/
 	abstract protected function outputValidValue(int $value): string;

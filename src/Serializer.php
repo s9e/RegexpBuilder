@@ -124,8 +124,8 @@ class Serializer
 	/**
 	* Get the list of ranges that cover all given values
 	*
-	* @param  integer[] $values Ordered list of values
-	* @return array[]           List of ranges in the form [start, end]
+	* @param  int[]   $values Ordered list of values
+	* @return array[]         List of ranges in the form [start, end]
 	*/
 	protected function getRanges(array $values): array
 	{
@@ -202,7 +202,7 @@ class Serializer
 	/**
 	* Serialize a given list of values into a character class
 	*
-	* @param  integer[] $values
+	* @param  int[]  $values
 	* @return string
 	*/
 	protected function serializeCharacterClass(array $values): string
@@ -228,7 +228,7 @@ class Serializer
 	/**
 	* Serialize a given value to be used in a character class
 	*
-	* @param  integer $value
+	* @param  int    $value
 	* @return string
 	*/
 	protected function serializeCharacterClassUnit(int $value): string
@@ -239,7 +239,7 @@ class Serializer
 	/**
 	* Serialize an element from a string
 	*
-	* @param  array|integer $element
+	* @param  array|int $element
 	* @return string
 	*/
 	protected function serializeElement($element): string
@@ -250,7 +250,7 @@ class Serializer
 	/**
 	* Serialize a given value to be used as a literal
 	*
-	* @param  integer $value
+	* @param  int    $value
 	* @return string
 	*/
 	protected function serializeLiteral(int $value): string
@@ -272,8 +272,8 @@ class Serializer
 	/**
 	* Serialize a given value
 	*
-	* @param  integer $value
-	* @param  string  $escapeMethod
+	* @param  int    $value
+	* @param  string $escapeMethod
 	* @return string
 	*/
 	protected function serializeValue(int $value, string $escapeMethod): string

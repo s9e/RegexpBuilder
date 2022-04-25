@@ -76,7 +76,7 @@ class MetaCharacters
 	/**
 	* Get the expression associated with a meta value
 	*
-	* @param  integer $metaValue
+	* @param  int    $metaValue
 	* @return string
 	*/
 	public function getExpression(int $metaValue): string
@@ -92,7 +92,7 @@ class MetaCharacters
 	/**
 	* Return whether a given value represents a single character usable in a character class
 	*
-	* @param  integer $value
+	* @param  int  $value
 	* @return bool
 	*/
 	public static function isChar(int $value): bool
@@ -103,7 +103,7 @@ class MetaCharacters
 	/**
 	* Return whether a given value represents a quantifiable expression
 	*
-	* @param  integer $value
+	* @param  int  $value
 	* @return bool
 	*/
 	public static function isQuantifiable(int $value): bool
@@ -140,7 +140,7 @@ class MetaCharacters
 	* store the expression's properties
 	*
 	* @param  string  $expr Regular expression
-	* @return integer
+	* @return int
 	*/
 	protected function computeValue(string $expr): int
 	{

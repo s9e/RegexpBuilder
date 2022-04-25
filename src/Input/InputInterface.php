@@ -18,7 +18,7 @@ interface InputInterface
 	* Split given string into a list of values
 	*
 	* @param  string    $string
-	* @return integer[]
+	* @return int[]
 	*/
 	public function split(string $string): array;
 }
