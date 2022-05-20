@@ -10,14 +10,9 @@ namespace s9e\RegexpBuilder\Input;
 interface InputInterface
 {
 	/**
-	* @param array $options
-	*/
-	public function __construct(array $options = []);
-
-	/**
 	* Split given string into a list of values
 	*
-	* @param  string    $string
+	* @param  string $string
 	* @return int[]
 	*/
 	public function split(string $string): array;

@@ -10,10 +10,14 @@ abstract class AbstractTest extends TestCase
 	/**
 	* @dataProvider getInputTests
 	*/
-	public function test($original, $expected, $inputOptions = [])
+	public function test($original, $expected, callable $setup = null)
 	{
 		$className = 's9e\\RegexpBuilder\\Input\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
-		$input = new $className($inputOptions);
+		$input = new $className;
+		if (isset($setup))
+		{
+			$setup($input);
+		}
 
 		if ($expected instanceof Exception)
 		{

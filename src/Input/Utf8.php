@@ -10,20 +10,12 @@ namespace s9e\RegexpBuilder\Input;
 use InvalidArgumentException;
 use function array_map, ord, preg_match_all;
 
-class Utf8 extends BaseImplementation
+class Utf8 implements InputInterface
 {
 	/**
 	* @var bool Whether to use surrogates to represent higher codepoints
 	*/
 	public bool $useSurrogates = false;
-
-	/**
-	* {@inheritdoc}
-	*/
-	public function __construct(array $options = [])
-	{
-		$this->useSurrogates = !empty($options['useSurrogates']);
-	}
 
 	/**
 	* {@inheritdoc}

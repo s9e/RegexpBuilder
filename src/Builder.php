@@ -110,7 +110,12 @@ class Builder
 	protected function setInput(string $inputType, array $inputOptions): void
 	{
 		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
-		$this->input = new $className($inputOptions);
+		$this->input = new $className;
+
+		foreach ($inputOptions as $k => $v)
+		{
+			$this->input->$k = $v;
+		}
 	}
 
 	/**

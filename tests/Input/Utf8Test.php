@@ -3,6 +3,7 @@
 namespace s9e\RegexpBuilder\Tests\Input;
 
 use InvalidArgumentException;
+use s9e\RegexpBuilder\Input\InputInterface;
 
 /**
 * @covers s9e\RegexpBuilder\Input\BaseImplementation
@@ -32,7 +33,10 @@ class Utf8Test extends AbstractTest
 			[
 				'Pokémon',
 				[80, 111, 107, 233, 109, 111, 110],
-				['useSurrogates' => true]
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = true;
+				}
 			],
 			[
 				' 🔆 ',
@@ -41,12 +45,18 @@ class Utf8Test extends AbstractTest
 			[
 				' 🔆 ',
 				[32, 0x1F506, 32],
-				['useSurrogates' => false]
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = false;
+				}
 			],
 			[
 				' 🔆 ',
 				[32, 55357, 56582, 32],
-				['useSurrogates' => true]
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = true;
+				}
 			],
 			[
 				'☺',
