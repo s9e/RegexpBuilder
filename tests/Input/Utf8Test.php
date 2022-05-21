@@ -6,7 +6,6 @@ use InvalidArgumentException;
 use s9e\RegexpBuilder\Input\InputInterface;
 
 /**
-* @covers s9e\RegexpBuilder\Input\BaseImplementation
 * @covers s9e\RegexpBuilder\Input\Utf8
 */
 class Utf8Test extends AbstractTest
