@@ -109,7 +109,7 @@ class BuilderTest extends TestCase
 					"\xEF\xA4\x80\xEF\xA4\x80",
 					"\xF0\x9F\x98\x80"
 				],
-				'\\uD7FB\\uD7FB|\\uF900\\uF900|\\uD83D\\uDE00',
+				'\\uD7FB\\uD7FB|\\uD83D\\uDE00|\\uF900\\uF900',
 				[
 					'input'        => 'Utf8',
 					'inputOptions' => ['useSurrogates' => true],

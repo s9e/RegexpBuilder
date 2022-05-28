@@ -7,8 +7,7 @@
 */
 namespace s9e\RegexpBuilder;
 
-use const SORT_STRING;
-use function array_map, array_unique, sort;
+use function array_map;
 use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Output\OutputInterface;
 use s9e\RegexpBuilder\Passes\CoalesceOptionalStrings;
@@ -42,6 +41,11 @@ class Builder
 	public Serializer $serializer;
 
 	/**
+	* @var StringSorter
+	*/
+	public StringSorter $stringSorter;
+
+	/**
 	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
 	*           will be put into a non-capturing group
 	*/
@@ -61,6 +65,8 @@ class Builder
 			'outputOptions' => []
 		];
 
+		$this->stringSorter = new StringSorter;
+
 		$this->setInput($config['input'], $config['inputOptions']);
 		$this->setMeta($config['meta']);
 		$this->setSerializer($config['output'], $config['outputOptions'], $config['delimiter']);
@@ -75,14 +81,13 @@ class Builder
 	*/
 	public function build(array $strings): string
 	{
-		$strings = array_unique($strings);
-		sort($strings, SORT_STRING);
+		$strings = $this->splitStrings($strings);
+		$strings = $this->stringSorter->getUniqueSortedStrings($strings);
 		if ($this->isEmpty($strings))
 		{
 			return '';
 		}
 
-		$strings = $this->splitStrings($strings);
 		$strings = $this->meta->replaceMeta($strings);
 		$strings = $this->runner->run($strings);
 
@@ -97,7 +102,7 @@ class Builder
 	*/
 	protected function isEmpty(array $strings): bool
 	{
-		return (empty($strings) || $strings === ['']);
+		return (empty($strings) || $strings === [[]]);
 	}
 
 	/**
