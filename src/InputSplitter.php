@@ -33,8 +33,8 @@ class InputSplitter
 	/**
 	* Split a list of strings into numeric values
 	*
-	* @param  array<string> $strings
-	* @return array
+	* @param  string[] $strings
+	* @return int[][]
 	*/
 	public function splitStrings(array $strings): array
 	{
@@ -46,6 +46,9 @@ class InputSplitter
 
 	/**
 	* Split given literal and add it to the list of values
+	*
+	* @param int[] &$return
+	* @param string $string
 	*/
 	protected function addLiteral(array &$return, string $string): void
 	{
@@ -87,7 +90,7 @@ class InputSplitter
 		$matches = [];
 		foreach ($m[0] as [$match, $matchPos])
 		{
-			$matches[$matchPos] = $match;
+			$matches[(int) $matchPos] = $match;
 		}
 
 		return $matches;
@@ -97,7 +100,7 @@ class InputSplitter
 	* Split given string into a list of values
 	*
 	* @param  string $string
-	* @return array<int, int>
+	* @return int[]
 	*/
 	protected function splitString(string $string): array
 	{
