@@ -14,8 +14,8 @@ class StringSorter
 	/**
 	* Deduplicate, sort, and return a given list of strings
 	*
-	* @param  array<int, array> $strings Original strings, passed as lists of values
-	* @return array<int, array>
+	* @param  array<int, int[]> $strings Original strings, passed as lists of values
+	* @return array<int, int[]>
 	*/
 	public function getUniqueSortedStrings(array $strings): array
 	{
@@ -37,8 +37,8 @@ class StringSorter
 	}
 
 	/**
-	* @param  array<int> $a
-	* @param  array<int> $b
+	* @param  int[] $a
+	* @param  int[] $b
 	* @return int
 	*/
 	protected function compareStrings(array $a, array $b): int
