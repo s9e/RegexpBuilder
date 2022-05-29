@@ -20,24 +20,9 @@ use s9e\RegexpBuilder\Passes\Recurse;
 
 class Builder
 {
-	/**
-	* @var InputInterface
-	*/
-	public InputInterface $input;
-
-	/**
-	* @var MetaCharacters
-	*/
-	public MetaCharacters $meta;
-
-	/**
-	* @var Runner
-	*/
+	public InputSplitter $inputSplitter;
+	public Meta $meta;
 	public Runner $runner;
-
-	/**
-	* @var Serializer
-	*/
 	public Serializer $serializer;
 
 	/**
@@ -67,8 +52,8 @@ class Builder
 
 		$this->stringSorter = new StringSorter;
 
-		$this->setInput($config['input'], $config['inputOptions']);
 		$this->setMeta($config['meta']);
+		$this->setInputSplitter($config['input'], $config['inputOptions']);
 		$this->setSerializer($config['output'], $config['outputOptions'], $config['delimiter']);
 		$this->setRunner();
 	}
@@ -81,14 +66,12 @@ class Builder
 	*/
 	public function build(array $strings): string
 	{
-		$strings = $this->splitStrings($strings);
+		$strings = $this->inputSplitter->splitStrings($strings);
 		$strings = $this->stringSorter->getUniqueSortedStrings($strings);
 		if ($this->isEmpty($strings))
 		{
 			return '';
 		}
-
-		$strings = $this->meta->replaceMeta($strings);
 		$strings = $this->runner->run($strings);
 
 		return $this->serializer->serializeStrings($strings, !$this->standalone);
@@ -106,35 +89,36 @@ class Builder
 	}
 
 	/**
-	* Set the InputInterface instance in $this->input
+	* Set the InputSplitter instance in $this->inputSplitter
 	*
 	* @param  string $inputType
 	* @param  array  $inputOptions
 	* @return void
 	*/
-	protected function setInput(string $inputType, array $inputOptions): void
+	protected function setInputSplitter(string $inputType, array $inputOptions): void
 	{
-		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
-		$this->input = new $className;
-
+		$className = __NAMESPACE__ . '\\Input\\' . $inputType;
+		$input     = new $className;
 		foreach ($inputOptions as $k => $v)
 		{
-			$this->input->$k = $v;
+			$input->$k = $v;
 		}
+
+		$this->inputSplitter = new InputSplitter($input, $this->meta);
 	}
 
 	/**
-	* Set the MetaCharacters instance in $this->meta
+	* Set the Meta instance in $this->meta
 	*
 	* @param  array $map
 	* @return void
 	*/
 	protected function setMeta(array $map): void
 	{
-		$this->meta = new MetaCharacters($this->input);
-		foreach ($map as $char => $expr)
+		$this->meta = new Meta;
+		foreach ($map as $sequence => $expression)
 		{
-			$this->meta->add($char, $expr);
+			$this->meta->set($sequence, $expression);
 		}
 	}
 
@@ -169,17 +153,6 @@ class Builder
 		$output    = new $className($outputOptions);
 		$escaper   = new Escaper($delimiter);
 
-		$this->serializer = new Serializer($output, $this->meta, $escaper);
-	}
-
-	/**
-	* Split all given strings by character
-	*
-	* @param  string[] $strings List of strings
-	* @return array[]           List of arrays
-	*/
-	protected function splitStrings(array $strings): array
-	{
-		return array_map([$this->input, 'split'], $strings);
+		$this->serializer = new Serializer($escaper, $this->meta, $output);
 	}
 }

@@ -8,85 +8,49 @@
 namespace s9e\RegexpBuilder;
 
 use InvalidArgumentException;
-use function count, preg_match;
-use s9e\RegexpBuilder\Input\InputInterface;
+use const false, true;
+use function array_search, count, ord, preg_last_error_msg, preg_match;
 
-class MetaCharacters
+class Meta
 {
 	/**
-	* @const Bit value that indicates whether a meta-character represents a single character usable
+	* @const Bit value that indicates whether a meta sequence represents a single character usable
 	*        in a character class
 	*/
-	protected const IS_CHAR = 1;
+	final protected const IS_CHAR = 1;
 
 	/**
-	* @const Bit value that indicates whether a meta-character represents a quantifiable expression
+	* @const Bit value that indicates whether a meta sequence represents a quantifiable expression
 	*/
-	protected const IS_QUANTIFIABLE = 2;
+	final protected const IS_QUANTIFIABLE = 2;
 
 	/**
-	* @var array Map of meta values and the expression they represent
+	* @var array<int|string, int> Map of meta sequences and their numeric values
 	*/
-	protected array $exprs = [];
+	protected array $inputMap = [];
 
 	/**
-	* @var InputInterface
+	* @var array<int, string> Map of meta values and the expressions they represent
 	*/
-	protected InputInterface $input;
+	protected array $outputMap = [];
 
 	/**
-	* @var array Map of meta-characters' codepoints and their value
-	*/
-	protected array $meta = [];
-
-	/**
-	* @param InputInterface $input
-	*/
-	public function __construct(InputInterface $input)
-	{
-		$this->input = $input;
-	}
-
-	/**
-	* Add a meta-character to the list
+	* Return the expression that matches given value
 	*
-	* @param  string $char Meta-character
-	* @param  string $expr Regular expression
-	* @return void
-	*/
-	public function add(string $char, string $expr): void
-	{
-		$split = $this->input->split($char);
-		if (count($split) !== 1)
-		{
-			throw new InvalidArgumentException('Meta-characters must be represented by exactly one character');
-		}
-		if (@preg_match('(' . $expr . ')u', '') === false)
-		{
-			throw new InvalidArgumentException("Invalid expression '" . $expr . "'");
-		}
-
-		$inputValue = $split[0];
-		$metaValue  = $this->computeValue($expr);
-
-		$this->exprs[$metaValue] = $expr;
-		$this->meta[$inputValue] = $metaValue;
-	}
-
-	/**
-	* Get the expression associated with a meta value
-	*
-	* @param  int    $metaValue
+	* @param  int $value
 	* @return string
 	*/
-	public function getExpression(int $metaValue): string
+	public function getExpression(int $value): string
 	{
-		if (!isset($this->exprs[$metaValue]))
-		{
-			throw new InvalidArgumentException('Invalid meta value ' . $metaValue);
-		}
+		return $this->outputMap[$value];
+	}
 
-		return $this->exprs[$metaValue];
+	/**
+	* @return array<int|string, int>
+	*/
+	public function getInputMap(): array
+	{
+		return $this->inputMap;
 	}
 
 	/**
@@ -112,25 +76,28 @@ class MetaCharacters
 	}
 
 	/**
-	* Replace values from meta-characters in a list of strings with their meta value
+	* Set a meta sequence
 	*
-	* @param  array[] $strings
-	* @return array[]
+	* @param  string $sequence   String used in the input
+	* @param  string $expression Regular expression used in the output
+	* @return void
 	*/
-	public function replaceMeta(array $strings): array
+	public function set(string $sequence, string $expression): void
 	{
-		foreach ($strings as &$string)
+		if (@preg_match('(' . $expression . ')u', '') === false)
 		{
-			foreach ($string as &$value)
-			{
-				if (isset($this->meta[$value]))
-				{
-					$value = $this->meta[$value];
-				}
-			}
+			throw new InvalidArgumentException("Invalid expression '" . $expression . "' (" . preg_last_error_msg() . ')');
 		}
 
-		return $strings;
+		// Map to the same value if possible, create a new one otherwise
+		$value = array_search($expression, $this->outputMap, true);
+		if ($value === false)
+		{
+			$value = $this->computeValue($expression);
+		}
+
+		$this->inputMap[$sequence] = $value;
+		$this->outputMap[$value]   = $expression;
 	}
 
 	/**
@@ -139,16 +106,22 @@ class MetaCharacters
 	* Values are meant to be a unique negative integer. The least significant bits are used to
 	* store the expression's properties
 	*
-	* @param  string  $expr Regular expression
+	* @param  string $expr Regular expression
 	* @return int
 	*/
 	protected function computeValue(string $expr): int
 	{
+		// If the expression is a single digit/letter or an escaped character, return its codepoint
+		if (preg_match('(^(?:[0-9A-Za-z]|\\\\[^0-9A-Za-z])$)D', $expr))
+		{
+			return ord($expr[-1]);
+		}
+
 		$properties = [
 			self::IS_CHAR         => 'exprIsChar',
 			self::IS_QUANTIFIABLE => 'exprIsQuantifiable'
 		];
-		$value = (1 + count($this->meta)) * -(2 ** count($properties));
+		$value = (1 + count($this->outputMap)) * -(2 ** count($properties));
 		foreach ($properties as $bitValue => $methodName)
 		{
 			if ($this->$methodName($expr))
@@ -204,8 +177,8 @@ class MetaCharacters
 	/**
 	* Test whether given expression matches any of the given regexps
 	*
-	* @param  string   $expr
-	* @param  string[] $regexps
+	* @param  string             $expr
+	* @param  array<int, string> $regexps
 	* @return bool
 	*/
 	protected function matchesAny(string $expr, array $regexps): bool

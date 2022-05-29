@@ -128,7 +128,7 @@ class BuilderTest extends TestCase
 			],
 			[
 				['x?', 'xa', 'xb'],
-				'x[\\dab]',
+				'x[ab\\d]',
 				['meta' => ['?' => '\\d']]
 			],
 			[

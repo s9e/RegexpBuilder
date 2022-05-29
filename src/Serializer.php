@@ -8,36 +8,16 @@
 namespace s9e\RegexpBuilder;
 
 use function array_diff_key, array_map, array_unshift, array_values, count, implode, is_array, is_int;
-use s9e\RegexpBuilder\MetaCharacters;
 use s9e\RegexpBuilder\Output\OutputInterface;
 
 class Serializer
 {
-	/**
-	* @var Escaper
-	*/
-	protected Escaper $escaper;
-
-	/**
-	* @var MetaCharacters
-	*/
-	protected MetaCharacters $meta;
-
-	/**
-	* @var OutputInterface
-	*/
-	protected OutputInterface $output;
-
-	/**
-	* @param OutputInterface $output
-	* @parm  MetaCharacters  $meta
-	* @param Escaper         $escaper
-	*/
-	public function __construct(OutputInterface $output, MetaCharacters $meta, Escaper $escaper)
+	public function __construct(
+		protected Escaper $escaper,
+		protected Meta $meta,
+		protected OutputInterface $output
+	)
 	{
-		$this->escaper = $escaper;
-		$this->meta    = $meta;
-		$this->output  = $output;
 	}
 
 	/**
@@ -159,7 +139,7 @@ class Serializer
 	*/
 	protected function isChar(array $string): bool
 	{
-		return count($string) === 1 && is_int($string[0]) && MetaCharacters::isChar($string[0]);
+		return count($string) === 1 && is_int($string[0]) && $this->meta::isChar($string[0]);
 	}
 
 	/**
@@ -183,7 +163,7 @@ class Serializer
 	*/
 	protected function isSingleQuantifiableString(array $strings): bool
 	{
-		return count($strings) === 1 && count($strings[0]) === 1 && MetaCharacters::isQuantifiable($strings[0][0]);
+		return count($strings) === 1 && count($strings[0]) === 1 && $this->meta::isQuantifiable($strings[0][0]);
 	}
 
 	/**

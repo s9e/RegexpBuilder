@@ -163,12 +163,9 @@ echo '/', $builder->build(['☺', '☹']), '/';
 ```
 
 
-### Using meta-characters
+### Using meta sequences
 
-Some individual characters can be used to represent arbitrary expressions in the input strings. The requirements are that:
-
- 1. Only single characters (as per the input encoding) can be used. For example, `?` is allowed but not `??`.
- 2. The regular expression must be valid on its own. For example, `.*` is valid but not `+`.
+User-defined sequences can be used to represent arbitrary expressions in the input strings. The sequence can be composed of one or more characters. The expression it represents must be valid on its own. For example, `.*` is valid but not `+`.
 
 In the following example, we emulate Bash-style jokers by mapping `?` to `.` and `*` to `.*`.
 
@@ -182,14 +179,14 @@ echo '/', $builder->build(['foo?', 'bar*']), '/';
 /bar.*|foo./
 ```
 
-In the following example, we map `X` to `\d`. Note that sequences produced by meta-characters may appear in character classes if the result is valid.
+In the following example, we map `\d` to `\d` to emulate the escape sequence of a regular expression. Note that they do not have to be identical and we may choose to map `*` to `\d` or `\d` to `[0-9]` instead.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
-	'meta' => ['X' => '\\d']
+	'meta' => ['\\d' => '\\d']
 ]);
-echo '/', $builder->build(['a', 'b', 'X']), '/';
+echo '/', $builder->build(['a', 'b', '\\d']), '/';
 ```
 ```
-/[\dab]/
+/[ab\d]/
 ```

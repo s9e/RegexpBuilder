@@ -332,9 +332,14 @@ class ValidationTest extends TestCase
 			[
 				// CoalesceSingleCharacterPrefix should ignore expressions that do not represent a
 				// single character
-				'[\\dab]x|\\bx|\\d+x|zz',
+				'[ab\\d]x|zz|\\d+x|\\bx',
 				['ax', 'bx', '?x', '*x', '#x', 'zz'],
 				['meta' => ['*' => '\\d+', '#' => '\\b', '?' => '\\d']]
+			],
+			[
+				'[!#$*1]|.*?',
+				['!', '#', '$', '\\*', '*', '1'],
+				['meta' => ['*' => '.*?', '\\*' => '\\*']]
 			],
 		];
 	}

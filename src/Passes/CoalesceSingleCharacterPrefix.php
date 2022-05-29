@@ -8,7 +8,7 @@
 namespace s9e\RegexpBuilder\Passes;
 
 use function array_merge, array_slice, count, is_int, serialize;
-use s9e\RegexpBuilder\MetaCharacters;
+use s9e\RegexpBuilder\Meta;
 
 /**
 * Replaces (?:ab|bb|c) with (?:[ab]b|c)
@@ -72,7 +72,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 		$eligibleKeys = [];
 		foreach ($strings as $k => $string)
 		{
-			if (is_int($string[0]) && isset($string[1]) && MetaCharacters::isChar($string[0]))
+			if (is_int($string[0]) && isset($string[1]) && Meta::isChar($string[0]))
 			{
 				$suffix = serialize(array_slice($string, 1));
 				$eligibleKeys[$suffix][] = $k;
