@@ -97,7 +97,7 @@ class Builder
 	/**
 	* Test whether the list of strings is empty
 	*
-	* @param  string[] $strings
+	* @param  array<array> $strings
 	* @return bool
 	*/
 	protected function isEmpty(array $strings): bool
