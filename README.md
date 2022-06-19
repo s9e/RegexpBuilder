@@ -1,14 +1,26 @@
-s9e\RegexpBuilder is a single-purpose library that generates a regular expression that matches a given list of strings. It is best suited for efficiently finding a list of literals inside of a text.
+s9e\RegexpBuilder is a library that generates a regular expression that matches a given list of strings. It is best suited for efficiently finding a list of keywords inside of a text.
 
-Simply put, given `['foo', 'bar', 'baz']` as input, the library will generate `ba[rz]|foo`, a regular expression that can match any of the strings `foo`, `bar`, or `baz`.
+In practical terms, given `['foo', 'bar', 'baz']` as input, the library will generate `ba[rz]|foo`, a regular expression that can match any of the strings `foo`, `bar`, or `baz`. It can generate regular expressions for different regexp engines used in various programming languages such as PHP, JavaScript, and others.
 
 [![Build status](https://github.com/s9e/RegexpBuilder/actions/workflows/build.yml/badge.svg)](https://github.com/s9e/RegexpBuilder/actions/workflows/build.yml)
 
 
+## Installation
+
+Add `s9e/regexp-builder` to your Composer dependencies.
+
+```bash
+composer require s9e/regexp-builder
+```
+
+
 ## Usage
 
+The simplest way to use the library is to obtain a `Builder` instance from one of the existing factories. The builder's `build()` method accepts a list of strings as input and returns a regular expression that matches them.
+
 ```php
-$builder = new s9e\RegexpBuilder\Builder;
+// Use the PHP factory to generate a PHP regexp
+$builder = s9e\RegexpBuilder\Factory\PHP::getBuilder();
 echo '/', $builder->build(['foo', 'bar', 'baz']), '/';
 ```
 ```
@@ -16,7 +28,59 @@ echo '/', $builder->build(['foo', 'bar', 'baz']), '/';
 ```
 
 
+### Factories
+
+Different factories exist to create and configure a `Builder` instance for a specific regexp engine or programming language. All of the factories have a static `getBuilder()` method. Some of them accept optional arguments.
+
+The list of factories, their optional arguments with their default value is as follows:
+
+ - `PHP`
+     - `modifiers: ''` - [Pattern modifiers](https://www.php.net/manual/reference.pcre.pattern.modifiers.php) used for the regexp, e.g. `isu`
+     - `delimiter: '/'` - [Delimiter](https://www.php.net/manual/en/regexp.reference.delimiters.php) used for the regexp, e.g. `#` or `()`
+ - `Java`
+ - `JavaScript`
+     - `flags: ''` - [Flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/flags#description) used for the RegExp object
+ - `RE2`
+
+
 ## Examples
+
+The following example shows how to create a PHP regexp that matches `☺` (U+263A) or `☹` (U+2639), with or without the `u` flag.
+
+```php
+// Without any modifiers, PCRE operates on bytes
+$builder = s9e\RegexpBuilder\Factory\PHP::getBuilder();
+echo '/', $builder->build(['☺', '☹']), "/\n";
+
+// The 'u' flag enables Unicode mode in PCRE
+$builder = s9e\RegexpBuilder\Factory\PHP::getBuilder(modifiers: 'u');
+echo '/', $builder->build(['☺', '☹']), '/u';
+```
+```
+/\xE2\x98[\xB9\xBA]/
+/[\x{2639}\x{263A}]/u
+```
+
+The following example shows that you can replace the factory with the JavaScript factory to create JavaScript regexps, with or without the `u` flag.
+
+```php
+$builder = s9e\RegexpBuilder\Factory\JavaScript::getBuilder();
+echo '/', $builder->build(['😁', '😂']), "/\n";
+
+// The 'u' flag enables Unicode mode in JavaScript RegExp
+$builder = s9e\RegexpBuilder\Factory\JavaScript::getBuilder(flags: 'u');
+echo '/', $builder->build(['😁', '😂']), '/u';
+```
+```
+/\uD83D[\uDE01\uDE02]/
+/[\u{1F601}\u{1F602}]/u
+```
+
+
+## Advanced usage
+
+The following section covers cases that are not covered by a default configuration.
+
 
 ### UTF-8 input with UTF-8 output
 
