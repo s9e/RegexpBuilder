@@ -112,14 +112,14 @@ echo '/', quoted_printable_encode($builder->build(['☺', '☹'])), '/';
 ```
 
 
-### Raw input with PHP output
+### Raw input with PCRE2 output
 
-For PHP regular expressions that do not use the `u` flag. PHP output is most suitable for regexps that are used into PHP sources, in conjunction with `var_export()`. The output itself is ASCII, with non-ASCII and non-printable characters escaped.
+For PCRE2 regular expressions that do not use the `u` flag. PCRE2 output is most suitable for regexps that are used into PHP sources, in conjunction with `var_export()`. The output itself is ASCII, with non-ASCII and non-printable characters escaped.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Bytes',
-	'output' => 'PHP'
+	'output' => 'PCRE2'
 ]);
 echo '/', $builder->build(['☺', '☹']), '/';
 ```
@@ -128,14 +128,14 @@ echo '/', $builder->build(['☺', '☹']), '/';
 ```
 
 
-### UTF-8 input with PHP output
+### UTF-8 input with PCRE2 output
 
-For PHP regular expressions that use the `u` flag.
+For PCRE2 regular expressions that use the `u` flag.
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
 	'input'  => 'Utf8',
-	'output' => 'PHP'
+	'output' => 'PCRE2'
 ]);
 echo '/', $builder->build(['☺', '☹']), '/u';
 ```
@@ -209,7 +209,7 @@ By default, the `PHP` and `JavaScript` output uses uppercase hexadecimal symbols
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
 	'input'         => 'Bytes',
-	'output'        => 'PHP',
+	'output'        => 'PCRE2',
 	'outputOptions' => ['case' => 'lower']
 ]);
 echo '/', $builder->build(['☺', '☹']), "/\n";

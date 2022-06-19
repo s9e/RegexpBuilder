@@ -17,7 +17,7 @@ class PHP
 		return new Builder([
 			'delimiter' => $delimiter,
 			'input'     => str_contains($modifiers, 'u') ? 'Utf8' : 'Bytes',
-			'output'    => 'PHP'
+			'output'    => 'PCRE2'
 		]);
 	}
 }

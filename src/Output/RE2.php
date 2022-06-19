@@ -9,10 +9,30 @@ namespace s9e\RegexpBuilder\Output;
 
 use function sprintf;
 
-class PHP extends PrintableAscii
+/**
+* @link https://github.com/google/re2/wiki/Syntax
+*/
+class RE2 extends PrintableAscii
 {
 	/** {@inheritdoc} */
 	protected int $maxValue = 0x10FFFF;
+
+	/**
+	* {@inheritdoc}
+	*/
+	protected function escapeControlCode(int $cp): string
+	{
+		$table = [
+			007 => '\\a',
+			011 => '\\t',
+			012 => '\\n',
+			013 => '\\v',
+			014 => '\\f',
+			015 => '\\r'
+		];
+
+		return $table[$cp] ?? $this->escapeAscii($cp);
+	}
 
 	/**
 	* {@inheritdoc}

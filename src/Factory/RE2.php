@@ -15,7 +15,7 @@ class RE2
 	{
 		return new Builder([
 			'input'  => 'Utf8',
-			'output' => 'PHP'
+			'output' => 'RE2'
 		]);
 	}
 }

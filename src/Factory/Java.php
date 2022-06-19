@@ -15,7 +15,7 @@ class Java
 	{
 		return new Builder([
 			'input'  => 'Utf8',
-			'output' => 'PHP'
+			'output' => 'Java'
 		]);
 	}
 }

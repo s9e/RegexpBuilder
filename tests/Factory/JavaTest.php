@@ -13,7 +13,7 @@ class JavaTest extends AbstractFactoryTest
 			],
 			[
 				["\x1F", "\u{2639}", "\u{1F600}"],
-				'[\\x1F\\x{2639}\\x{1F600}]'
+				'[\\x1F\\u2639\\x{1F600}]'
 			],
 		];
 	}

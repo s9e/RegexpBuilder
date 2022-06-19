@@ -56,7 +56,7 @@ class BuilderTest extends TestCase
 					"\xFF"
 				],
 				'[\\xF0\\xFF]',
-				['output' => 'PHP']
+				['output' => 'PCRE2']
 			],
 			[
 				[
@@ -64,7 +64,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x81"
 				],
 				'\\xF0\\x9F\\x98[\\x80\\x81]',
-				['output' => 'PHP']
+				['output' => 'PCRE2']
 			],
 			[
 				[
@@ -72,7 +72,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x81"
 				],
 				'[\x{1F600}\x{1F601}]',
-				['input' => 'Utf8', 'output' => 'PHP']
+				['input' => 'Utf8', 'output' => 'PCRE2']
 			],
 			[
 				[
@@ -101,7 +101,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x80\xF0\x9F\x98\x80"
 				],
 				'\\x{D7FB}\\x{D7FB}|\\x{F900}\\x{F900}|\\x{1F600}\\x{1F600}',
-				['input' => 'Utf8', 'output' => 'PHP']
+				['input' => 'Utf8', 'output' => 'PCRE2']
 			],
 			[
 				[
@@ -139,7 +139,7 @@ class BuilderTest extends TestCase
 			[
 				["\n", '.'],
 				'\\n|.',
-				['meta' => ['.' => '.'], 'output' => 'PHP']
+				['meta' => ['.' => '.'], 'output' => 'PCRE2']
 			],
 			[
 				['^', '_'],
