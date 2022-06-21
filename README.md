@@ -30,9 +30,9 @@ echo '/', $builder->build(['foo', 'bar', 'baz']), '/';
 
 ### Factories
 
-Different factories exist to create and configure a `Builder` instance for a specific regexp engine or programming language. All of the factories have a static `getBuilder()` method. Some of them accept optional arguments.
+A factory is a static class that creates a `Builder` instance configured for a specific use case. All of the factories have a static `getBuilder()` method. Some of them accept optional arguments.
 
-The list of factories, their optional arguments with their default value is as follows:
+The following factories can be used to generate regular expressions for the corresponding programming language. The `Builder` instance will generate a regexp using only printable ASCII characters, while other characters will be escaped according to the regexp engine's syntax. The list of factories along with their optional arguments (with their default value) is as follows:
 
  - `PHP`
      - `modifiers: ''` - [Pattern modifiers](https://www.php.net/manual/reference.pcre.pattern.modifiers.php) used for the regexp, e.g. `isu`
@@ -41,6 +41,8 @@ The list of factories, their optional arguments with their default value is as f
  - `JavaScript`
      - `flags: ''` - [Flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/flags#description) used for the RegExp object
  - `RE2`
+
+In addition, two factories `RawBytes` and `RawUTF8` exist. They can be used to generate smaller regexps without any restrictions on the characters used, respectively using bytes and UTF-8 characters as base unit. The resulting regexp should be treated as binary and is not recommended for use in human-readable code.
 
 
 ## Examples
