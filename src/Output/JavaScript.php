@@ -11,9 +11,6 @@ use function sprintf;
 
 class JavaScript extends PrintableAscii
 {
-	/** {@inheritdoc} */
-	protected int $maxValue = 0x10FFFF;
-
 	/**
 	* {@inheritdoc}
 	*/

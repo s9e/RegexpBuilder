@@ -14,7 +14,7 @@ abstract class BaseImplementation implements OutputInterface
 	/**
 	* @var int Upper limit for valid values
 	*/
-	protected int $maxValue = 0;
+	protected int $maxValue = 0x10FFFF;
 
 	/**
 	* @var int Lower limit for valid values

@@ -14,9 +14,6 @@ use function sprintf;
 */
 class Java extends PrintableAscii
 {
-	/** {@inheritdoc} */
-	protected int $maxValue = 0x10FFFF;
-
 	/**
 	* {@inheritdoc}
 	*/

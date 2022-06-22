@@ -14,9 +14,6 @@ use function sprintf;
 */
 class RE2 extends PrintableAscii
 {
-	/** {@inheritdoc} */
-	protected int $maxValue = 0x10FFFF;
-
 	/**
 	* {@inheritdoc}
 	*/
