@@ -190,14 +190,14 @@ class Serializer
 		$expr = '[';
 		foreach ($this->getRanges($values) as list($start, $end))
 		{
-			$expr .= $this->serializeCharacterClassUnit($start);
+			$expr .= $this->serializeClassAtom($start);
 			if ($end > $start)
 			{
 				if ($end > $start + 1)
 				{
 					$expr .= '-';
 				}
-				$expr .= $this->serializeCharacterClassUnit($end);
+				$expr .= $this->serializeClassAtom($end);
 			}
 		}
 		$expr .= ']';
@@ -211,7 +211,7 @@ class Serializer
 	* @param  int    $value
 	* @return string
 	*/
-	protected function serializeCharacterClassUnit(int $value): string
+	protected function serializeClassAtom(int $value): string
 	{
 		return $this->serializeValue($value, 'escapeCharacterClass');
 	}
