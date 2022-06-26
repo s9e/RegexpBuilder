@@ -20,21 +20,21 @@ use s9e\RegexpBuilder\Passes\Recurse;
 
 class Builder
 {
-	public InputSplitter $inputSplitter;
-	public Meta $meta;
-	public Runner $runner;
-	public Serializer $serializer;
-
-	/**
-	* @var StringSorter
-	*/
-	public StringSorter $stringSorter;
+	public InputInterface  $input;
+	public Meta            $meta;
+	public OutputInterface $output;
+	public Runner          $runner;
 
 	/**
 	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
 	*           will be put into a non-capturing group
 	*/
 	public bool $standalone = true;
+
+	/**
+	* @deprecated
+	*/
+	private Escaper $escaper;
 
 	/**
 	* @param array $config
@@ -50,11 +50,11 @@ class Builder
 			'outputOptions' => []
 		];
 
-		$this->stringSorter = new StringSorter;
+		$this->escaper = new Escaper($config['delimiter']);
 
 		$this->setMeta($config['meta']);
-		$this->setInputSplitter($config['input'], $config['inputOptions']);
-		$this->setSerializer($config['output'], $config['outputOptions'], $config['delimiter']);
+		$this->setInput($config['input'], $config['inputOptions']);
+		$this->setOutput($config['output'], $config['outputOptions']);
 		$this->setRunner();
 	}
 
@@ -66,15 +66,30 @@ class Builder
 	*/
 	public function build(array $strings): string
 	{
-		$strings = $this->inputSplitter->splitStrings($strings);
-		$strings = $this->stringSorter->getUniqueSortedStrings($strings);
+		$strings = $this->getInputSplitter()->splitStrings($strings);
+		$strings = $this->getStringSorter()->getUniqueSortedStrings($strings);
 		if ($this->isEmpty($strings))
 		{
 			return '';
 		}
 		$strings = $this->runner->run($strings);
 
-		return $this->serializer->serializeStrings($strings, !$this->standalone);
+		return $this->getSerializer()->serializeStrings($strings, !$this->standalone);
+	}
+
+	protected function getInputSplitter(): InputSplitter
+	{
+		return new InputSplitter($this->input, $this->meta);
+	}
+
+	protected function getSerializer(): Serializer
+	{
+		return new Serializer($this->escaper, $this->meta, $this->output);
+	}
+
+	public function getStringSorter(): StringSorter
+	{
+		return new StringSorter;
 	}
 
 	/**
@@ -89,22 +104,20 @@ class Builder
 	}
 
 	/**
-	* Set the InputSplitter instance in $this->inputSplitter
+	* Set the InputInterface instance in $this->input
 	*
 	* @param  string $inputType
 	* @param  array  $inputOptions
 	* @return void
 	*/
-	protected function setInputSplitter(string $inputType, array $inputOptions): void
+	protected function setInput(string $inputType, array $inputOptions): void
 	{
-		$className = __NAMESPACE__ . '\\Input\\' . $inputType;
-		$input     = new $className;
+		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
+		$this->input = new $className;
 		foreach ($inputOptions as $k => $v)
 		{
-			$input->$k = $v;
+			$this->input->$k = $v;
 		}
-
-		$this->inputSplitter = new InputSplitter($input, $this->meta);
 	}
 
 	/**
@@ -140,19 +153,15 @@ class Builder
 	}
 
 	/**
-	* Set the Serializer instance in $this->serializer
+	* Set the OutputInterface instance in $this->output
 	*
 	* @param  string $outputType
 	* @param  array  $outputOptions
-	* @param  string $delimiter
 	* @return void
 	*/
-	protected function setSerializer(string $outputType, array $outputOptions, string $delimiter): void
+	protected function setOutput(string $outputType, array $outputOptions): void
 	{
-		$className = __NAMESPACE__ . '\\Output\\' . $outputType;
-		$output    = new $className($outputOptions);
-		$escaper   = new Escaper($delimiter);
-
-		$this->serializer = new Serializer($escaper, $this->meta, $output);
+		$className    = __NAMESPACE__ . '\\Output\\' . $outputType;
+		$this->output = new $className($outputOptions);
 	}
 }

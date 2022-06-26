@@ -18,7 +18,7 @@ class JavaScript
 			'input'  => 'Utf8',
 			'output' => 'JavaScript'
 		]);
-		$builder->inputSplitter->input->useSurrogates = !str_contains($flags, 'u');
+		$builder->input->useSurrogates = !str_contains($flags, 'u');
 
 		return $builder;
 	}
