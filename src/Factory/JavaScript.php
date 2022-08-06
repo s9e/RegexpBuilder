@@ -10,7 +10,7 @@ namespace s9e\RegexpBuilder\Factory;
 use function str_contains;
 use s9e\RegexpBuilder\Builder;
 
-class JavaScript
+class JavaScript implements FactoryInterface
 {
 	public static function getBuilder(string $flags = ''): Builder
 	{

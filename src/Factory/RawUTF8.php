@@ -9,7 +9,7 @@ namespace s9e\RegexpBuilder\Factory;
 
 use s9e\RegexpBuilder\Builder;
 
-class RawUTF8
+class RawUTF8 implements FactoryInterface
 {
 	public static function getBuilder(): Builder
 	{

@@ -9,13 +9,7 @@ namespace s9e\RegexpBuilder\Factory;
 
 use s9e\RegexpBuilder\Builder;
 
-class RawBytes implements FactoryInterface
+interface FactoryInterface
 {
-	public static function getBuilder(): Builder
-	{
-		return new Builder([
-			'input'  => 'Bytes',
-			'output' => 'Bytes'
-		]);
-	}
+	public static function getBuilder(): Builder;
 }
