@@ -9,7 +9,7 @@ namespace s9e\RegexpBuilder\Output;
 
 use function chr, sprintf;
 
-abstract class PrintableAscii extends BaseImplementation
+abstract class PrintableAscii extends AbstractOutput
 {
 	/**
 	* @var string 'x' for lowercase hexadecimal symbols, 'X' for uppercase

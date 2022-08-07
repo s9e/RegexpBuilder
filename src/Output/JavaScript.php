@@ -14,6 +14,22 @@ class JavaScript extends PrintableAscii
 	/**
 	* {@inheritdoc}
 	*/
+	public function __construct(array $options = [])
+	{
+		// Forward slashes must be escaped in body according to ECMA-262
+		// https://tc39.es/ecma262/multipage/ecmascript-language-lexical-grammar.html#prod-RegularExpressionChar
+		$this->bodyMap[47]      = '\\/';
+
+		// Escaping slashes in classes is optional but safer
+		// https://tc39.es/ecma262/multipage/ecmascript-language-lexical-grammar.html#prod-RegularExpressionClassChar
+		$this->classAtomMap[47] = '\\/';
+
+		parent::__construct($options);
+	}
+
+	/**
+	* {@inheritdoc}
+	*/
 	protected function escapeUnicode(int $cp): string
 	{
 		$format = ($cp > 0xFFFF) ? '\\u{%' . $this->hexCase . '}' : '\\u%04' . $this->hexCase;

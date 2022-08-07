@@ -21,8 +21,7 @@ class ValidationTest extends TestCase
 
 		if (!isset($config['meta']) && !isset($config['output']))
 		{
-			$config += ['delimiter' => '/'];
-			$regexp = $config['delimiter'][0] . '^' . $actual . '$' . substr($config['delimiter'], -1);
+			$regexp = '@^' . $actual . '$@';
 			foreach ($strings as $string)
 			{
 				$this->assertMatchesRegularExpression($regexp, $string);
@@ -81,7 +80,7 @@ class ValidationTest extends TestCase
 				['ax', 'axed']
 			],
 			[
-				':[()\\/[-\\]|]',
+				':[()/[-\\]|]',
 				[':)', ':(', ':]', ':[', ':|', ':/', ':\\']
 			],
 			[
@@ -89,7 +88,7 @@ class ValidationTest extends TestCase
 				[':)', ':(', ':]', ':[']
 			],
 			[
-				':[\\/\\\\|]',
+				':[/\\\\|]',
 				[':|', ':/', ':\\']
 			],
 			[

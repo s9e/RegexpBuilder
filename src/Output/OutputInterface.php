@@ -7,13 +7,16 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
+use s9e\RegexpBuilder\OutputContext as Context;
+
 interface OutputInterface
 {
 	/**
-	* Serialize a value into a character
+	* Serialize a value into a character used in the body of the regexp
 	*
-	* @param  int    $value
+	* @param  int     $value
+	* @param  Context $context
 	* @return string
 	*/
-	public function output(int $value): string;
+	public function output(int $value, Context $context): string;
 }

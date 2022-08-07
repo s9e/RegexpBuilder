@@ -9,7 +9,7 @@ namespace s9e\RegexpBuilder\Output;
 
 use function chr;
 
-class Bytes extends BaseImplementation
+class Bytes extends AbstractOutput
 {
 	/** {@inheritdoc} */
 	protected int $maxValue = 255;

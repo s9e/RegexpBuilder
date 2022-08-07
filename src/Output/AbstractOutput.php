@@ -8,9 +8,24 @@
 namespace s9e\RegexpBuilder\Output;
 
 use InvalidArgumentException;
+use s9e\RegexpBuilder\OutputContext as Context;
 
-abstract class BaseImplementation implements OutputInterface
+abstract class AbstractOutput implements OutputInterface
 {
+	/**
+	* @var <int, string>
+	*/
+	protected array $bodyMap = [
+		36 => '\\$',  40 => '\\(',  41 => '\\)',  42 => '\\*',
+		43 => '\\+',  46 => '\\.',  63 => '\\?',  91 => '\\[',
+		92 => '\\\\', 94 => '\\^', 123 => '\\{', 124 => '\\|'
+	];
+
+	/**
+	* @var <int, string>
+	*/
+	protected array $classAtomMap = [45 => '\\-', 92 => '\\\\', 93 => '\\]', 94 => '\\^'];
+
 	/**
 	* @var int Upper limit for valid values
 	*/
@@ -31,11 +46,12 @@ abstract class BaseImplementation implements OutputInterface
 	/**
 	* {@inheritdoc}
 	*/
-	public function output(int $value): string
+	public function output(int $value, Context $context): string
 	{
 		$this->validate($value);
+		$map = ($context === $context::ClassAtom) ? $this->classAtomMap : $this->bodyMap;
 
-		return $this->outputValidValue($value);
+		return $map[$value] ?? $this->outputValidValue($value);
 	}
 
 	/**

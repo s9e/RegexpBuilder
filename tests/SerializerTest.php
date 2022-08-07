@@ -3,7 +3,6 @@
 namespace s9e\RegexpBuilder\Tests;
 
 use PHPUnit\Framework\TestCase;
-use s9e\RegexpBuilder\Escaper;
 use s9e\RegexpBuilder\Input\Bytes as Input;
 use s9e\RegexpBuilder\Meta;
 use s9e\RegexpBuilder\Output\Bytes as Output;
@@ -25,7 +24,7 @@ class SerializerTest extends TestCase
 			$args[] = $groupAlternations;
 		}
 
-		$serializer = new Serializer(new Escaper, new Meta, new Output);
+		$serializer = new Serializer(new Meta, new Output);
 		$this->assertSame($expected, $serializer->serializeStrings(...$args));
 	}
 
@@ -109,7 +108,7 @@ class SerializerTest extends TestCase
 					[91],
 					[92]
 				],
-				'[\\/?[\\\\]'
+				'[/?[\\\\]'
 			],
 			[
 				[

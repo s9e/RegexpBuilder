@@ -8,14 +8,14 @@
 namespace s9e\RegexpBuilder;
 
 use function array_diff_key, array_map, array_unshift, array_values, count, implode, is_array, is_int;
+use s9e\RegexpBuilder\OutputContext as Context;
 use s9e\RegexpBuilder\Output\OutputInterface;
 
 class Serializer
 {
 	public function __construct(
-		protected Escaper $escaper,
-		protected Meta $meta,
-		protected OutputInterface $output
+		public readonly Meta            $meta,
+		public readonly OutputInterface $output
 	)
 	{
 	}
@@ -213,7 +213,7 @@ class Serializer
 	*/
 	protected function serializeClassAtom(int $value): string
 	{
-		return $this->serializeValue($value, 'escapeCharacterClass');
+		return $this->serializeValue($value, Context::ClassAtom);
 	}
 
 	/**
@@ -235,7 +235,7 @@ class Serializer
 	*/
 	protected function serializeLiteral(int $value): string
 	{
-		return $this->serializeValue($value, 'escapeLiteral');
+		return $this->serializeValue($value, Context::Body);
 	}
 
 	/**
@@ -252,12 +252,12 @@ class Serializer
 	/**
 	* Serialize a given value
 	*
-	* @param  int    $value
-	* @param  string $escapeMethod
+	* @param  int     $value
+	* @param  Context $context
 	* @return string
 	*/
-	protected function serializeValue(int $value, string $escapeMethod): string
+	protected function serializeValue(int $value, Context $context): string
 	{
-		return ($value < 0) ? $this->meta->getExpression($value) : $this->escaper->$escapeMethod($this->output->output($value));
+		return ($value < 0) ? $this->meta->getExpression($value) : $this->output->output($value, $context);
 	}
 }

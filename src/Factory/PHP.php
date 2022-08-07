@@ -14,10 +14,12 @@ class PHP implements FactoryInterface
 {
 	public static function getBuilder(string $modifiers = '', string $delimiter = '/'): Builder
 	{
-		return new Builder([
-			'delimiter' => $delimiter,
+		$builder = new Builder([
 			'input'     => str_contains($modifiers, 'u') ? 'Utf8' : 'Bytes',
-			'output'    => 'PCRE2'
+			'output'    => 'PHP'
 		]);
+		$builder->output->setDelimiter($delimiter);
+
+		return $builder;
 	}
 }

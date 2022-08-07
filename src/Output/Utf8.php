@@ -10,7 +10,7 @@ namespace s9e\RegexpBuilder\Output;
 use InvalidArgumentException;
 use function chr, sprintf;
 
-class Utf8 extends BaseImplementation
+class Utf8 extends AbstractOutput
 {
 	/**
 	* {@inheritdoc}

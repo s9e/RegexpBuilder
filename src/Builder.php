@@ -32,17 +32,11 @@ class Builder
 	public bool $standalone = true;
 
 	/**
-	* @deprecated
-	*/
-	private Escaper $escaper;
-
-	/**
 	* @param array $config
 	*/
 	public function __construct(array $config = [])
 	{
 		$config += [
-			'delimiter'     => '/',
 			'input'         => 'Bytes',
 			'inputOptions'  => [],
 			'meta'          => [],
@@ -50,12 +44,15 @@ class Builder
 			'outputOptions' => []
 		];
 
-		$this->escaper = new Escaper($config['delimiter']);
-
 		$this->setMeta($config['meta']);
 		$this->setInput($config['input'], $config['inputOptions']);
 		$this->setOutput($config['output'], $config['outputOptions']);
 		$this->setRunner();
+
+		if (isset($config['delimiter']))
+		{
+			$this->output->setDelimiter($config['delimiter']);
+		}
 	}
 
 	/**
@@ -84,7 +81,7 @@ class Builder
 
 	protected function getSerializer(): Serializer
 	{
-		return new Serializer($this->escaper, $this->meta, $this->output);
+		return new Serializer($this->meta, $this->output);
 	}
 
 	public function getStringSorter(): StringSorter

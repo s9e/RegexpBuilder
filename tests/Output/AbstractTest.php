@@ -4,13 +4,11 @@ namespace s9e\RegexpBuilder\Tests\Output;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
+use s9e\RegexpBuilder\OutputContext as Context;
 
 abstract class AbstractTest extends TestCase
 {
-	/**
-	* @dataProvider getOutputTests
-	*/
-	public function test($original, $expected, $options = [])
+	protected function runOutputTest(Context $context, $original, $expected, $options = [])
 	{
 		$className = 's9e\\RegexpBuilder\\Output\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
 		$output = new $className($options);
@@ -20,8 +18,25 @@ abstract class AbstractTest extends TestCase
 			$this->expectException(get_class($expected), $expected->getMessage());
 		}
 
-		$this->assertSame($expected, $output->output($original));
+		$this->assertSame($expected, $output->output($original, $context));
 	}
 
-	abstract public function getOutputTests();
+	/**
+	* @dataProvider getOutputBodyTests
+	*/
+	public function testOutputBody($original, $expected, $options = [])
+	{
+		$this->runOutputTest(Context::Body, $original, $expected, $options);
+	}
+
+	/**
+	* @dataProvider getOutputClassAtomTests
+	*/
+	public function testOutputClassAtom($original, $expected, $options = [])
+	{
+		$this->runOutputTest(Context::ClassAtom, $original, $expected, $options);
+	}
+
+	abstract public function getOutputBodyTests();
+	abstract public function getOutputClassAtomTests();
 }
