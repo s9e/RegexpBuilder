@@ -21,7 +21,7 @@ class PHP extends PCRE2
 	public function setDelimiter(string $delimiter): void
 	{
 		// https://github.com/php/php-src/blob/bd3cd6a41a0b0adcd1e402b4b0a8497ba2f427f9/ext/pcre/php_pcre.c#L654
-		if (preg_match('([\\x00-\\x20\\\\\\w])', $delimiter))
+		if (preg_match('([\\x00-\\x200-9A-Z\\\\a-z])', $delimiter))
 		{
 			throw new ValueError('Delimiter must not be alphanumeric, backslash, or NUL');
 		}
