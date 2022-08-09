@@ -20,10 +20,10 @@ use s9e\RegexpBuilder\Passes\Recurse;
 
 class Builder
 {
-	public InputInterface  $input;
-	public Meta            $meta;
-	public OutputInterface $output;
-	public Runner          $runner;
+	public readonly InputInterface  $input;
+	public readonly Meta            $meta;
+	public readonly OutputInterface $output;
+	public readonly Runner          $runner;
 
 	/**
 	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
