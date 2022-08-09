@@ -38,11 +38,15 @@ class PHPTest extends AbstractFactoryTest
 				'x[ x]x',
 				['modifiers' => 'x']
 			],
-//			[
-//				['x x'],
-//				'x\\ x',
-//				['modifiers' => 'x']
-//			],
+			[
+				['x #x'],
+				'x\\ \\#x',
+				['modifiers' => 'x']
+			],
+			[
+				['x #x'],
+				'x #x'
+			],
 		];
 	}
 }

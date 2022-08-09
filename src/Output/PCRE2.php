@@ -15,6 +15,16 @@ use function sprintf;
 class PCRE2 extends PrintableAscii
 {
 	/**
+	* Enable PCRE2_EXTENDED option
+	*/
+	public function enableExtended(): void
+	{
+		// LF and other control codes are already escaped, so is Unicode whitespace
+		$this->bodyMap[32] = '\\ ';
+		$this->bodyMap[35] = '\\#';
+	}
+
+	/**
 	* {@inheritdoc}
 	*/
 	protected function escapeUnicode(int $cp): string
