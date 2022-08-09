@@ -13,6 +13,11 @@ use s9e\RegexpBuilder\Output\OutputInterface;
 
 class Serializer
 {
+	/**
+	* @var bool Whether to use (?:) or () for grouping
+	*/
+	public bool $useNonCapturingGroups = true;
+
 	public function __construct(
 		public readonly Meta            $meta,
 		public readonly OutputInterface $output
@@ -40,7 +45,7 @@ class Serializer
 		$expr = implode('|', $alternations);
 		if ($this->needsParentheses($info, $groupAlternations))
 		{
-			$expr = '(?:' . $expr . ')';
+			$expr = ($this->useNonCapturingGroups ? '(?:' : '(') . $expr . ')';
 		}
 
 		return $expr . $info['quantifier'];

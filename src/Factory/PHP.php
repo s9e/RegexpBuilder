@@ -20,6 +20,10 @@ class PHP implements FactoryInterface
 		]);
 		$builder->output->setDelimiter($delimiter);
 
+		if (str_contains($modifiers, 'n'))
+		{
+			$builder->serializer->useNonCapturingGroups = false;
+		}
 		if (str_contains($modifiers, 'x'))
 		{
 			$builder->output->enableExtended();

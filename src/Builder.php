@@ -24,6 +24,7 @@ class Builder
 	public readonly Meta            $meta;
 	public readonly OutputInterface $output;
 	public readonly Runner          $runner;
+	public readonly Serializer      $serializer;
 
 	/**
 	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
@@ -49,6 +50,8 @@ class Builder
 		$this->setOutput($config['output'], $config['outputOptions']);
 		$this->setRunner();
 
+		$this->serializer = new Serializer($this->meta, $this->output);
+
 		if (isset($config['delimiter']))
 		{
 			$this->output->setDelimiter($config['delimiter']);
@@ -71,17 +74,12 @@ class Builder
 		}
 		$strings = $this->runner->run($strings);
 
-		return $this->getSerializer()->serializeStrings($strings, !$this->standalone);
+		return $this->serializer->serializeStrings($strings, !$this->standalone);
 	}
 
 	protected function getInputSplitter(): InputSplitter
 	{
 		return new InputSplitter($this->input, $this->meta);
-	}
-
-	protected function getSerializer(): Serializer
-	{
-		return new Serializer($this->meta, $this->output);
 	}
 
 	public function getStringSorter(): StringSorter
