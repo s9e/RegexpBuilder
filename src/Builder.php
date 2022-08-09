@@ -133,6 +133,19 @@ class Builder
 	}
 
 	/**
+	* Set the OutputInterface instance in $this->output
+	*
+	* @param  string $outputType
+	* @param  array  $outputOptions
+	* @return void
+	*/
+	protected function setOutput(string $outputType, array $outputOptions): void
+	{
+		$className    = __NAMESPACE__ . '\\Output\\' . $outputType;
+		$this->output = new $className($outputOptions);
+	}
+
+	/**
 	* Set the Runner instance $in this->runner
 	*
 	* @return void
@@ -147,18 +160,5 @@ class Builder
 		$this->runner->addPass(new CoalesceOptionalStrings);
 		$this->runner->addPass(new MergeSuffix);
 		$this->runner->addPass(new CoalesceSingleCharacterPrefix);
-	}
-
-	/**
-	* Set the OutputInterface instance in $this->output
-	*
-	* @param  string $outputType
-	* @param  array  $outputOptions
-	* @return void
-	*/
-	protected function setOutput(string $outputType, array $outputOptions): void
-	{
-		$className    = __NAMESPACE__ . '\\Output\\' . $outputType;
-		$this->output = new $className($outputOptions);
 	}
 }
