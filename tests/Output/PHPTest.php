@@ -3,6 +3,7 @@
 namespace s9e\RegexpBuilder\Tests\Output;
 
 use InvalidArgumentException;
+use s9e\RegexpBuilder\OutputContext as Context;
 use s9e\RegexpBuilder\Output\PHP;
 
 /**
@@ -13,6 +14,21 @@ use s9e\RegexpBuilder\Output\PHP;
 */
 class PHPTest extends AbstractTest
 {
+	public function testEnableExtendedMore()
+	{
+		$output = new PHP;
+		$this->assertEquals(' ', $output->output(ord(' '), Context::Body));
+		$this->assertEquals('#', $output->output(ord('#'), Context::Body));
+		$this->assertEquals(' ', $output->output(ord(' '), Context::ClassAtom));
+		$this->assertEquals('#', $output->output(ord('#'), Context::ClassAtom));
+
+		$output->enableExtendedMore();
+		$this->assertEquals('\\ ', $output->output(ord(' '), Context::Body));
+		$this->assertEquals('\\#', $output->output(ord('#'), Context::Body));
+		$this->assertEquals('\\ ', $output->output(ord(' '), Context::ClassAtom));
+		$this->assertEquals('\\#', $output->output(ord('#'), Context::ClassAtom));
+	}
+
 	/**
 	* @dataProvider getInvalidDelimiterTests
 	*/

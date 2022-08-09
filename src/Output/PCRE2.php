@@ -25,6 +25,17 @@ class PCRE2 extends PrintableAscii
 	}
 
 	/**
+	* Enable PCRE2_EXTENDED_MORE option
+	*/
+	public function enableExtendedMore(): void
+	{
+		$this->enableExtended();
+
+		$this->classAtomMap[32] = '\\ ';
+		$this->classAtomMap[35] = '\\#';
+	}
+
+	/**
 	* {@inheritdoc}
 	*/
 	protected function escapeUnicode(int $cp): string
