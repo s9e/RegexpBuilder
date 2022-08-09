@@ -12,7 +12,7 @@ use s9e\RegexpBuilder\OutputContext as Context;
 interface OutputInterface
 {
 	/**
-	* Serialize a value into a character used in the body of the regexp
+	* Serialize a value into a character used in given context
 	*
 	* @param  int     $value
 	* @param  Context $context
