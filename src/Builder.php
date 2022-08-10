@@ -39,14 +39,13 @@ class Builder
 	{
 		$config += [
 			'input'         => 'Bytes',
-			'inputOptions'  => [],
 			'meta'          => [],
 			'output'        => 'Bytes',
 			'outputOptions' => []
 		];
 
 		$this->setMeta($config['meta']);
-		$this->setInput($config['input'], $config['inputOptions']);
+		$this->setInput($config['input']);
 		$this->setOutput($config['output'], $config['outputOptions']);
 		$this->setRunner();
 
@@ -102,17 +101,12 @@ class Builder
 	* Set the InputInterface instance in $this->input
 	*
 	* @param  string $inputType
-	* @param  array  $inputOptions
 	* @return void
 	*/
-	protected function setInput(string $inputType, array $inputOptions): void
+	protected function setInput(string $inputType): void
 	{
 		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
 		$this->input = new $className;
-		foreach ($inputOptions as $k => $v)
-		{
-			$this->input->$k = $v;
-		}
 	}
 
 	/**

@@ -22,9 +22,13 @@ class BuilderTest extends TestCase
 	/**
 	* @dataProvider getBuilderTests
 	*/
-	public function test($original, $expected, $config = [])
+	public function test($original, $expected, $config = [], callable $setup = null)
 	{
 		$builder = new Builder($config);
+		if (isset($setup))
+		{
+			$setup($builder);
+		}
 		$this->assertSame($expected, $builder->build($original));
 	}
 
@@ -90,9 +94,12 @@ class BuilderTest extends TestCase
 				'\\uD83D[\\uDE00\\uDE01]',
 				[
 					'input'        => 'Utf8',
-					'inputOptions' => ['useSurrogates' => true],
 					'output'       => 'JavaScript'
-				]
+				],
+				function (Builder $builder)
+				{
+					$builder->input->useSurrogates = true;
+				}
 			],
 			[
 				[
@@ -112,9 +119,12 @@ class BuilderTest extends TestCase
 				'\\uD7FB\\uD7FB|\\uD83D\\uDE00|\\uF900\\uF900',
 				[
 					'input'        => 'Utf8',
-					'inputOptions' => ['useSurrogates' => true],
 					'output'       => 'JavaScript'
-				]
+				],
+				function (Builder $builder)
+				{
+					$builder->input->useSurrogates = true;
+				}
 			],
 			[
 				['x?'],
