@@ -37,13 +37,6 @@ abstract class AbstractOutput implements OutputInterface
 	protected int $minValue = 0;
 
 	/**
-	* @param array $options
-	*/
-	public function __construct(array $options = [])
-	{
-	}
-
-	/**
 	* {@inheritdoc}
 	*/
 	public function output(int $value, Context $context): string

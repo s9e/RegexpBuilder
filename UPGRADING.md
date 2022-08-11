@@ -7,7 +7,7 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'input'         => 'Utf8',
 	'inputOptions'  => ['useSurrogates' => true],
 	'output'        => 'JavaScript',
-//	'outputOptions' => ['case' => 'lower']
+	'outputOptions' => ['case' => 'lower']
 ]);
 ```
 
@@ -19,5 +19,5 @@ $builder = new s9e\RegexpBuilder\Builder([
 	'output' => 'JavaScript',
 ]);
 $builder->input->useSurrogates = true;
-//$builder->output->useLowerCaseHex();
+$builder->output->useLowerCaseHex();
 ```

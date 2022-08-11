@@ -14,14 +14,22 @@ abstract class PrintableAscii extends AbstractOutput
 	/**
 	* @var string 'x' for lowercase hexadecimal symbols, 'X' for uppercase
 	*/
-	protected string $hexCase;
+	protected string $hexCase = 'X';
 
 	/**
-	* {@inheritdoc}
+	* Use lower case lowercase in hexadecimal representations
 	*/
-	public function __construct(array $options = [])
+	public function useLowerCaseHex(): void
 	{
-		$this->hexCase = (isset($options['case']) && $options['case'] === 'lower') ? 'x' : 'X';
+		$this->hexCase = 'x';
+	}
+
+	/**
+	* Use upper case lowercase in hexadecimal representations
+	*/
+	public function useUpperCaseHex(): void
+	{
+		$this->hexCase = 'X';
 	}
 
 	/**

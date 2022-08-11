@@ -8,10 +8,15 @@ use s9e\RegexpBuilder\OutputContext as Context;
 
 abstract class AbstractTest extends TestCase
 {
-	protected function runOutputTest(Context $context, $original, $expected, $options = [])
+	protected function runOutputTest(Context $context, $original, $expected, ?callable $setup = null)
 	{
 		$className = 's9e\\RegexpBuilder\\Output\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
-		$output = new $className($options);
+		$output = new $className;
+
+		if (isset($setup))
+		{
+			$setup($output);
+		}
 
 		if ($expected instanceof Exception)
 		{
@@ -24,17 +29,17 @@ abstract class AbstractTest extends TestCase
 	/**
 	* @dataProvider getOutputBodyTests
 	*/
-	public function testOutputBody($original, $expected, $options = [])
+	public function testOutputBody($original, $expected, ?callable $setup = null)
 	{
-		$this->runOutputTest(Context::Body, $original, $expected, $options);
+		$this->runOutputTest(Context::Body, $original, $expected, $setup);
 	}
 
 	/**
 	* @dataProvider getOutputClassAtomTests
 	*/
-	public function testOutputClassAtom($original, $expected, $options = [])
+	public function testOutputClassAtom($original, $expected, ?callable $setup = null)
 	{
-		$this->runOutputTest(Context::ClassAtom, $original, $expected, $options);
+		$this->runOutputTest(Context::ClassAtom, $original, $expected, $setup);
 	}
 
 	abstract public function getOutputBodyTests();

@@ -11,10 +11,7 @@ use function sprintf;
 
 class JavaScript extends PrintableAscii
 {
-	/**
-	* {@inheritdoc}
-	*/
-	public function __construct(array $options = [])
+	public function __construct()
 	{
 		// Forward slashes must be escaped in body according to ECMA-262
 		// https://tc39.es/ecma262/multipage/ecmascript-language-lexical-grammar.html#prod-RegularExpressionChar
@@ -23,8 +20,6 @@ class JavaScript extends PrintableAscii
 		// Escaping slashes in classes is optional but safer
 		// https://tc39.es/ecma262/multipage/ecmascript-language-lexical-grammar.html#prod-RegularExpressionClassChar
 		$this->classAtomMap[47] = '\\/';
-
-		parent::__construct($options);
 	}
 
 	/**

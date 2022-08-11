@@ -40,13 +40,12 @@ class Builder
 		$config += [
 			'input'         => 'Bytes',
 			'meta'          => [],
-			'output'        => 'Bytes',
-			'outputOptions' => []
+			'output'        => 'Bytes'
 		];
 
 		$this->setMeta($config['meta']);
 		$this->setInput($config['input']);
-		$this->setOutput($config['output'], $config['outputOptions']);
+		$this->setOutput($config['output']);
 		$this->setRunner();
 
 		$this->serializer = new Serializer($this->meta, $this->output);
@@ -123,13 +122,12 @@ class Builder
 	* Set the OutputInterface instance in $this->output
 	*
 	* @param  string $outputType
-	* @param  array  $outputOptions
 	* @return void
 	*/
-	protected function setOutput(string $outputType, array $outputOptions): void
+	protected function setOutput(string $outputType): void
 	{
 		$className    = __NAMESPACE__ . '\\Output\\' . $outputType;
-		$this->output = new $className($outputOptions);
+		$this->output = new $className;
 	}
 
 	/**
