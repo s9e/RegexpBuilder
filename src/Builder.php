@@ -50,11 +50,6 @@ class Builder
 		$this->setRunner();
 
 		$this->serializer = new Serializer($this->meta, $this->output);
-
-		if (isset($config['delimiter']))
-		{
-			$this->output->setDelimiter($config['delimiter']);
-		}
 	}
 
 	/**
