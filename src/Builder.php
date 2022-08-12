@@ -32,20 +32,15 @@ class Builder
 	*/
 	public bool $standalone = true;
 
-	/**
-	* @param array $config
-	*/
-	public function __construct(array $config = [])
+	public function __construct(
+		string $input  = 'Bytes',
+		array $meta    = [],
+		string $output = 'Bytes'
+	)
 	{
-		$config += [
-			'input'         => 'Bytes',
-			'meta'          => [],
-			'output'        => 'Bytes'
-		];
-
-		$this->setMeta($config['meta']);
-		$this->setInput($config['input']);
-		$this->setOutput($config['output']);
+		$this->setMeta($meta);
+		$this->setInput($input);
+		$this->setOutput($output);
 		$this->setRunner();
 
 		$this->serializer = new Serializer($this->meta, $this->output);

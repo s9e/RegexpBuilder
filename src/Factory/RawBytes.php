@@ -13,9 +13,9 @@ class RawBytes implements FactoryInterface
 {
 	public static function getBuilder(): Builder
 	{
-		return new Builder([
-			'input'  => 'Bytes',
-			'output' => 'Bytes'
-		]);
+		return new Builder(
+			input:  'Bytes',
+			output: 'Bytes'
+		);
 	}
 }

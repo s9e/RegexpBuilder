@@ -14,10 +14,10 @@ class JavaScript implements FactoryInterface
 {
 	public static function getBuilder(string $flags = ''): Builder
 	{
-		$builder = new Builder([
-			'input'  => 'Utf8',
-			'output' => 'JavaScript'
-		]);
+		$builder = new Builder(
+			input:  'Utf8',
+			output: 'JavaScript'
+		);
 		$builder->input->useSurrogates = !str_contains($flags, 'u');
 
 		return $builder;

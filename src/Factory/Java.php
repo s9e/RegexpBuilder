@@ -13,9 +13,9 @@ class Java implements FactoryInterface
 {
 	public static function getBuilder(): Builder
 	{
-		return new Builder([
-			'input'  => 'Utf8',
-			'output' => 'Java'
-		]);
+		return new Builder(
+			input:  'Utf8',
+			output: 'Java'
+		);
 	}
 }

@@ -13,9 +13,9 @@ class RawUTF8 implements FactoryInterface
 {
 	public static function getBuilder(): Builder
 	{
-		return new Builder([
-			'input'  => 'Utf8',
-			'output' => 'Utf8'
-		]);
+		return new Builder(
+			input:  'Utf8',
+			output: 'Utf8'
+		);
 	}
 }

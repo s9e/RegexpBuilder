@@ -92,9 +92,10 @@ User-defined sequences can be used to represent arbitrary expressions in the inp
 In the following example, we emulate Bash-style jokers by mapping `?` to `.` and `*` to `.*`.
 
 ```php
-$builder = new s9e\RegexpBuilder\Builder([
-	'meta' => ['?' => '.', '*' => '.*']
-]);
+$builder = new s9e\RegexpBuilder\Builder;
+$builder = new s9e\RegexpBuilder\Builder(
+	meta: ['?' => '.', '*' => '.*']
+);
 echo '/', $builder->build(['foo?', 'bar*']), '/';
 ```
 ```
@@ -104,9 +105,9 @@ echo '/', $builder->build(['foo?', 'bar*']), '/';
 In the following example, we map `\d` (in the input) to `\d` (in the output) to emulate the escape sequence of a regular expression. Note that they do not have to be identical and we may choose to map `*` to `\d` or `\d` to `[0-9]` instead.
 
 ```php
-$builder = new s9e\RegexpBuilder\Builder([
-	'meta' => ['\\d' => '\\d']
-]);
+$builder = new s9e\RegexpBuilder\Builder(
+	meta: ['\\d' => '\\d']
+);
 echo '/', $builder->build(['a', 'b', '\\d']), '/';
 ```
 ```

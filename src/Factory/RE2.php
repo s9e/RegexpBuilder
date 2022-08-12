@@ -13,9 +13,9 @@ class RE2 implements FactoryInterface
 {
 	public static function getBuilder(): Builder
 	{
-		return new Builder([
-			'input'  => 'Utf8',
-			'output' => 'RE2'
-		]);
+		return new Builder(
+			input:  'Utf8',
+			output: 'RE2'
+		);
 	}
 }

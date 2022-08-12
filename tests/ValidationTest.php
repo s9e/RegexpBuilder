@@ -15,7 +15,7 @@ class ValidationTest extends TestCase
 	*/
 	public function test($expected, $strings, $config = [])
 	{
-		$builder = new Builder($config);
+		$builder = new Builder(...$config);
 		$actual  = $builder->build($strings);
 		$this->assertSame($expected, $actual);
 

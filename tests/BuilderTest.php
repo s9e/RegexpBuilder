@@ -24,7 +24,7 @@ class BuilderTest extends TestCase
 	*/
 	public function test($original, $expected, $config = [], callable $setup = null)
 	{
-		$builder = new Builder($config);
+		$builder = new Builder(...$config);
 		if (isset($setup))
 		{
 			$setup($builder);
