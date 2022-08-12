@@ -9,14 +9,17 @@ namespace s9e\RegexpBuilder\Factory;
 
 use function str_contains;
 use s9e\RegexpBuilder\Builder;
+use s9e\RegexpBuilder\Input\Bytes;
+use s9e\RegexpBuilder\Input\Utf8;
+use s9e\RegexpBuilder\Output\PHP as PHPOutput;
 
 class PHP implements FactoryInterface
 {
 	public static function getBuilder(string $modifiers = '', string $delimiter = '/'): Builder
 	{
 		$builder = new Builder(
-			input:  str_contains($modifiers, 'u') ? 'Utf8' : 'Bytes',
-			output: 'PHP'
+			input:  str_contains($modifiers, 'u') ? new Utf8 : new Bytes,
+			output: new PHPOutput
 		);
 		$builder->output->setDelimiter($delimiter);
 

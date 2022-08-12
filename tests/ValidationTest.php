@@ -4,6 +4,8 @@ namespace s9e\RegexpBuilder\Tests;
 
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
+use s9e\RegexpBuilder\Input\Utf8 as Utf8Input;
+use s9e\RegexpBuilder\Output\Utf8 as Utf8Output;
 
 /**
 * @coversNothing
@@ -98,7 +100,7 @@ class ValidationTest extends TestCase
 			[
 				'[♠♣♥♦]',
 				['♠', '♣', '♥', '♦'],
-				['input' => 'Utf8', 'output' => 'Utf8']
+				['input' => new Utf8Input, 'output' => new Utf8Output]
 			],
 			[
 				'[ls]ock',

@@ -11,13 +11,20 @@ $builder = new s9e\RegexpBuilder\Builder([
 ]);
 ```
 
-Current, explicit API:
+Current, verbose API:
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder(
-	input:  'Utf8',
-	output: 'JavaScript'
+	input:  new s9e\RegexpBuilder\Input\Utf8,
+	output: new s9e\RegexpBuilder\Output\JavaScript
 );
 $builder->input->useSurrogates = true;
+$builder->output->hexFormat = s9e\RegexpBuilder\Output\HexFormat::LowerCase;
+```
+
+Current, JavaScript factory:
+
+```php
+$builder = new s9e\RegexpBuilder\Factory\JavaScript::getBuilder();
 $builder->output->hexFormat = s9e\RegexpBuilder\Output\HexFormat::LowerCase;
 ```

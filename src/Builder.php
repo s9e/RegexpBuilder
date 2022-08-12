@@ -8,7 +8,9 @@
 namespace s9e\RegexpBuilder;
 
 use function array_map;
+use s9e\RegexpBuilder\Input\Bytes as BytesInput;
 use s9e\RegexpBuilder\Input\InputInterface;
+use s9e\RegexpBuilder\Output\Bytes as BytesOutput;
 use s9e\RegexpBuilder\Output\OutputInterface;
 use s9e\RegexpBuilder\Passes\CoalesceOptionalStrings;
 use s9e\RegexpBuilder\Passes\CoalesceSingleCharacterPrefix;
@@ -20,11 +22,9 @@ use s9e\RegexpBuilder\Passes\Recurse;
 
 class Builder
 {
-	public readonly InputInterface  $input;
-	public readonly Meta            $meta;
-	public readonly OutputInterface $output;
-	public readonly Runner          $runner;
-	public readonly Serializer      $serializer;
+	public readonly Meta       $meta;
+	public readonly Runner     $runner;
+	public readonly Serializer $serializer;
 
 	/**
 	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
@@ -33,14 +33,12 @@ class Builder
 	public bool $standalone = true;
 
 	public function __construct(
-		string $input  = 'Bytes',
-		array $meta    = [],
-		string $output = 'Bytes'
+		public readonly InputInterface  $input  = new BytesInput,
+		array  $meta    = [],
+		public readonly OutputInterface $output = new BytesOutput
 	)
 	{
 		$this->setMeta($meta);
-		$this->setInput($input);
-		$this->setOutput($output);
 		$this->setRunner();
 
 		$this->serializer = new Serializer($this->meta, $this->output);
@@ -87,18 +85,6 @@ class Builder
 	}
 
 	/**
-	* Set the InputInterface instance in $this->input
-	*
-	* @param  string $inputType
-	* @return void
-	*/
-	protected function setInput(string $inputType): void
-	{
-		$className   = __NAMESPACE__ . '\\Input\\' . $inputType;
-		$this->input = new $className;
-	}
-
-	/**
 	* Set the Meta instance in $this->meta
 	*
 	* @param  array $map
@@ -111,18 +97,6 @@ class Builder
 		{
 			$this->meta->set($sequence, $expression);
 		}
-	}
-
-	/**
-	* Set the OutputInterface instance in $this->output
-	*
-	* @param  string $outputType
-	* @return void
-	*/
-	protected function setOutput(string $outputType): void
-	{
-		$className    = __NAMESPACE__ . '\\Output\\' . $outputType;
-		$this->output = new $className;
 	}
 
 	/**

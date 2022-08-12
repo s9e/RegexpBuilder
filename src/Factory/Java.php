@@ -8,14 +8,16 @@
 namespace s9e\RegexpBuilder\Factory;
 
 use s9e\RegexpBuilder\Builder;
+use s9e\RegexpBuilder\Input\Utf8;
+use s9e\RegexpBuilder\Output\Java as JavaOutput;
 
 class Java implements FactoryInterface
 {
 	public static function getBuilder(): Builder
 	{
 		return new Builder(
-			input:  'Utf8',
-			output: 'Java'
+			input:  new Utf8,
+			output: new JavaOutput
 		);
 	}
 }

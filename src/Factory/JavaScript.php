@@ -9,14 +9,16 @@ namespace s9e\RegexpBuilder\Factory;
 
 use function str_contains;
 use s9e\RegexpBuilder\Builder;
+use s9e\RegexpBuilder\Input\Utf8;
+use s9e\RegexpBuilder\Output\JavaScript as JavaScriptOutput;
 
 class JavaScript implements FactoryInterface
 {
 	public static function getBuilder(string $flags = ''): Builder
 	{
 		$builder = new Builder(
-			input:  'Utf8',
-			output: 'JavaScript'
+			input:  new Utf8,
+			output: new JavaScriptOutput
 		);
 		$builder->input->useSurrogates = !str_contains($flags, 'u');
 

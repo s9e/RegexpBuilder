@@ -4,6 +4,10 @@ namespace s9e\RegexpBuilder\Tests;
 
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
+use s9e\RegexpBuilder\Input\Utf8 as Utf8Input;
+use s9e\RegexpBuilder\Output\JavaScript;
+use s9e\RegexpBuilder\Output\PCRE2;
+use s9e\RegexpBuilder\Output\Utf8 as Utf8Output;
 
 /**
 * @covers s9e\RegexpBuilder\Builder
@@ -60,7 +64,7 @@ class BuilderTest extends TestCase
 					"\xFF"
 				],
 				'[\\xF0\\xFF]',
-				['output' => 'PCRE2']
+				['output' => new PCRE2]
 			],
 			[
 				[
@@ -68,7 +72,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x81"
 				],
 				'\\xF0\\x9F\\x98[\\x80\\x81]',
-				['output' => 'PCRE2']
+				['output' => new PCRE2]
 			],
 			[
 				[
@@ -76,7 +80,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x81"
 				],
 				'[\x{1F600}\x{1F601}]',
-				['input' => 'Utf8', 'output' => 'PCRE2']
+				['input' => new Utf8Input, 'output' => new PCRE2]
 			],
 			[
 				[
@@ -84,7 +88,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x81"
 				],
 				"[\xF0\x9F\x98\x80\xF0\x9F\x98\x81]",
-				['input' => 'Utf8', 'output' => 'Utf8']
+				['input' => new Utf8Input, 'output' => new Utf8Output]
 			],
 			[
 				[
@@ -93,8 +97,8 @@ class BuilderTest extends TestCase
 				],
 				'\\uD83D[\\uDE00\\uDE01]',
 				[
-					'input'        => 'Utf8',
-					'output'       => 'JavaScript'
+					'input'  => new Utf8Input,
+					'output' => new JavaScript
 				],
 				function (Builder $builder)
 				{
@@ -108,7 +112,7 @@ class BuilderTest extends TestCase
 					"\xF0\x9F\x98\x80\xF0\x9F\x98\x80"
 				],
 				'\\x{D7FB}\\x{D7FB}|\\x{F900}\\x{F900}|\\x{1F600}\\x{1F600}',
-				['input' => 'Utf8', 'output' => 'PCRE2']
+				['input' => new Utf8Input, 'output' => new PCRE2]
 			],
 			[
 				[
@@ -118,8 +122,8 @@ class BuilderTest extends TestCase
 				],
 				'\\uD7FB\\uD7FB|\\uD83D\\uDE00|\\uF900\\uF900',
 				[
-					'input'        => 'Utf8',
-					'output'       => 'JavaScript'
+					'input'  => new Utf8Input,
+					'output' => new JavaScript
 				],
 				function (Builder $builder)
 				{
@@ -149,7 +153,7 @@ class BuilderTest extends TestCase
 			[
 				["\n", '.'],
 				'\\n|.',
-				['meta' => ['.' => '.'], 'output' => 'PCRE2']
+				['meta' => ['.' => '.'], 'output' => new PCRE2]
 			],
 			[
 				['^', '_'],
