@@ -4,7 +4,7 @@ namespace s9e\RegexpBuilder\Tests\Output;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use s9e\RegexpBuilder\OutputContext as Context;
+use s9e\RegexpBuilder\Output\Context;
 
 abstract class AbstractTest extends TestCase
 {

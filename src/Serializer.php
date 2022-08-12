@@ -8,7 +8,7 @@
 namespace s9e\RegexpBuilder;
 
 use function array_diff_key, array_map, array_unshift, array_values, count, implode, is_array, is_int;
-use s9e\RegexpBuilder\OutputContext as Context;
+use s9e\RegexpBuilder\Output\Context;
 use s9e\RegexpBuilder\Output\OutputInterface;
 
 class Serializer

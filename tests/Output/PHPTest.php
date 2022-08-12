@@ -3,7 +3,7 @@
 namespace s9e\RegexpBuilder\Tests\Output;
 
 use InvalidArgumentException;
-use s9e\RegexpBuilder\OutputContext as Context;
+use s9e\RegexpBuilder\Output\Context;
 use s9e\RegexpBuilder\Output\HexFormat;
 use s9e\RegexpBuilder\Output\PHP;
 

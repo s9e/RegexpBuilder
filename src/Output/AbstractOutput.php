@@ -8,7 +8,6 @@
 namespace s9e\RegexpBuilder\Output;
 
 use InvalidArgumentException;
-use s9e\RegexpBuilder\OutputContext as Context;
 
 abstract class AbstractOutput implements OutputInterface
 {

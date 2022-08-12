@@ -7,8 +7,6 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-use s9e\RegexpBuilder\OutputContext as Context;
-
 interface OutputInterface
 {
 	/**
