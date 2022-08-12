@@ -2,7 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
-use InvalidArgumentException;
+use ValueError;
 use s9e\RegexpBuilder\Output\HexFormat;
 
 /**
@@ -33,7 +33,7 @@ class JavaScriptTest extends AbstractTest
 			[0x1F600, '\\u{1F600}'],
 			[0x1F600, '\\u{1F600}', fn($output) => $output->hexFormat = HexFormat::UpperCase],
 			[0x1F600, '\\u{1f600}', fn($output) => $output->hexFormat = HexFormat::LowerCase],
-			[0x110000, new InvalidArgumentException('Value 1114112 is out of bounds (0..1114111)')]
+			[0x110000, new ValueError('Value 1114112 is out of bounds (0..1114111)')]
 		];
 	}
 
@@ -58,7 +58,7 @@ class JavaScriptTest extends AbstractTest
 			[0x1F600, '\\u{1F600}'],
 			[0x1F600, '\\u{1F600}', fn($output) => $output->hexFormat = HexFormat::UpperCase],
 			[0x1F600, '\\u{1f600}', fn($output) => $output->hexFormat = HexFormat::LowerCase],
-			[0x110000, new InvalidArgumentException('Value 1114112 is out of bounds (0..1114111)')]
+			[0x110000, new ValueError('Value 1114112 is out of bounds (0..1114111)')]
 		];
 	}
 }

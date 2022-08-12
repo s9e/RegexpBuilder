@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder;
 
-use InvalidArgumentException;
+use ValueError;
 use const false, true;
 use function array_search, count, ord, preg_last_error_msg, preg_match;
 
@@ -86,7 +86,7 @@ class Meta
 	{
 		if (@preg_match('(' . $expression . ')u', '') === false)
 		{
-			throw new InvalidArgumentException("Invalid expression '" . $expression . "' (" . preg_last_error_msg() . ')');
+			throw new ValueError("Invalid expression '" . $expression . "' (" . preg_last_error_msg() . ')');
 		}
 
 		// Map to the same value if possible, create a new one otherwise

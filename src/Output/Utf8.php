@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-use InvalidArgumentException;
+use ValueError;
 use function chr, sprintf;
 
 class Utf8 extends AbstractOutput
@@ -44,7 +44,7 @@ class Utf8 extends AbstractOutput
 	{
 		if ($value >= 0xD800 && $value <= 0xDFFF)
 		{
-			throw new InvalidArgumentException(sprintf('Surrogate 0x%X is not a valid UTF-8 character', $value));
+			throw new ValueError(sprintf('Surrogate 0x%X is not a valid UTF-8 character', $value));
 		}
 
 		parent::validate($value);

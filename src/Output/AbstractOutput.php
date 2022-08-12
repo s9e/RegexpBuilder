@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Output;
 
-use InvalidArgumentException;
+use ValueError;
 
 abstract class AbstractOutput implements OutputInterface
 {
@@ -56,7 +56,7 @@ abstract class AbstractOutput implements OutputInterface
 	{
 		if ($value < $this->minValue || $value > $this->maxValue)
 		{
-			throw new InvalidArgumentException('Value ' . $value . ' is out of bounds (' . $this->minValue . '..' . $this->maxValue . ')');
+			throw new ValueError('Value ' . $value . ' is out of bounds (' . $this->minValue . '..' . $this->maxValue . ')');
 		}
 	}
 

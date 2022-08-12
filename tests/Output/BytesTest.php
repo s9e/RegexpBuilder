@@ -2,7 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
-use InvalidArgumentException;
+use ValueError;
 
 /**
 * @covers s9e\RegexpBuilder\Output\AbstractOutput
@@ -19,7 +19,7 @@ class BytesTest extends AbstractTest
 			[0xC3, "\xC3"],
 			[0xA9, "\xA9"],
 			[0xFF, "\xFF"],
-			[0x100, new InvalidArgumentException('Value 256 is out of bounds (0..255)')]
+			[0x100, new ValueError('Value 256 is out of bounds (0..255)')]
 		];
 	}
 
@@ -32,7 +32,7 @@ class BytesTest extends AbstractTest
 			[0xC3, "\xC3"],
 			[0xA9, "\xA9"],
 			[0xFF, "\xFF"],
-			[0x100, new InvalidArgumentException('Value 256 is out of bounds (0..255)')]
+			[0x100, new ValueError('Value 256 is out of bounds (0..255)')]
 		];
 	}
 }

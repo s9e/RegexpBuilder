@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Input;
 
-use InvalidArgumentException;
+use ValueError;
 use function array_map, ord, preg_match_all;
 
 class Utf8 implements InputInterface
@@ -24,7 +24,7 @@ class Utf8 implements InputInterface
 	{
 		if (preg_match_all('(.)us', $string, $matches) === false)
 		{
-			throw new InvalidArgumentException('Invalid UTF-8 string');
+			throw new ValueError('Invalid UTF-8 string');
 		}
 
 		return ($this->useSurrogates) ? $this->charsToCodepointsWithSurrogates($matches[0]) : $this->charsToCodepoints($matches[0]);

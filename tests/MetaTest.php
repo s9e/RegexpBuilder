@@ -16,7 +16,7 @@ class MetaTest extends TestCase
 	*/
 	public function testInvalidExceptionException()
 	{
-		$this->expectException('InvalidArgumentException', "Invalid expression '++'");
+		$this->expectException('ValueError', "Invalid expression '++'");
 		(new Meta)->set('++', '++');
 	}
 

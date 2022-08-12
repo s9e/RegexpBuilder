@@ -2,8 +2,8 @@
 
 namespace s9e\RegexpBuilder\Tests\Input;
 
-use Exception;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 abstract class AbstractTest extends TestCase
 {
@@ -19,7 +19,7 @@ abstract class AbstractTest extends TestCase
 			$setup($input);
 		}
 
-		if ($expected instanceof Exception)
+		if ($expected instanceof Throwable)
 		{
 			$this->expectException(get_class($expected), $expected->getMessage());
 		}

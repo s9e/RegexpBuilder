@@ -2,7 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests\Input;
 
-use InvalidArgumentException;
+use ValueError;
 use s9e\RegexpBuilder\Input\InputInterface;
 
 /**
@@ -15,7 +15,7 @@ class Utf8Test extends AbstractTest
 		return [
 			[
 				"\xFF",
-				new InvalidArgumentException('Invalid UTF-8 string')
+				new ValueError('Invalid UTF-8 string')
 			],
 			[
 				'',
