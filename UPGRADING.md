@@ -1,6 +1,6 @@
 # 1.x to 2.0
 
-Old, unsupported parameter bag:
+Old, unsupported parameter bags:
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder([
@@ -14,10 +14,10 @@ $builder = new s9e\RegexpBuilder\Builder([
 Current, explicit API:
 
 ```php
-$builder = new s9e\RegexpBuilder\Builder([
-	'input'  => 'Utf8',
-	'output' => 'JavaScript',
-]);
+$builder = new s9e\RegexpBuilder\Builder(
+	input:  'Utf8',
+	output: 'JavaScript'
+);
 $builder->input->useSurrogates = true;
-$builder->output->useLowerCaseHex();
+$builder->output->hexFormat = s9e\RegexpBuilder\Output\HexFormat::LowerCase;
 ```

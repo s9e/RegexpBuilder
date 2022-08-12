@@ -4,6 +4,7 @@ namespace s9e\RegexpBuilder\Tests\Output;
 
 use InvalidArgumentException;
 use s9e\RegexpBuilder\OutputContext as Context;
+use s9e\RegexpBuilder\Output\HexFormat;
 use s9e\RegexpBuilder\Output\PHP;
 
 /**
@@ -60,15 +61,15 @@ class PHPTest extends AbstractTest
 			[42, '\\*'],
 			[102, 'f'],
 			[0xC3, '\\xC3'],
-			[0xC3, '\\xC3', fn($output) => $output->useUpperCaseHex()],
-			[0xC3, '\\xc3', fn($output) => $output->useLowerCaseHex()],
+			[0xC3, '\\xC3', fn($output) => $output->hexFormat = HexFormat::UpperCase],
+			[0xC3, '\\xc3', fn($output) => $output->hexFormat = HexFormat::LowerCase],
 			[0x2026, '\\x{2026}'],
 			[0xFE0F, '\\x{FE0F}'],
-			[0xFE0F, '\\x{FE0F}', fn($output) => $output->useUpperCaseHex()],
-			[0xFE0F, '\\x{fe0f}', fn($output) => $output->useLowerCaseHex()],
+			[0xFE0F, '\\x{FE0F}', fn($output) => $output->hexFormat = HexFormat::UpperCase],
+			[0xFE0F, '\\x{fe0f}', fn($output) => $output->hexFormat = HexFormat::LowerCase],
 			[0x1F600, '\\x{1F600}'],
-			[0x1F600, '\\x{1F600}', fn($output) => $output->useUpperCaseHex()],
-			[0x1F600, '\\x{1f600}', fn($output) => $output->useLowerCaseHex()],
+			[0x1F600, '\\x{1F600}', fn($output) => $output->hexFormat = HexFormat::UpperCase],
+			[0x1F600, '\\x{1f600}', fn($output) => $output->hexFormat = HexFormat::LowerCase],
 			[0x120000, new InvalidArgumentException('Value 1179648 is out of bounds (0..1114111)')]
 		];
 	}
@@ -83,15 +84,15 @@ class PHPTest extends AbstractTest
 			[42, '*'],
 			[102, 'f'],
 			[0xC3, '\\xC3'],
-			[0xC3, '\\xC3', fn($output) => $output->useUpperCaseHex()],
-			[0xC3, '\\xc3', fn($output) => $output->useLowerCaseHex()],
+			[0xC3, '\\xC3', fn($output) => $output->hexFormat = HexFormat::UpperCase],
+			[0xC3, '\\xc3', fn($output) => $output->hexFormat = HexFormat::LowerCase],
 			[0x2026, '\\x{2026}'],
 			[0xFE0F, '\\x{FE0F}'],
-			[0xFE0F, '\\x{FE0F}', fn($output) => $output->useUpperCaseHex()],
-			[0xFE0F, '\\x{fe0f}', fn($output) => $output->useLowerCaseHex()],
+			[0xFE0F, '\\x{FE0F}', fn($output) => $output->hexFormat = HexFormat::UpperCase],
+			[0xFE0F, '\\x{fe0f}', fn($output) => $output->hexFormat = HexFormat::LowerCase],
 			[0x1F600, '\\x{1F600}'],
-			[0x1F600, '\\x{1F600}', fn($output) => $output->useUpperCaseHex()],
-			[0x1F600, '\\x{1f600}', fn($output) => $output->useLowerCaseHex()],
+			[0x1F600, '\\x{1F600}', fn($output) => $output->hexFormat = HexFormat::UpperCase],
+			[0x1F600, '\\x{1f600}', fn($output) => $output->hexFormat = HexFormat::LowerCase],
 			[0x120000, new InvalidArgumentException('Value 1179648 is out of bounds (0..1114111)')]
 		];
 	}

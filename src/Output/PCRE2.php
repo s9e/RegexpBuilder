@@ -40,6 +40,6 @@ class PCRE2 extends PrintableAscii
 	*/
 	protected function escapeUnicode(int $cp): string
 	{
-		return sprintf('\\x{%04' . $this->hexCase . '}', $cp);
+		return sprintf('\\x{%04' . $this->hexFormat->value . '}', $cp);
 	}
 }

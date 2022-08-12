@@ -12,25 +12,9 @@ use function chr, sprintf;
 abstract class PrintableAscii extends AbstractOutput
 {
 	/**
-	* @var string 'x' for lowercase hexadecimal symbols, 'X' for uppercase
+	* @var HexFormat Format used for hexadecimal representation
 	*/
-	protected string $hexCase = 'X';
-
-	/**
-	* Use lower case lowercase in hexadecimal representations
-	*/
-	public function useLowerCaseHex(): void
-	{
-		$this->hexCase = 'x';
-	}
-
-	/**
-	* Use upper case lowercase in hexadecimal representations
-	*/
-	public function useUpperCaseHex(): void
-	{
-		$this->hexCase = 'X';
-	}
+	public HexFormat $hexFormat = HexFormat::UpperCase;
 
 	/**
 	* Escape given ASCII codepoint
@@ -40,7 +24,7 @@ abstract class PrintableAscii extends AbstractOutput
 	*/
 	protected function escapeAscii(int $cp): string
 	{
-		return '\\x' . sprintf('%02' . $this->hexCase, $cp);
+		return '\\x' . sprintf('%02' . $this->hexFormat->value, $cp);
 	}
 
 	/**

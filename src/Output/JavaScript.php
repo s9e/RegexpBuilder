@@ -27,7 +27,7 @@ class JavaScript extends PrintableAscii
 	*/
 	protected function escapeUnicode(int $cp): string
 	{
-		$format = ($cp > 0xFFFF) ? '\\u{%' . $this->hexCase . '}' : '\\u%04' . $this->hexCase;
+		$format = ($cp > 0xFFFF) ? '\\u{%' . $this->hexFormat->value . '}' : '\\u%04' . $this->hexFormat->value;
 
 		return sprintf($format, $cp);
 	}
