@@ -20,7 +20,7 @@ class StringSorter
 	public function getUniqueSortedStrings(array $strings): array
 	{
 		// Sort
-		usort($strings, [$this, 'compareStrings']);
+		usort($strings, $this->compareStrings(...));
 
 		// Deduplicate
 		$i = count($strings);

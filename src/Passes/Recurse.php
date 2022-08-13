@@ -33,7 +33,7 @@ class Recurse extends AbstractPass
 	*/
 	protected function runPass(array $strings): array
 	{
-		return array_map([$this, 'recurseString'], $strings);
+		return array_map($this->recurseString(...), $strings);
 	}
 
 	/**

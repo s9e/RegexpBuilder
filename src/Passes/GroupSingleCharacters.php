@@ -40,6 +40,6 @@ class GroupSingleCharacters extends AbstractPass
 	*/
 	protected function getSingleCharStrings(array $strings): array
 	{
-		return array_filter($strings, [$this, 'isSingleCharString']);
+		return array_filter($strings, $this->isSingleCharString(...));
 	}
 }

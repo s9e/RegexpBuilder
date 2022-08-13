@@ -41,7 +41,7 @@ class InputSplitter
 		$this->map    = $this->meta->getInputMap();
 		$this->regexp = $this->getInputRegexp(array_map('strval', array_keys($this->map)));
 
-		return array_map([$this, 'splitString'], $strings);
+		return array_map($this->splitString(...), $strings);
 	}
 
 	/**

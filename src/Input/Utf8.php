@@ -38,7 +38,7 @@ class Utf8 implements InputInterface
 	*/
 	protected function charsToCodepoints(array $chars): array
 	{
-		return array_map([$this, 'cp'], $chars);
+		return array_map($this->cp(...), $chars);
 	}
 
 	/**

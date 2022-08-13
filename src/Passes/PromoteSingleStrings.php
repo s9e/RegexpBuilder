@@ -20,7 +20,7 @@ class PromoteSingleStrings extends AbstractPass
 	*/
 	protected function runPass(array $strings): array
 	{
-		return array_map([$this, 'promoteSingleStrings'], $strings);
+		return array_map($this->promoteSingleStrings(...), $strings);
 	}
 
 	/**

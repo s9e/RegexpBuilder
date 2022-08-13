@@ -35,7 +35,7 @@ class Serializer
 	public function serializeStrings(array $strings, bool $groupAlternations = true): string
 	{
 		$info         = $this->analyzeStrings($strings);
-		$alternations = array_map([$this, 'serializeString'], $info['strings']);
+		$alternations = array_map($this->serializeString(...), $info['strings']);
 		if (!empty($info['chars']))
 		{
 			// Prepend the character class to the list of alternations
@@ -251,7 +251,7 @@ class Serializer
 	*/
 	protected function serializeString(array $string): string
 	{
-		return implode('', array_map([$this, 'serializeElement'], $string));
+		return implode('', array_map($this->serializeElement(...), $string));
 	}
 
 	/**
