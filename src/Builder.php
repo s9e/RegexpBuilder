@@ -34,14 +34,12 @@ class Builder
 
 	public function __construct(
 		public readonly InputInterface  $input  = new BytesInput,
-		array  $meta    = [],
 		public readonly OutputInterface $output = new BytesOutput
 	)
 	{
-		$this->setMeta($meta);
-		$this->setRunner();
-
+		$this->meta       = new Meta;
 		$this->serializer = new Serializer($this->meta, $this->output);
+		$this->setRunner();
 	}
 
 	/**
@@ -82,21 +80,6 @@ class Builder
 	protected function isEmpty(array $strings): bool
 	{
 		return (empty($strings) || $strings === [[]]);
-	}
-
-	/**
-	* Set the Meta instance in $this->meta
-	*
-	* @param  array $map
-	* @return void
-	*/
-	protected function setMeta(array $map): void
-	{
-		$this->meta = new Meta;
-		foreach ($map as $sequence => $expression)
-		{
-			$this->meta->set($sequence, $expression);
-		}
 	}
 
 	/**

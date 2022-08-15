@@ -133,27 +133,47 @@ class BuilderTest extends TestCase
 			[
 				['x?'],
 				'x.',
-				['meta' => ['?' => '.']]
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('?', '.');
+				}
 			],
 			[
 				['x', 'x?'],
 				'x.?',
-				['meta' => ['?' => '.']]
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('?', '.');
+				}
 			],
 			[
 				['x?', 'xa', 'xb'],
 				'x[ab\\d]',
-				['meta' => ['?' => '\\d']]
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('?', '\\d');
+				}
 			],
 			[
 				['b', 'bX'],
 				'b(?:xx)?',
-				['meta' => ['X' => 'xx']]
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('X', 'xx');
+				}
 			],
 			[
 				["\n", '.'],
 				'\\n|.',
-				['meta' => ['.' => '.'], 'output' => new PCRE2]
+				['output' => new PCRE2],
+				function (Builder $builder)
+				{
+					$builder->meta->set('.', '.');
+				}
 			],
 			[
 				['^', '_'],

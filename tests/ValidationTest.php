@@ -15,10 +15,15 @@ class ValidationTest extends TestCase
 	/**
 	* @dataProvider getValidationTests
 	*/
-	public function test($expected, $strings, $config = [])
+	public function test($expected, $strings, $config = [], callable $setup = null)
 	{
 		$builder = new Builder(...$config);
-		$actual  = $builder->build($strings);
+		if (isset($setup))
+		{
+			$setup($builder);
+		}
+
+		$actual = $builder->build($strings);
 		$this->assertSame($expected, $actual);
 
 		if (!isset($config['meta']) && !isset($config['output']))
@@ -335,12 +340,23 @@ class ValidationTest extends TestCase
 				// single character
 				'[ab\\d]x|zz|\\d+x|\\bx',
 				['ax', 'bx', '?x', '*x', '#x', 'zz'],
-				['meta' => ['*' => '\\d+', '#' => '\\b', '?' => '\\d']]
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('*', '\\d+');
+					$builder->meta->set('#', '\\b');
+					$builder->meta->set('?', '\\d');
+				}
 			],
 			[
 				'[!#$*1]|.*?',
 				['!', '#', '$', '\\*', '*', '1'],
-				['meta' => ['*' => '.*?', '\\*' => '\\*']]
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('*',   '.*?');
+					$builder->meta->set('\\*', '\\*');
+				}
 			],
 		];
 	}
