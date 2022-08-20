@@ -26,12 +26,14 @@ class ValidationTest extends TestCase
 		$actual = $builder->build($strings);
 		$this->assertSame($expected, $actual);
 
-		if (!isset($config['meta']) && !isset($config['output']))
+		if (empty($builder->meta->getInputMap()) && !isset($config['output']))
 		{
-			$regexp = '@^' . $actual . '$@';
+			// Test that every input string matches fully
+			$regexp = '(' . $actual . ')';
 			foreach ($strings as $string)
 			{
-				$this->assertMatchesRegularExpression($regexp, $string);
+				$this->assertSame(1, preg_match($regexp, $string, $m));
+				$this->assertSame($string, $m[0]);
 			}
 		}
 	}
