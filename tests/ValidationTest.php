@@ -26,15 +26,22 @@ class ValidationTest extends TestCase
 		$actual = $builder->build($strings);
 		$this->assertSame($expected, $actual);
 
-		if (empty($builder->meta->getInputMap()) && !isset($config['output']))
+		$metaMap = $builder->meta->getInputMap();
+
+		// Test that every input string matches fully
+		$regexp = '(' . $actual . ')u';
+		foreach ($strings as $string)
 		{
-			// Test that every input string matches fully
-			$regexp = '(' . $actual . ')';
-			foreach ($strings as $string)
+			foreach ($metaMap as $sequence => $expr)
 			{
-				$this->assertSame(1, preg_match($regexp, $string, $m));
-				$this->assertSame($string, $m[0]);
+				if (str_contains($string, $sequence))
+				{
+					// Skip if the string contains any meta sequence
+					continue 2;
+				}
 			}
+			$this->assertSame(1, preg_match($regexp, $string, $m));
+			$this->assertSame($string, $m[0]);
 		}
 	}
 
@@ -358,6 +365,16 @@ class ValidationTest extends TestCase
 				{
 					$builder->meta->set('*',   '.*?');
 					$builder->meta->set('\\*', '\\*');
+				}
+			],
+			[
+				// If \\w+ is earlier than Yahoo! it will prevent a full match
+				'Bing|Google|Yahoo!|\\w+',
+				['Google', 'Bing', 'Yahoo!', '*'],
+				[],
+				function (Builder $builder)
+				{
+					$builder->meta->set('*', '\\w+');
 				}
 			],
 		];
