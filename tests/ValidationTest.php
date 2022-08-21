@@ -40,8 +40,10 @@ class ValidationTest extends TestCase
 					continue 2;
 				}
 			}
-			$this->assertSame(1, preg_match($regexp, $string, $m));
-			$this->assertSame($string, $m[0]);
+
+			$errorMsg = "'$regexp' does not match '$string'";
+			$this->assertSame(1, preg_match($regexp, $string, $m), $errorMsg);
+			$this->assertSame($string, $m[0], $errorMsg);
 		}
 	}
 
