@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
 use s9e\RegexpBuilder\Input\Utf8 as Utf8Input;
 use s9e\RegexpBuilder\Output\Utf8 as Utf8Output;
+use s9e\RegexpBuilder\Output\PHP as PHPOutput;
 
 /**
 * @coversNothing
@@ -378,6 +379,89 @@ class ValidationTest extends TestCase
 				{
 					$builder->meta->set('*', '\\w+');
 				}
+			],
+			[
+				'\\x{1F3CB}[\\x{FE0F}\\x{1F3FB}-\\x{1F3FF}]?(?:\\x{200D}[\\x{2640}\\x{2642}]\\x{FE0F}?)?',
+				[
+					// Unqualified
+					"\u{1F3CB}",
+					"\u{1F3CB}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{FE0F}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{FE0F}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{200D}\u{2640}",
+
+					// Minimally-qualified
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2640}",
+
+					// Fully-qualified
+					"\u{1F3CB}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FB}",
+					"\u{1F3CB}\u{1F3FC}",
+					"\u{1F3CB}\u{1F3FD}",
+					"\u{1F3CB}\u{1F3FE}",
+					"\u{1F3CB}\u{1F3FF}",
+					"\u{1F3CB}\u{FE0F}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{FE0F}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}",
+				],
+				['input' => new Utf8Input, 'output' => new PHPOutput]
+			],
+			[
+				'\\x{1F3CB}(?:[\\x{1F3FB}-\\x{1F3FF}](?:\\x{200D}[\\x{2640}\\x{2642}]\\x{FE0F}?)?|\\x{FE0F}(?:\\x{200D}[\\x{2640}\\x{2642}]\\x{FE0F})?)',
+				[
+					// Minimally-qualified
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2642}",
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2640}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2640}",
+
+					// Fully-qualified
+					"\u{1F3CB}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FB}",
+					"\u{1F3CB}\u{1F3FC}",
+					"\u{1F3CB}\u{1F3FD}",
+					"\u{1F3CB}\u{1F3FE}",
+					"\u{1F3CB}\u{1F3FF}",
+					"\u{1F3CB}\u{FE0F}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2642}\u{FE0F}",
+					"\u{1F3CB}\u{FE0F}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FC}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FD}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FE}\u{200D}\u{2640}\u{FE0F}",
+					"\u{1F3CB}\u{1F3FF}\u{200D}\u{2640}\u{FE0F}",
+				],
+				['input' => new Utf8Input, 'output' => new PHPOutput]
 			],
 		];
 	}
