@@ -3,6 +3,7 @@
 namespace s9e\RegexpBuilder\Tests\Passes;
 
 use PHPUnit\Framework\TestCase;
+use s9e\RegexpBuilder\Meta;
 
 abstract class AbstractTest extends TestCase
 {
@@ -22,4 +23,12 @@ abstract class AbstractTest extends TestCase
 	}
 
 	abstract public function getPassTests();
+
+	protected function getMetaValue(string $expr): int
+	{
+		$meta = new Meta;
+		$meta->set('x', $expr);
+
+		return $meta->getInputMap()['x'];
+	}
 }

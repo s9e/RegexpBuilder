@@ -52,6 +52,29 @@ class GroupSingleCharactersTest extends AbstractTest
 					[2, 2]
 				]
 			],
+			[
+				[
+					[1],
+					[2, 2],
+					[$this->getMetaValue('\\w')]
+				],
+				[
+					[[[1], [$this->getMetaValue('\\w')]]],
+					[2, 2]
+				]
+			],
+			[
+				[
+					[1],
+					[2, 2],
+					[$this->getMetaValue('.*')]
+				],
+				[
+					[1],
+					[2, 2],
+					[$this->getMetaValue('.*')]
+				]
+			],
 		];
 	}
 }

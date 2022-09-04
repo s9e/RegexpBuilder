@@ -9,6 +9,7 @@ namespace s9e\RegexpBuilder\Passes;
 
 use const false, true;
 use function array_shift, array_unshift, count, end, is_array;
+use s9e\RegexpBuilder\Meta;
 
 abstract class AbstractPass implements PassInterface
 {
@@ -127,7 +128,7 @@ abstract class AbstractPass implements PassInterface
 	*/
 	protected function isSingleCharString(array $string): bool
 	{
-		return (count($string) === 1 && !is_array($string[0]));
+		return (count($string) === 1 && is_int($string[0]) && Meta::isChar($string[0]));
 	}
 
 	/**
