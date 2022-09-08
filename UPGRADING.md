@@ -26,7 +26,7 @@ $builder->input->useSurrogates = true;
 $builder->output->hexFormat = s9e\RegexpBuilder\Output\HexFormat::LowerCase;
 ```
 
-The same result can be obtained using a factory. Here we use the JavaScript factory:
+The same result can be obtained using a factory, which is the recommended way to create an instance. Here we use the JavaScript factory:
 
 ```php
 $builder = new s9e\RegexpBuilder\Factory\JavaScript::getBuilder();
