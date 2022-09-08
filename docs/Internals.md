@@ -56,7 +56,7 @@ An alternation may start with an empty string. It means the whole group is optio
 // Main alternation
 [
 	// First string
-	[]
+	[],
 	// Second string
 	[97, 98, 99]  // "a", "b", "c"
 ]
