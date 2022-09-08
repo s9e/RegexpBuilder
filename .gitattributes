@@ -2,8 +2,6 @@
 /README.md         export-ignore
 /composer.lock     export-ignore
 /docs              export-ignore
-/package.json      export-ignore
-/package-lock.json export-ignore
 /phpunit.xml       export-ignore
 /scripts           export-ignore
 /tests             export-ignore

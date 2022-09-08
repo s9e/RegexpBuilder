@@ -14,13 +14,13 @@ use s9e\RegexpBuilder\Factory\RE2;
 */
 class EmojiTest extends TestCase
 {
-	protected string $emojiDir = __DIR__ . '/../node_modules/emoji-test-regex-pattern/dist/latest';
+	protected string $emojiDir = __DIR__ . '/node_modules/emoji-test-regex-pattern/dist/latest';
 
 	protected function getEmoji(): array
 	{
 		if (!file_exists($this->emojiDir))
 		{
-			$this->markTestSkipped('Missing NPM module');
+			$this->markTestSkipped('Missing NPM module in tests directory');
 		}
 
 		return file($this->emojiDir . '/index-strings.txt', FILE_IGNORE_NEW_LINES);
