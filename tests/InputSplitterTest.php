@@ -22,7 +22,7 @@ class InputSplitterTest extends TestCase
 		$this->assertEquals($expected, $actual);
 	}
 
-	public function getSplitStringsTests()
+	public static function getSplitStringsTests()
 	{
 		return [
 			[

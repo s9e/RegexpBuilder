@@ -2,9 +2,9 @@
 
 namespace s9e\RegexpBuilder\Tests\Factory;
 
-class PHPTest extends AbstractFactoryTest
+class PHPTest extends AbstractFactoryTestClass
 {
-	public function getGetBuilderTests()
+	public static function getGetBuilderTests()
 	{
 		return [
 			[

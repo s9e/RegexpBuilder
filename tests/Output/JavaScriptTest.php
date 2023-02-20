@@ -10,9 +10,9 @@ use s9e\RegexpBuilder\Output\HexFormat;
 * @covers s9e\RegexpBuilder\Output\JavaScript
 * @covers s9e\RegexpBuilder\Output\PrintableAscii
 */
-class JavaScriptTest extends AbstractTest
+class JavaScriptTest extends AbstractTestClass
 {
-	public function getOutputBodyTests()
+	public static function getOutputBodyTests()
 	{
 		return [
 			[ord('/'),  '\\/'],
@@ -37,7 +37,7 @@ class JavaScriptTest extends AbstractTest
 		];
 	}
 
-	public function getOutputClassAtomTests()
+	public static function getOutputClassAtomTests()
 	{
 		return [
 			[ord('/'),  '\\/'],

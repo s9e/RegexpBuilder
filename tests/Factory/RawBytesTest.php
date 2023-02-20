@@ -2,9 +2,9 @@
 
 namespace s9e\RegexpBuilder\Tests\Factory;
 
-class RawBytesTest extends AbstractFactoryTest
+class RawBytesTest extends AbstractFactoryTestClass
 {
-	public function getGetBuilderTests()
+	public static function getGetBuilderTests()
 	{
 		return [
 			[

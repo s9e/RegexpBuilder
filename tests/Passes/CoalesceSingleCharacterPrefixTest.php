@@ -6,9 +6,9 @@ namespace s9e\RegexpBuilder\Tests\Passes;
 * @covers s9e\RegexpBuilder\Passes\AbstractPass
 * @covers s9e\RegexpBuilder\Passes\CoalesceSingleCharacterPrefix
 */
-class CoalesceSingleCharacterPrefixTest extends AbstractTest
+class CoalesceSingleCharacterPrefixTest extends AbstractTestClass
 {
-	public function getPassTests()
+	public static function getPassTests()
 	{
 		return [
 			[

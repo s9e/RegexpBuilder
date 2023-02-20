@@ -36,7 +36,7 @@ class BuilderTest extends TestCase
 		$this->assertSame($expected, $builder->build($original));
 	}
 
-	public function getBuilderTests()
+	public static function getBuilderTests()
 	{
 		return [
 			[

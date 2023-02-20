@@ -8,9 +8,9 @@ use s9e\RegexpBuilder\Input\InputInterface;
 /**
 * @covers s9e\RegexpBuilder\Input\Utf8
 */
-class Utf8Test extends AbstractTest
+class Utf8Test extends AbstractTestClass
 {
-	public function getInputTests()
+	public static function getInputTests()
 	{
 		return [
 			[

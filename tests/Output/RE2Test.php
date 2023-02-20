@@ -10,9 +10,9 @@ use s9e\RegexpBuilder\Output\HexFormat;
 * @covers s9e\RegexpBuilder\Output\PrintableAscii
 * @covers s9e\RegexpBuilder\Output\RE2
 */
-class RE2Test extends AbstractTest
+class RE2Test extends AbstractTestClass
 {
-	public function getOutputBodyTests()
+	public static function getOutputBodyTests()
 	{
 		return [
 			[ord("\n"), '\\n'],
@@ -38,7 +38,7 @@ class RE2Test extends AbstractTest
 		];
 	}
 
-	public function getOutputClassAtomTests()
+	public static function getOutputClassAtomTests()
 	{
 		return [
 			[ord("\n"), '\\n'],

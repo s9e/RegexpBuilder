@@ -5,14 +5,14 @@ namespace s9e\RegexpBuilder\Tests\Input;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-abstract class AbstractTest extends TestCase
+abstract class AbstractTestClass extends TestCase
 {
 	/**
 	* @dataProvider getInputTests
 	*/
 	public function test($original, $expected, callable $setup = null)
 	{
-		$className = 's9e\\RegexpBuilder\\Input\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
+		$className = 's9e\\RegexpBuilder\\Input\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', static::class);
 		$input = new $className;
 		if (isset($setup))
 		{
@@ -27,5 +27,5 @@ abstract class AbstractTest extends TestCase
 		$this->assertSame($expected, $input->split($original));
 	}
 
-	abstract public function getInputTests();
+	abstract public static function getInputTests();
 }

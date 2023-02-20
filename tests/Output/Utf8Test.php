@@ -8,9 +8,9 @@ use ValueError;
 * @covers s9e\RegexpBuilder\Output\AbstractOutput
 * @covers s9e\RegexpBuilder\Output\Utf8
 */
-class Utf8Test extends AbstractTest
+class Utf8Test extends AbstractTestClass
 {
-	public function getOutputBodyTests()
+	public static function getOutputBodyTests()
 	{
 		return [
 			[ord("\n"), "\n"],
@@ -19,7 +19,7 @@ class Utf8Test extends AbstractTest
 			[92, '\\\\'],
 			[42, '\\*'],
 			[102, 'f'],
-			[0xC3, utf8_encode("\xC3")],
+			[0xC3, "\xC3\x83"],
 			[0x2026, "\xE2\x80\xA6"],
 			[0x1F600, "\xF0\x9F\x98\x80"],
 			[0x120000, new ValueError('Value 1179648 is out of bounds (0..1114111)')],
@@ -28,7 +28,7 @@ class Utf8Test extends AbstractTest
 		];
 	}
 
-	public function getOutputClassAtomTests()
+	public static function getOutputClassAtomTests()
 	{
 		return [
 			[ord("\n"), "\n"],
@@ -37,7 +37,7 @@ class Utf8Test extends AbstractTest
 			[92, '\\\\'],
 			[42, '*'],
 			[102, 'f'],
-			[0xC3, utf8_encode("\xC3")],
+			[0xC3, "\xC3\x83"],
 			[0x2026, "\xE2\x80\xA6"],
 			[0x1F600, "\xF0\x9F\x98\x80"],
 			[0x120000, new ValueError('Value 1179648 is out of bounds (0..1114111)')],

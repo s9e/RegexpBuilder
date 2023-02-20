@@ -13,7 +13,7 @@ use s9e\RegexpBuilder\Output\PHP;
 * @covers s9e\RegexpBuilder\Output\PHP
 * @covers s9e\RegexpBuilder\Output\PrintableAscii
 */
-class PHPTest extends AbstractTest
+class PHPTest extends AbstractTestClass
 {
 	public function testEnableExtendedMore()
 	{
@@ -41,7 +41,7 @@ class PHPTest extends AbstractTest
 		(new PHP)->setDelimiter($delimiter);
 	}
 
-	public function getInvalidDelimiterTests()
+	public static function getInvalidDelimiterTests()
 	{
 		return [
 			["\0"],
@@ -51,7 +51,7 @@ class PHPTest extends AbstractTest
 		];
 	}
 
-	public function getOutputBodyTests()
+	public static function getOutputBodyTests()
 	{
 		return [
 			[ord("\n"), '\\n'],
@@ -74,7 +74,7 @@ class PHPTest extends AbstractTest
 		];
 	}
 
-	public function getOutputClassAtomTests()
+	public static function getOutputClassAtomTests()
 	{
 		return [
 			[ord("\n"), '\\n'],

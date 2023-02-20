@@ -5,7 +5,7 @@ namespace s9e\RegexpBuilder\Tests\Passes;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Meta;
 
-abstract class AbstractTest extends TestCase
+abstract class AbstractTestClass extends TestCase
 {
 	/**
 	* @dataProvider getPassTests
@@ -15,16 +15,16 @@ abstract class AbstractTest extends TestCase
 		$this->assertSame($expected, $this->getPassInstance()->run($original));
 	}
 
-	public function getPassInstance()
+	public static function getPassInstance()
 	{
-		$className = 's9e\\RegexpBuilder\\Passes\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
+		$className = 's9e\\RegexpBuilder\\Passes\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', static::class);
 
 		return new $className;
 	}
 
-	abstract public function getPassTests();
+	abstract public static function getPassTests();
 
-	protected function getMetaValue(string $expr): int
+	protected static function getMetaValue(string $expr): int
 	{
 		$meta = new Meta;
 		$meta->set('x', $expr);

@@ -19,13 +19,12 @@ class RecurseTest extends TestCase
 
 		$mock->expects($this->exactly(2))
 		     ->method('run')
-		     ->withConsecutive([[0, 1, 2]], [[1, 2, 3]])
-		     ->willReturnOnConsecutiveCalls([0, 1], [2, 3]);
+		     ->willReturnCallback(fn($in) => array_slice($in, 1));
 
 		$pass = new Recurse($mock);
 		$this->assertSame(
-			[[[0, 1], [2, 3]]],
-			$pass->run([[[0, 1, 2], [1, 2, 3]]])
+			[[[1, 2], [3, 4]]],
+			$pass->run([[[0, 1, 2], [2, 3, 4]]])
 		);
 	}
 }

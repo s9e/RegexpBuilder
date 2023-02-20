@@ -28,7 +28,7 @@ class SerializerTest extends TestCase
 		$this->assertSame($expected, $serializer->serializeStrings(...$args));
 	}
 
-	public function getSerializerTests()
+	public static function getSerializerTests()
 	{
 		return [
 			[

@@ -6,9 +6,9 @@ namespace s9e\RegexpBuilder\Tests\Passes;
 * @covers s9e\RegexpBuilder\Passes\AbstractPass
 * @covers s9e\RegexpBuilder\Passes\GroupSingleCharacters
 */
-class GroupSingleCharactersTest extends AbstractTest
+class GroupSingleCharactersTest extends AbstractTestClass
 {
-	public function getPassTests()
+	public static function getPassTests()
 	{
 		return [
 			[
@@ -56,10 +56,10 @@ class GroupSingleCharactersTest extends AbstractTest
 				[
 					[1],
 					[2, 2],
-					[$this->getMetaValue('\\w')]
+					[self::getMetaValue('\\w')]
 				],
 				[
-					[[[1], [$this->getMetaValue('\\w')]]],
+					[[[1], [self::getMetaValue('\\w')]]],
 					[2, 2]
 				]
 			],
@@ -67,12 +67,12 @@ class GroupSingleCharactersTest extends AbstractTest
 				[
 					[1],
 					[2, 2],
-					[$this->getMetaValue('.*')]
+					[self::getMetaValue('.*')]
 				],
 				[
 					[1],
 					[2, 2],
-					[$this->getMetaValue('.*')]
+					[self::getMetaValue('.*')]
 				]
 			],
 		];

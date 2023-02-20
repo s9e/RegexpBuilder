@@ -19,7 +19,7 @@ class StringSorterTest extends TestCase
 		$this->assertSame($expected, $sorter->getUniqueSortedStrings($strings));
 	}
 
-	public function getGetUniqueSortedStringsTests()
+	public static function getGetUniqueSortedStringsTests()
 	{
 		return [
 			[

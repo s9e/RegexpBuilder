@@ -6,11 +6,11 @@ use PHPUnit\Framework\TestCase;
 use Throwable;
 use s9e\RegexpBuilder\Output\Context;
 
-abstract class AbstractTest extends TestCase
+abstract class AbstractTestClass extends TestCase
 {
 	protected function runOutputTest(Context $context, $original, $expected, ?callable $setup = null)
 	{
-		$className = 's9e\\RegexpBuilder\\Output\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', get_class($this));
+		$className = 's9e\\RegexpBuilder\\Output\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', static::class);
 		$output = new $className;
 
 		if (isset($setup))
@@ -42,6 +42,6 @@ abstract class AbstractTest extends TestCase
 		$this->runOutputTest(Context::ClassAtom, $original, $expected, $setup);
 	}
 
-	abstract public function getOutputBodyTests();
-	abstract public function getOutputClassAtomTests();
+	abstract public static function getOutputBodyTests();
+	abstract public static function getOutputClassAtomTests();
 }

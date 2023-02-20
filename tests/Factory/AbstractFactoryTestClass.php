@@ -4,14 +4,14 @@ namespace s9e\RegexpBuilder\Tests\Factory;
 
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractFactoryTest extends TestCase
+abstract class AbstractFactoryTestClass extends TestCase
 {
 	/**
 	* @dataProvider getGetBuilderTests
 	*/
 	public function testGetBuilder(array $input, string $expected, array $args = [])
 	{
-		$className = strtr(get_class($this), ['\\Tests' => '', 'Test' => '']);
+		$className = strtr(static::class, ['\\Tests' => '', 'Test' => '']);
 		$builder   = call_user_func_array($className . '::getBuilder', $args);
 
 		$this->assertInstanceOf('s9e\\RegexpBuilder\\Builder', $builder);

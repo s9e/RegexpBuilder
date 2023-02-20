@@ -62,7 +62,7 @@ class EmojiTest extends TestCase
 		$this->assertLessThanOrEqual(strlen($reference), strlen($regexp));
 	}
 
-	public function getEmojiTestRegexPatternTests(): array
+	public static function getEmojiTestRegexPatternTests(): array
 	{
 		return [
 			[

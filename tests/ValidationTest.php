@@ -48,7 +48,7 @@ class ValidationTest extends TestCase
 		}
 	}
 
-	public function getValidationTests()
+	public static function getValidationTests()
 	{
 		return [
 			[

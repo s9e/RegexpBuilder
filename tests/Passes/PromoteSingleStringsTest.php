@@ -6,9 +6,9 @@ namespace s9e\RegexpBuilder\Tests\Passes;
 * @covers s9e\RegexpBuilder\Passes\AbstractPass
 * @covers s9e\RegexpBuilder\Passes\PromoteSingleStrings
 */
-class PromoteSingleStringsTest extends AbstractTest
+class PromoteSingleStringsTest extends AbstractTestClass
 {
-	public function getPassTests()
+	public static function getPassTests()
 	{
 		return [
 			[

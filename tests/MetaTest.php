@@ -65,7 +65,7 @@ class MetaTest extends TestCase
 		}
 	}
 
-	public function getPropertiesTests()
+	public static function getPropertiesTests()
 	{
 		return [
 			['cq', '\\w'      ],
@@ -96,7 +96,7 @@ class MetaTest extends TestCase
 		$this->assertEquals(['x' => $value], $meta->getInputMap());
 	}
 
-	public function getSingleCharacterTests()
+	public static function getSingleCharacterTests()
 	{
 		return [
 			['b',   ord('b')],

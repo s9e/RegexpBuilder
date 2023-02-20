@@ -8,9 +8,9 @@ use ValueError;
 * @covers s9e\RegexpBuilder\Output\AbstractOutput
 * @covers s9e\RegexpBuilder\Output\Bytes
 */
-class BytesTest extends AbstractTest
+class BytesTest extends AbstractTestClass
 {
-	public function getOutputBodyTests()
+	public static function getOutputBodyTests()
 	{
 		return [
 			[92, '\\\\'],
@@ -23,7 +23,7 @@ class BytesTest extends AbstractTest
 		];
 	}
 
-	public function getOutputClassAtomTests()
+	public static function getOutputClassAtomTests()
 	{
 		return [
 			[92, '\\\\'],

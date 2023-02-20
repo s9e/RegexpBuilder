@@ -5,9 +5,9 @@ namespace s9e\RegexpBuilder\Tests\Input;
 /**
 * @covers s9e\RegexpBuilder\Input\Bytes
 */
-class BytesTest extends AbstractTest
+class BytesTest extends AbstractTestClass
 {
-	public function getInputTests()
+	public static function getInputTests()
 	{
 		return [
 			[
