@@ -22,7 +22,6 @@ use s9e\RegexpBuilder\Passes\Recurse;
 
 class Builder
 {
-	public readonly Meta       $meta;
 	public readonly Runner     $runner;
 	public readonly Serializer $serializer;
 
@@ -34,10 +33,10 @@ class Builder
 
 	public function __construct(
 		public readonly InputInterface  $input  = new BytesInput,
+		public readonly Meta            $meta   = new Meta,
 		public readonly OutputInterface $output = new BytesOutput
 	)
 	{
-		$this->meta       = new Meta;
 		$this->serializer = new Serializer($this->meta, $this->output);
 		$this->setRunner();
 	}

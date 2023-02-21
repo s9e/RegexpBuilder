@@ -93,9 +93,9 @@ In the following example, we emulate Bash-style jokers by mapping `?` to `.` and
 
 ```php
 $builder = new s9e\RegexpBuilder\Builder;
-$builder = new s9e\RegexpBuilder\Builder(
-	meta: ['?' => '.', '*' => '.*']
-);
+$builder->meta->set('?', '.');
+$builder->meta->set('*', '.*');
+
 echo '/', $builder->build(['foo?', 'bar*']), '/';
 ```
 ```
@@ -105,11 +105,23 @@ echo '/', $builder->build(['foo?', 'bar*']), '/';
 In the following example, we map `\d` (in the input) to `\d` (in the output) to emulate the escape sequence of a regular expression. Note that they do not have to be identical and we may choose to map `*` to `\d` or `\d` to `[0-9]` instead.
 
 ```php
-$builder = new s9e\RegexpBuilder\Builder(
-	meta: ['\\d' => '\\d']
-);
+$builder = new s9e\RegexpBuilder\Builder;
+$builder->meta->set('\\d', '\\d');
+
 echo '/', $builder->build(['a', 'b', '\\d']), '/';
 ```
 ```
 /[ab\d]/
+```
+
+Alternatively, the `meta` property can also be set as a promoted constructor parameter as follows.
+```php
+$builder = new s9e\RegexpBuilder\Builder(
+	meta: new s9e\RegexpBuilder\Meta(['?' => '.', '*' => '.*'])
+);
+
+echo '/', $builder->build(['foo?', 'bar*']), '/';
+```
+```
+/bar.*|foo./
 ```
