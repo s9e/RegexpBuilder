@@ -35,6 +35,17 @@ class Meta
 	protected array $outputMap = [];
 
 	/**
+	* @param iterable $map Map of sequences and the expressions they represent
+	*/
+	public function __construct(iterable $map = [])
+	{
+		foreach ($map as $sequence => $expression)
+		{
+			$this->set((string) $sequence, $expression);
+		}
+	}
+
+	/**
 	* Return the expression that matches given value
 	*
 	* @param  int $value

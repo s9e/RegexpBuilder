@@ -104,4 +104,25 @@ class MetaTest extends TestCase
 			['\\b', -1 * (1 << count((new ReflectionClass(Meta::class))->getConstants()))],
 		];
 	}
+
+	/**
+	* @testdox Constructor accepts an iterable map
+	*/
+	public function testConstructor()
+	{
+		$meta = new Meta(['x' => '\\b']);
+
+		$this->assertArrayHasKey('x', $meta->getInputMap());
+	}
+
+	/**
+	* @testdox Constructor accepts numbers as keys
+	*/
+	public function testConstructorNumbersAsKeys()
+	{
+		$meta = new Meta(['0' => '\\b']);
+
+		$this->assertArrayHasKey('0', $meta->getInputMap());
+	}
+
 }
