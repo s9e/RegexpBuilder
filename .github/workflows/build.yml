@@ -24,8 +24,11 @@ jobs:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
 
-    - name: Install dependencies
+    - name: Install Composer dependencies
       run: composer install --prefer-dist --no-progress
+
+    - name: Install NPM dependencies
+      run: npm --prefix tests install
 
     - name: Run test suite
       run: composer run-script test
