@@ -9,6 +9,7 @@ namespace s9e\RegexpBuilder\Factory;
 
 use function str_contains;
 use s9e\RegexpBuilder\Builder;
+use s9e\RegexpBuilder\GroupType;
 use s9e\RegexpBuilder\Input\Bytes;
 use s9e\RegexpBuilder\Input\Utf8;
 use s9e\RegexpBuilder\Output\PHP as PHPOutput;
@@ -25,7 +26,7 @@ class PHP implements FactoryInterface
 
 		if (str_contains($modifiers, 'n'))
 		{
-			$builder->serializer->useNonCapturingGroups = false;
+			$builder->serializer->groupType = GroupType::Capture;
 		}
 		if (str_contains($modifiers, 'x'))
 		{

@@ -1,3 +1,10 @@
+# 2.1 to 3.0
+
+### Serializer changes
+
+The `s9e\RegexpBuilder\Serializer::$useNonCapturingGroups` property has been removed and replaced with `s9e\RegexpBuilder\Serializer::$groupType`.
+
+
 # 1.x to 2.0
 
 ### Constructor signature
