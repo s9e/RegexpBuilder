@@ -7,6 +7,7 @@ use s9e\RegexpBuilder\Builder;
 use s9e\RegexpBuilder\Input\Utf8 as Utf8Input;
 use s9e\RegexpBuilder\Output\Utf8 as Utf8Output;
 use s9e\RegexpBuilder\Output\PHP as PHPOutput;
+use s9e\RegexpBuilder\Expression;
 
 /**
 * @coversNothing
@@ -35,7 +36,7 @@ class ValidationTest extends TestCase
 		{
 			foreach ($metaMap as $sequence => $expr)
 			{
-				if (str_contains($string, $sequence))
+				if (is_array($string) || str_contains($string, $sequence))
 				{
 					// Skip if the string contains any meta sequence
 					continue 2;
@@ -379,6 +380,10 @@ class ValidationTest extends TestCase
 				{
 					$builder->meta->set('*', '\\w+');
 				}
+			],
+			[
+				'ba(?:r|z\\w+)|foo',
+				['foo', 'bar', ['baz', new Expression('\\w+')]],
 			],
 			[
 				'\\x{1F3CB}[\\x{FE0F}\\x{1F3FB}-\\x{1F3FF}]?(?:\\x{200D}[\\x{2640}\\x{2642}]\\x{FE0F}?)?',

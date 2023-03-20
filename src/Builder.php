@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder;
 
-use function array_map;
+use function array_filter, base64_encode, dechex, random_int;
 use s9e\RegexpBuilder\Input\Bytes as BytesInput;
 use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Output\Bytes as BytesOutput;
@@ -22,8 +22,9 @@ use s9e\RegexpBuilder\Passes\Recurse;
 
 class Builder
 {
-	public readonly Runner     $runner;
-	public readonly Serializer $serializer;
+	public    readonly Runner     $runner;
+	public    readonly Serializer $serializer;
+	protected readonly string     $uniqid;
 
 	/**
 	* @var bool Whether the expression generated is meant to be used whole. If not, alternations
@@ -37,6 +38,7 @@ class Builder
 		public readonly OutputInterface $output = new BytesOutput
 	)
 	{
+		$this->uniqid     = dechex(random_int(0, 0x7FFFFFFF));
 		$this->serializer = new Serializer($this->meta, $this->output);
 		$this->setRunner();
 	}
@@ -44,11 +46,12 @@ class Builder
 	/**
 	* Build and return a regular expression that matches all of the given strings
 	*
-	* @param  string[] $strings Literal strings to be matched
-	* @return string            Regular expression (without delimiters)
+	* @param  array  $strings Strings to be matched, passed as strings or arrays of strings|Expression
+	* @return string          Regular expression (without delimiters)
 	*/
 	public function build(array $strings): string
 	{
+		$strings = $this->replaceExpressions($strings);
 		$strings = $this->getInputSplitter()->splitStrings($strings);
 		$strings = $this->getStringSorter()->getUniqueSortedStrings($strings);
 		if ($this->isEmpty($strings))
@@ -79,6 +82,35 @@ class Builder
 	protected function isEmpty(array $strings): bool
 	{
 		return (empty($strings) || $strings === [[]]);
+	}
+
+	/**
+	* Replace expressions in strings to be matched
+	*
+	* @param  array    $strings List of string|array<string|Expression>
+	* @return string[]
+	*/
+	protected function replaceExpressions(array $strings): array
+	{
+		foreach (array_filter($strings, 'is_array') as $k => $string)
+		{
+			$strings[$k] = '';
+			foreach ($string as $element)
+			{
+				if ($element instanceof Expression)
+				{
+					$expression = (string) $element;
+					$sequence   = '$' . $this->uniqid . ':' . base64_encode($expression) . '$';
+					$element    = $sequence;
+
+					$this->meta->set($sequence, $expression);
+				}
+
+				$strings[$k] .= $element;
+			}
+		}
+
+		return $strings;
 	}
 
 	/**

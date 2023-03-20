@@ -8,6 +8,7 @@ use s9e\RegexpBuilder\Input\Utf8 as Utf8Input;
 use s9e\RegexpBuilder\Output\JavaScript;
 use s9e\RegexpBuilder\Output\PCRE2;
 use s9e\RegexpBuilder\Output\Utf8 as Utf8Output;
+use s9e\RegexpBuilder\Expression;
 
 /**
 * @covers s9e\RegexpBuilder\Builder
@@ -182,6 +183,19 @@ class BuilderTest extends TestCase
 			[
 				['[foo]', '[bar]'],
 				'\\[(?:bar|foo)]'
+			],
+			[
+				['[foo]', '[bar]', ['[ba', 'z', ']']],
+				'\\[(?:ba[rz]|foo)]'
+			],
+			[
+				['[foo]', '[bar]', ['[ba', new Expression('z'), ']']],
+				'\\[(?:ba[rz]|foo)]'
+			],
+			[
+				// Differentiate between \\d as a literal and \\d as an expression
+				['x\\dx', ['x', new Expression('\\d'), 'x']],
+				'x(?:\\\\d|\\d)x'
 			],
 		];
 	}

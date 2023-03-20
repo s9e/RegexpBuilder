@@ -125,3 +125,69 @@ echo '/', $builder->build(['foo?', 'bar*']), '/';
 ```
 /bar.*|foo./
 ```
+
+
+### Using regular expressions in input
+
+As an alternative to meta sequences, it is possible to identify parts of the input that are meant to be interpreted as a regular expression rather than a literal. This is done by passing an array instead of a string literal when building a regexp. The array must contain 0 or more string literals for the literal parts, and 0 or more instances of `s9e\RegexpBuilder\Expression` for the regular expressions.
+
+In the following example, we build a regexp to be used for URL routing. We want to match the following routes, expressed here as regexps:
+
+ - `/(*:home)`
+ - `/admin(*:admin_index)`
+ - `/admin/login(*:admin_login)`
+ - `/admin/logout(*:admin_logout)`
+ - `/admin/product(*:admin_product_store)`
+ - `/admin/product/(\d+)(*:admin_product_show)`
+ - `/admin/product/(\d+)/edit(*:admin_product_edit)`
+ - `/shop(*:shop_index)`
+ - `/shop/product(*:shop_product_index)`
+ - `/shop/product/(\d+)(*:shop_product_show)`
+
+```php
+// Use the PHP factory to generate a PHP regexp with ~ as a delimiter
+$delimiter = '~';
+$builder   = s9e\RegexpBuilder\Factory\PHP::getBuilder(delimiter: $delimiter);
+
+// In this example, we want to use non-capture groups that reset group numbers
+// As per https://www.pcre.org/current/doc/html/pcre2syntax.html#TOC1
+$builder->serializer->groupType = s9e\RegexpBuilder\GroupType::NonCaptureReset;
+
+// Syntactic sugar
+function expr(string $expr)
+{
+	return new s9e\RegexpBuilder\Expression($expr);
+}
+
+// Here we split each route into a mix of literals and regular expressions
+$regexp = $builder->build([
+	['/', expr('(*:home)')],
+	['/admin', expr('(*:admin_index)')],
+	['/admin/login', expr('(*:admin_login)')],
+	['/admin/logout', expr('(*:admin_logout)')],
+	['/admin/product', expr('(*:admin_product_store)')],
+	['/admin/product/', expr('(\d+)'), expr('(*:admin_product_show)')],
+	['/admin/product/', expr('(\d+)'), '/edit', expr('(*:admin_product_edit)')],
+	['/shop', expr('(*:shop_index)')],
+	['/shop/product', expr('(*:shop_product_index)')],
+	['/shop/product/', expr('(\d+)'), expr('(*:shop_product_show)')]
+]);
+$regexp = $delimiter . '^' . $regexp . '$' . $delimiter;
+
+// Let's see what the regexp looks like
+echo "$regexp\n\n";
+
+// Let's test our new regexp
+preg_match($regexp, '/admin/product/123', $m);
+print_r($m);
+```
+```
+~^/(?|admin(?|/(?|log(?|in(*:admin_login)|out(*:admin_logout))|product(?|/(\d+)(?|/edit(*:admin_product_edit)|(*:admin_product_show))|(*:admin_product_store)))|(*:admin_index))|shop(?|/product(?|/(\d+)(*:shop_product_show)|(*:shop_product_index))|(*:shop_index))|(*:home))$~
+
+Array
+(
+    [0] => /admin/product/123
+    [1] => 123
+    [MARK] => admin_product_show
+)
+```

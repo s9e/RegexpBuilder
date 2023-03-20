@@ -124,5 +124,4 @@ class MetaTest extends TestCase
 
 		$this->assertArrayHasKey('0', $meta->getInputMap());
 	}
-
 }

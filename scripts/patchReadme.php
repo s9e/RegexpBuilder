@@ -15,10 +15,16 @@ file_put_contents(
 
 function patchOutput($m)
 {
+	$m[4] = evalScript($m[2]);
 	unset($m[0]);
-	ob_start();
-	eval($m[2]);
-	$m[4] = ob_get_clean();
 
 	return implode('', $m);
+}
+
+function evalScript()
+{
+	ob_start();
+	eval(func_get_arg(0));
+
+	return trim(ob_get_clean());
 }
