@@ -52,6 +52,26 @@ class PHPTest extends AbstractFactoryTestClass
 				'a(xx|yy)',
 				['modifiers' => 'n']
 			],
+			[
+				["xx \u{2639}", "yy \u{2639}"],
+				'(xx|yy)\\ \\xE2\\x98\\xB9',
+				['modifiers' => 'nx']
+			],
+			[
+				["xx \u{2639}", "yy \u{2639}"],
+				'(xx|yy) \\x{2639}',
+				['modifiers' => 'nu']
+			],
+			[
+				["xx \u{2639}", "yy \u{2639}"],
+				'(xx|yy)\\ \\x{2639}',
+				['modifiers' => 'nux']
+			],
+			[
+				["xx \u{2639}", "yy \u{2639}"],
+				'(?:xx|yy)\\ \\x{2639}',
+				['modifiers' => 'ux']
+			],
 		];
 	}
 }
