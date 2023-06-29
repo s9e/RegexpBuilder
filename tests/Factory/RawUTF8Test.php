@@ -2,6 +2,9 @@
 
 namespace s9e\RegexpBuilder\Tests\Factory;
 
+/**
+* @covers s9e\RegexpBuilder\Factory\RawUTF8
+*/
 class RawUTF8Test extends AbstractFactoryTestClass
 {
 	public static function getGetBuilderTests()

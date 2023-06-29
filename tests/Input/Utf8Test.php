@@ -22,6 +22,14 @@ class Utf8Test extends AbstractTestClass
 				[]
 			],
 			[
+				'',
+				[],
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = true;
+				}
+			],
+			[
 				'foo',
 				[102, 111, 111]
 			],
@@ -62,8 +70,24 @@ class Utf8Test extends AbstractTestClass
 				[0x263A]
 			],
 			[
-				'',
-				[],
+				'☺',
+				[0x263A],
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = true;
+				}
+			],
+			[
+				"\u{1F601}\u{1F602}",
+				[0x1F601, 0x1F602],
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = false;
+				}
+			],
+			[
+				"\u{1F601}\u{1F602}",
+				[0xD83D, 0xDE01, 0xD83D, 0xDE02],
 				function (InputInterface $input)
 				{
 					$input->useSurrogates = true;
