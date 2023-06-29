@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         backupGlobals="false"
-         backupStaticProperties="false"
-         bootstrap="vendor/autoload.php"
-         cacheDirectory=".phpunit.cache"
-         colors="true"
-         processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+<phpunit
+	backupGlobals="false"
+	backupStaticProperties="false"
+	bootstrap="vendor/autoload.php"
+	cacheDirectory=".phpunit.cache"
+	colors="true"
+	processIsolation="false"
+	stopOnError="false"
+	stopOnFailure="false"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
 >
-	<coverage>
-		<include>
-			<directory suffix=".php">src</directory>
-		</include>
-	</coverage>
+	<coverage/>
 	<testsuites>
 		<testsuite name="RegexpBuilder">
 			<directory>tests</directory>
 		</testsuite>
 	</testsuites>
+	<source>
+		<include>
+			<directory suffix=".php">src</directory>
+		</include>
+	</source>
 </phpunit>
