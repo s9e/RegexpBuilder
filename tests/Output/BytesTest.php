@@ -19,6 +19,7 @@ class BytesTest extends AbstractTestClass
 			[0xC3, "\xC3"],
 			[0xA9, "\xA9"],
 			[0xFF, "\xFF"],
+			[-1, new ValueError('Value -1 is out of bounds (0..255)')],
 			[0x100, new ValueError('Value 256 is out of bounds (0..255)')]
 		];
 	}
@@ -32,6 +33,7 @@ class BytesTest extends AbstractTestClass
 			[0xC3, "\xC3"],
 			[0xA9, "\xA9"],
 			[0xFF, "\xFF"],
+			[-1, new ValueError('Value -1 is out of bounds (0..255)')],
 			[0x100, new ValueError('Value 256 is out of bounds (0..255)')]
 		];
 	}

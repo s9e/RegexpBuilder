@@ -30,6 +30,23 @@ class PHPTest extends AbstractTestClass
 		$this->assertEquals('\\#', $output->output(ord('#'), Context::ClassAtom));
 	}
 
+	public function testSetDelimiter()
+	{
+		$output = new PHP;
+		
+		$output->setDelimiter('');
+		$this->assertEquals('\\(', $output->output(ord('('), Context::Body));
+		$this->assertEquals('\\)', $output->output(ord(')'), Context::Body));
+		$this->assertEquals('(',   $output->output(ord('('), Context::ClassAtom));
+		$this->assertEquals(')',   $output->output(ord(')'), Context::ClassAtom));
+
+		$output->setDelimiter('()');
+		$this->assertEquals('\\(', $output->output(ord('('), Context::Body));
+		$this->assertEquals('\\)', $output->output(ord(')'), Context::Body));
+		$this->assertEquals('\\(', $output->output(ord('('), Context::ClassAtom));
+		$this->assertEquals('\\)', $output->output(ord(')'), Context::ClassAtom));
+	}
+
 	/**
 	* @dataProvider getInvalidDelimiterTests
 	*/
@@ -47,6 +64,7 @@ class PHPTest extends AbstractTestClass
 			["\0"],
 			['a'],
 			['A'],
+			['6'],
 			['\\'],
 		];
 	}
