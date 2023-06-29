@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
 use s9e\RegexpBuilder\Factory\PHP;
@@ -51,9 +52,7 @@ class EmojiTest extends TestCase
 		}
 	}
 
-	/**
-	* @dataProvider getEmojiTestRegexPatternTests
-	*/
+	#[DataProvider('getEmojiTestRegexPatternTests')]
 	public function testEmojiTestRegexPattern(Builder $builder, string $filename)
 	{
 		$regexp = $builder->build($this->getEmoji());

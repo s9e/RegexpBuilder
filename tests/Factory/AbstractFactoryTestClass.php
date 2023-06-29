@@ -2,13 +2,12 @@
 
 namespace s9e\RegexpBuilder\Tests\Factory;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractFactoryTestClass extends TestCase
 {
-	/**
-	* @dataProvider getGetBuilderTests
-	*/
+	#[DataProvider('getGetBuilderTests')]
 	public function testGetBuilder(array $input, string $expected, array $args = [])
 	{
 		$className = strtr(static::class, ['\\Tests' => '', 'Test' => '']);

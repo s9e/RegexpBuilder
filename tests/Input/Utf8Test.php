@@ -60,7 +60,15 @@ class Utf8Test extends AbstractTestClass
 			[
 				'☺',
 				[0x263A]
-			]
+			],
+			[
+				'',
+				[],
+				function (InputInterface $input)
+				{
+					$input->useSurrogates = true;
+				}
+			],
 		];
 	}
 }

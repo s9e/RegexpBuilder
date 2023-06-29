@@ -2,14 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests\Input;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
 abstract class AbstractTestClass extends TestCase
 {
-	/**
-	* @dataProvider getInputTests
-	*/
+	#[DataProvider('getInputTests')]
 	public function test($original, $expected, callable $setup = null)
 	{
 		$className = 's9e\\RegexpBuilder\\Input\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', static::class);

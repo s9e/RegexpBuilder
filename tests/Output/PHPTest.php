@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use ValueError;
 use s9e\RegexpBuilder\Output\Context;
 use s9e\RegexpBuilder\Output\HexFormat;
@@ -47,9 +48,7 @@ class PHPTest extends AbstractTestClass
 		$this->assertEquals('\\)', $output->output(ord(')'), Context::ClassAtom));
 	}
 
-	/**
-	* @dataProvider getInvalidDelimiterTests
-	*/
+	#[DataProvider('getInvalidDelimiterTests')]
 	public function testInvalidDelimiter($delimiter)
 	{
 		$this->expectException('ValueError');

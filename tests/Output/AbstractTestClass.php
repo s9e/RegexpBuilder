@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 use s9e\RegexpBuilder\Output\Context;
@@ -26,17 +27,13 @@ abstract class AbstractTestClass extends TestCase
 		$this->assertSame($expected, $output->output($original, $context));
 	}
 
-	/**
-	* @dataProvider getOutputBodyTests
-	*/
+	#[DataProvider('getOutputBodyTests')]
 	public function testOutputBody($original, $expected, ?callable $setup = null)
 	{
 		$this->runOutputTest(Context::Body, $original, $expected, $setup);
 	}
 
-	/**
-	* @dataProvider getOutputClassAtomTests
-	*/
+	#[DataProvider('getOutputClassAtomTests')]
 	public function testOutputClassAtom($original, $expected, ?callable $setup = null)
 	{
 		$this->runOutputTest(Context::ClassAtom, $original, $expected, $setup);

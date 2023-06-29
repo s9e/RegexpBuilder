@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\StringSorter;
 
@@ -10,9 +11,7 @@ use s9e\RegexpBuilder\StringSorter;
 */
 class StringSorterTest extends TestCase
 {
-	/**
-	* @dataProvider getGetUniqueSortedStringsTests
-	*/
+	#[DataProvider('getGetUniqueSortedStringsTests')]
 	public function testEscapeCharacterClass(array $strings, array $expected)
 	{
 		$sorter = new StringSorter;

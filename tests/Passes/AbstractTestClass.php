@@ -2,14 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests\Passes;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Meta;
 
 abstract class AbstractTestClass extends TestCase
 {
-	/**
-	* @dataProvider getPassTests
-	*/
+	#[DataProvider('getPassTests')]
 	public function test($original, $expected)
 	{
 		$this->assertSame($expected, $this->getPassInstance()->run($original));

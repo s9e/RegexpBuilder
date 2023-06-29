@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\InputSplitter;
 use s9e\RegexpBuilder\Input\InputInterface;
@@ -13,9 +14,7 @@ use s9e\RegexpBuilder\Meta;
 */
 class InputSplitterTest extends TestCase
 {
-	/**
-	* @dataProvider getSplitStringsTests
-	*/
+	#[DataProvider('getSplitStringsTests')]
 	public function testSplitStrings(array $strings, array $expected, Meta $meta = new Meta, InputInterface $input = new Utf8)
 	{
 		$actual = (new InputSplitter($input, $meta))->splitStrings($strings);

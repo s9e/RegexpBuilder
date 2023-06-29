@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Input\Bytes as Input;
 use s9e\RegexpBuilder\Meta;
@@ -13,9 +14,7 @@ use s9e\RegexpBuilder\Serializer;
 */
 class SerializerTest extends TestCase
 {
-	/**
-	* @dataProvider getSerializerTests
-	*/
+	#[DataProvider('getSerializerTests')]
 	public function test($original, $expected, bool $groupAlternations = null)
 	{
 		$args = [$original];
