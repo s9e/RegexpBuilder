@@ -20,7 +20,7 @@ class MergeSuffix extends AbstractPass
 	*/
 	protected function canRun(array $strings): bool
 	{
-		return (count($strings) > 1 && $this->hasMatchingSuffix($strings));
+		return (count($strings) > 1);
 	}
 
 	/**
