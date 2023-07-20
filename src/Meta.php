@@ -17,12 +17,12 @@ class Meta
 	* @const Bit value that indicates whether a meta sequence represents a single character usable
 	*        in a character class
 	*/
-	final protected const IS_CHAR = 1;
+	final protected const         IS_CHAR = 1 << 0;
 
 	/**
 	* @const Bit value that indicates whether a meta sequence represents a quantifiable expression
 	*/
-	final protected const IS_QUANTIFIABLE = 2;
+	final protected const IS_QUANTIFIABLE = 1 << 1;
 
 	/**
 	* @var array<int|string, int> Map of meta sequences and their numeric values
