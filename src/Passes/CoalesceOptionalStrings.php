@@ -141,9 +141,6 @@ class CoalesceOptionalStrings extends AbstractPass
 
 	/**
 	* Test whether given list of strings starts with a single optional alternation
-	*
-	* @param  array $strings
-	* @return bool
 	*/
 	protected function isSingleOptionalAlternation(array $strings): bool
 	{

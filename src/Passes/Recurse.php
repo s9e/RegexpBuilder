@@ -15,14 +15,8 @@ use s9e\RegexpBuilder\Runner;
 */
 class Recurse extends AbstractPass
 {
-	/**
-	* @var Runner
-	*/
 	protected Runner $runner;
 
-	/**
-	* @param Runner $runner
-	*/
 	public function __construct(Runner $runner)
 	{
 		$this->runner = $runner;
@@ -38,9 +32,6 @@ class Recurse extends AbstractPass
 
 	/**
 	* Recurse into given string and run all passes on each element
-	*
-	* @param  array $string
-	* @return array
 	*/
 	protected function recurseString(array $string): array
 	{

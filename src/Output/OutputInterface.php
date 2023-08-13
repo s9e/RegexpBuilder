@@ -11,10 +11,6 @@ interface OutputInterface
 {
 	/**
 	* Serialize a value into a character used in given context
-	*
-	* @param  int     $value
-	* @param  Context $context
-	* @return string
 	*/
 	public function output(int $value, Context $context): string;
 }

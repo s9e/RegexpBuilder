@@ -47,9 +47,6 @@ class Meta
 
 	/**
 	* Return the expression that matches given value
-	*
-	* @param  int $value
-	* @return string
 	*/
 	public function getExpression(int $value): string
 	{
@@ -66,9 +63,6 @@ class Meta
 
 	/**
 	* Return whether a given value represents a single character usable in a character class
-	*
-	* @param  int  $value
-	* @return bool
 	*/
 	public static function isChar(int $value): bool
 	{
@@ -77,9 +71,6 @@ class Meta
 
 	/**
 	* Return whether a given value represents a quantifiable expression
-	*
-	* @param  int  $value
-	* @return bool
 	*/
 	public static function isQuantifiable(int $value): bool
 	{
@@ -89,9 +80,8 @@ class Meta
 	/**
 	* Set a meta sequence
 	*
-	* @param  string $sequence   String used in the input
-	* @param  string $expression Regular expression used in the output
-	* @return void
+	* @param string $sequence   String used in the input
+	* @param string $expression Regular expression used in the output
 	*/
 	public function set(string $sequence, string $expression): void
 	{
@@ -146,9 +136,6 @@ class Meta
 
 	/**
 	* Test whether given expression represents a single character usable in a character class
-	*
-	* @param  string $expr
-	* @return bool
 	*/
 	protected function exprIsChar(string $expr): bool
 	{
@@ -168,9 +155,6 @@ class Meta
 
 	/**
 	* Test whether given expression is quantifiable
-	*
-	* @param  string $expr
-	* @return bool
 	*/
 	protected function exprIsQuantifiable(string $expr): bool
 	{

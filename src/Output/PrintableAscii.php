@@ -18,9 +18,6 @@ abstract class PrintableAscii extends AbstractOutput
 
 	/**
 	* Escape given ASCII codepoint
-	*
-	* @param  int    $cp
-	* @return string
 	*/
 	protected function escapeAscii(int $cp): string
 	{
@@ -29,9 +26,6 @@ abstract class PrintableAscii extends AbstractOutput
 
 	/**
 	* Escape given control code
-	*
-	* @param  int    $cp
-	* @return string
 	*/
 	protected function escapeControlCode(int $cp): string
 	{
@@ -41,10 +35,7 @@ abstract class PrintableAscii extends AbstractOutput
 	}
 
 	/**
-	* Output the representation of a unicode character
-	*
-	* @param  int    $cp Unicode codepoint
-	* @return string
+	* Output the representation of a Unicode character
 	*/
 	abstract protected function escapeUnicode(int $cp): string;
 

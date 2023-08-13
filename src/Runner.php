@@ -18,9 +18,6 @@ class Runner
 
 	/**
 	* Add a pass to the list
-	*
-	* @param  PassInterface $pass
-	* @return void
 	*/
 	public function addPass(PassInterface $pass): void
 	{

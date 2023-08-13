@@ -114,9 +114,7 @@ class Builder
 	}
 
 	/**
-	* Set the Runner instance $in this->runner
-	*
-	* @return void
+	* Set the Runner instance in $this->runner
 	*/
 	protected function setRunner(): void
 	{

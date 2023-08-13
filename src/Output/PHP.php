@@ -15,8 +15,7 @@ class PHP extends PCRE2
 	/**
 	* Set the delimiter(s) used for the regexp
 	*
-	* @param  string $delimiter Delimiter character(s)
-	* @return void
+	* @param string $delimiter Delimiter character(s)
 	*/
 	public function setDelimiter(string $delimiter): void
 	{

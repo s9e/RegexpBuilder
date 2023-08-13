@@ -135,9 +135,6 @@ class Serializer
 
 	/**
 	* Test whether given string represents a single character
-	*
-	* @param  array $string
-	* @return bool
 	*/
 	protected function isChar(array $string): bool
 	{
@@ -146,9 +143,6 @@ class Serializer
 
 	/**
 	* Test whether an expression is quantifiable based on the strings info
-	*
-	* @param  array $info
-	* @return bool
 	*/
 	protected function isQuantifiable(array $info): bool
 	{
@@ -209,9 +203,6 @@ class Serializer
 
 	/**
 	* Serialize a given value to be used in a character class
-	*
-	* @param  int    $value
-	* @return string
 	*/
 	protected function serializeClassAtom(int $value): string
 	{
@@ -220,9 +211,6 @@ class Serializer
 
 	/**
 	* Serialize an element from a string
-	*
-	* @param  array|int $element
-	* @return string
 	*/
 	protected function serializeElement(array|int $element): string
 	{
@@ -231,9 +219,6 @@ class Serializer
 
 	/**
 	* Serialize a given value to be used as a literal
-	*
-	* @param  int    $value
-	* @return string
 	*/
 	protected function serializeLiteral(int $value): string
 	{
@@ -242,9 +227,6 @@ class Serializer
 
 	/**
 	* Serialize a given string into a regular expression
-	*
-	* @param  array  $string
-	* @return string
 	*/
 	protected function serializeString(array $string): string
 	{
@@ -253,10 +235,6 @@ class Serializer
 
 	/**
 	* Serialize a given value
-	*
-	* @param  int     $value
-	* @param  Context $context
-	* @return string
 	*/
 	protected function serializeValue(int $value, Context $context): string
 	{
