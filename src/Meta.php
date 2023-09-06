@@ -147,7 +147,7 @@ class Meta
 			'(^\\\\p(?:.|\\{[^}]+\\})$)Di',
 
 			// An escape sequence such as \x1F or \x{2600}
-			'(^\\\\x(?:[0-9a-f]{2}|\\{[^}]+\\})$)Di'
+			'(^\\\\x(?:[0-9A-Fa-f]{2}|\\{[0-9A-Fa-f]+\\})$)D'
 		];
 
 		return $this->matchesAny($expr, $regexps);
