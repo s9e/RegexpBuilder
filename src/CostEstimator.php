@@ -53,10 +53,6 @@ class CostEstimator
 
 	protected function estimateLiteral(int $value): int
 	{
-		if ($value < 0)
-		{
-			return $this->estimateMeta($value);
-		}
 		if ($value < 32)
 		{
 			// Control codes take 1 bytes in Raw output, and either 2 or 4 in PrintableAscii

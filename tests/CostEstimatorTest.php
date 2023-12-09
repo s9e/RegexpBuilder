@@ -6,10 +6,19 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\CostEstimator;
+use s9e\RegexpBuilder\Meta;
 
 #[CoversClass('s9e\RegexpBuilder\CostEstimator')]
 class CostEstimatorTest extends TestCase
 {
+	protected static function getMetaValue(string $expr): int
+	{
+		$meta = new Meta;
+		$meta->set('x', $expr);
+
+		return $meta->getInputMap()['x'];
+	}
+
 	#[DataProvider('getEstimateStringTests')]
 	public function testEstimateString(int $cost, array $string)
 	{
@@ -25,6 +34,10 @@ class CostEstimatorTest extends TestCase
 			[3, [66, 66, 66]],
 			// BB\n
 			[4, [66, 66, 10]],
+			// BB\w
+			[4, [66, 66, self::getMetaValue('\\w')]],
+			// BB\w+
+			[6, [66, 66, self::getMetaValue('\\w+')]],
 			// Pokémon
 			[8, [80, 111, 107, 233, 109, 111, 110]],
 			// √
