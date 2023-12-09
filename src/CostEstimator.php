@@ -7,6 +7,8 @@
 */
 namespace s9e\RegexpBuilder;
 
+use function array_map, array_sum, count, is_array, is_int;
+
 class CostEstimator
 {
 	public function estimateString(array $string): int
@@ -29,7 +31,7 @@ class CostEstimator
 
 	public function estimateStrings(array $strings): int
 	{
-		$cost = array_sum($this->estimateString(...), $strings);
+		$cost = array_sum(array_map($this->estimateString(...), $strings));
 		$cnt  = count($strings);
 		if ($cnt > 1)
 		{
@@ -51,7 +53,7 @@ class CostEstimator
 			// Control codes take 1 bytes in Raw output, and either 2 or 4 in PrintableAscii
 			return 2;
 		}
-		if ($value < 256)
+		if ($value < 128)
 		{
 			return 1;
 		}
