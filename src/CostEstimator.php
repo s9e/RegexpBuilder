@@ -26,7 +26,7 @@ class CostEstimator
 			}
 		}
 
-		return $cost;
+		return $cost ?? 1;
 	}
 
 	public function estimateStrings(array $strings): int
