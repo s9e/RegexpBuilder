@@ -25,6 +25,28 @@ class CostEstimatorTest extends TestCase
 			[3, [66, 66, 66]],
 			// BB\n
 			[4, [66, 66, 10]],
+			// Pokémon
+			[8, [80, 111, 107, 233, 109, 111, 110]],
+			// √
+			[3, [0x221A]],
+			// 😀
+			[4, [0x1F600]],
+		];
+	}
+
+	#[DataProvider('getEstimateStringsTests')]
+	public function testEstimateStrings(int $cost, array $string)
+	{
+		$this->assertEquals($cost, (new CostEstimator)->estimateStrings($string));
+	}
+
+	public static function getEstimateStringsTests()
+	{
+		return [
+			// B
+			[1, [[66]]],
+			// [AB]
+			[4, [[65], [66]]],
 		];
 	}
 }
