@@ -31,8 +31,17 @@ class CostEstimator
 
 	public function estimateStrings(array $strings): int
 	{
-		$cost = array_sum(array_map($this->estimateString(...), $strings));
-		$cnt  = count($strings);
+		$cost = 0;
+		if (!isset($strings[0][0]))
+		{
+			// An empty string means the whole thing is optional. We increment the cost by 1 to
+			// account for the ? character
+			unset($strings[0]);
+			++$cost;
+		}
+
+		$cost += array_sum(array_map($this->estimateString(...), $strings));
+		$cnt   = count($strings);
 		if ($cnt > 1)
 		{
 			// Add the expected overhead for [] or (?:) plus the alternation characters |
