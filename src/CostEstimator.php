@@ -18,7 +18,7 @@ class CostEstimator
 		{
 			if (is_array($element))
 			{
-				$cost += $this->estimateString($element);
+				$cost += $this->estimateStrings($element);
 			}
 			else
 			{

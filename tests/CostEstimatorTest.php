@@ -35,9 +35,9 @@ class CostEstimatorTest extends TestCase
 	}
 
 	#[DataProvider('getEstimateStringsTests')]
-	public function testEstimateStrings(int $cost, array $string)
+	public function testEstimateStrings(int $cost, array $strings)
 	{
-		$this->assertEquals($cost, (new CostEstimator)->estimateStrings($string));
+		$this->assertEquals($cost, (new CostEstimator)->estimateStrings($strings));
 	}
 
 	public static function getEstimateStringsTests()
@@ -47,6 +47,10 @@ class CostEstimatorTest extends TestCase
 			[1, [[66]]],
 			// [AB]
 			[4, [[65], [66]]],
+			// (?:AA|BB)
+			[9, [[65, 65], [66, 66]]],
+			// (?:AA(?:XX|YY)|BB)
+			[18, [[65, 65, [[88, 88], [89, 89]]], [66, 66]]],
 		];
 	}
 }
