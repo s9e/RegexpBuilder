@@ -2,10 +2,10 @@
 
 namespace s9e\RegexpBuilder\Tests\Passes;
 
-/**
-* @covers s9e\RegexpBuilder\Passes\AbstractPass
-* @covers s9e\RegexpBuilder\Passes\MergeSuffix
-*/
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass('s9e\RegexpBuilder\Passes\AbstractPass')]
+#[CoversClass('s9e\RegexpBuilder\Passes\MergeSuffix')]
 class MergeSuffixTest extends AbstractTestClass
 {
 	public static function getPassTests()

@@ -2,14 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use ValueError;
 use s9e\RegexpBuilder\Output\HexFormat;
 
-/**
-* @covers s9e\RegexpBuilder\Output\AbstractOutput
-* @covers s9e\RegexpBuilder\Output\PrintableAscii
-* @covers s9e\RegexpBuilder\Output\RE2
-*/
+#[CoversClass('s9e\RegexpBuilder\Output\AbstractOutput')]
+#[CoversClass('s9e\RegexpBuilder\Output\PrintableAscii')]
+#[CoversClass('s9e\RegexpBuilder\Output\RE2')]
 class RE2Test extends AbstractTestClass
 {
 	public static function getOutputBodyTests()

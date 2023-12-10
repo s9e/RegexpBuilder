@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Input\Bytes as Input;
@@ -9,9 +10,7 @@ use s9e\RegexpBuilder\Meta;
 use s9e\RegexpBuilder\Output\Bytes as Output;
 use s9e\RegexpBuilder\Serializer;
 
-/**
-* @covers s9e\RegexpBuilder\Serializer
-*/
+#[CoversClass('s9e\RegexpBuilder\Serializer')]
 class SerializerTest extends TestCase
 {
 	#[DataProvider('getSerializerTests')]

@@ -2,13 +2,12 @@
 
 namespace s9e\RegexpBuilder\Tests\Passes;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Passes\Recurse;
 
-/**
-* @covers s9e\RegexpBuilder\Passes\AbstractPass
-* @covers s9e\RegexpBuilder\Passes\Recurse
-*/
+#[CoversClass('s9e\RegexpBuilder\Passes\AbstractPass')]
+#[CoversClass('s9e\RegexpBuilder\Passes\Recurse')]
 class RecurseTest extends TestCase
 {
 	public function test()

@@ -2,9 +2,9 @@
 
 namespace s9e\RegexpBuilder\Tests\Input;
 
-/**
-* @covers s9e\RegexpBuilder\Input\Bytes
-*/
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass('s9e\RegexpBuilder\Input\Bytes')]
 class BytesTest extends AbstractTestClass
 {
 	public static function getInputTests()

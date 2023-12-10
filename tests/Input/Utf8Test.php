@@ -2,12 +2,11 @@
 
 namespace s9e\RegexpBuilder\Tests\Input;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use ValueError;
 use s9e\RegexpBuilder\Input\InputInterface;
 
-/**
-* @covers s9e\RegexpBuilder\Input\Utf8
-*/
+#[CoversClass('s9e\RegexpBuilder\Input\Utf8')]
 class Utf8Test extends AbstractTestClass
 {
 	public static function getInputTests()

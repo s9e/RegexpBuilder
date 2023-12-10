@@ -2,13 +2,12 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\StringSorter;
 
-/**
-* @covers s9e\RegexpBuilder\StringSorter
-*/
+#[CoversClass('s9e\RegexpBuilder\StringSorter')]
 class StringSorterTest extends TestCase
 {
 	#[DataProvider('getGetUniqueSortedStringsTests')]

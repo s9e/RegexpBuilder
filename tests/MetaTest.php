@@ -2,14 +2,13 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use s9e\RegexpBuilder\Meta;
 
-/**
-* @covers s9e\RegexpBuilder\Meta
-*/
+#[CoversClass('s9e\RegexpBuilder\Meta')]
 class MetaTest extends TestCase
 {
 	/**
@@ -42,10 +41,7 @@ class MetaTest extends TestCase
 		$this->assertEquals($meta->getExpression($meta->getInputMap()['*']), '.*');
 	}
 
-	/**
-	* @testdox Meta-characters properties
-	* @dataProvider getPropertiesTests
-	*/
+	#[DataProvider('getPropertiesTests')]
 	public function testProperties($properties, $expr)
 	{
 		$meta  = new Meta;
@@ -88,10 +84,7 @@ class MetaTest extends TestCase
 		];
 	}
 
-	/**
-	* @testdox Single character expressions are mapped to the character's codepoint directly if possible
-	* @dataProvider getSingleCharacterTests
-	*/
+	#[DataProvider('getSingleCharacterTests')]
 	public function testSingleCharacter(string $expr, int $value)
 	{
 		$meta  = new Meta;

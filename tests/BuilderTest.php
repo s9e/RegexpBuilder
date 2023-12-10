@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Builder;
@@ -11,9 +12,7 @@ use s9e\RegexpBuilder\Output\PCRE2;
 use s9e\RegexpBuilder\Output\Utf8 as Utf8Output;
 use s9e\RegexpBuilder\Expression;
 
-/**
-* @covers s9e\RegexpBuilder\Builder
-*/
+#[CoversClass('s9e\RegexpBuilder\Builder')]
 class BuilderTest extends TestCase
 {
 	public function testStandalone()

@@ -2,9 +2,9 @@
 
 namespace s9e\RegexpBuilder\Tests\Factory;
 
-/**
-* @covers s9e\RegexpBuilder\Factory\Java
-*/
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass('s9e\RegexpBuilder\Factory\Java')]
 class JavaTest extends AbstractFactoryTestClass
 {
 	public static function getGetBuilderTests()

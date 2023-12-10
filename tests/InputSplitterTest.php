@@ -2,6 +2,7 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\InputSplitter;
@@ -9,9 +10,7 @@ use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Input\Utf8;
 use s9e\RegexpBuilder\Meta;
 
-/**
-* @covers s9e\RegexpBuilder\InputSplitter
-*/
+#[CoversClass('s9e\RegexpBuilder\InputSplitter')]
 class InputSplitterTest extends TestCase
 {
 	#[DataProvider('getSplitStringsTests')]

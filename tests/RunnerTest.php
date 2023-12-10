@@ -2,12 +2,11 @@
 
 namespace s9e\RegexpBuilder\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use s9e\RegexpBuilder\Runner;
 
-/**
-* @covers s9e\RegexpBuilder\Runner
-*/
+#[CoversClass('s9e\RegexpBuilder\Runner')]
 class RunnerTest extends TestCase
 {
 	public function testRun()

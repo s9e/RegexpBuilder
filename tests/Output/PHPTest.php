@@ -2,18 +2,17 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use ValueError;
 use s9e\RegexpBuilder\Output\Context;
 use s9e\RegexpBuilder\Output\HexFormat;
 use s9e\RegexpBuilder\Output\PHP;
 
-/**
-* @covers s9e\RegexpBuilder\Output\AbstractOutput
-* @covers s9e\RegexpBuilder\Output\PCRE2
-* @covers s9e\RegexpBuilder\Output\PHP
-* @covers s9e\RegexpBuilder\Output\PrintableAscii
-*/
+#[CoversClass('s9e\RegexpBuilder\Output\AbstractOutput')]
+#[CoversClass('s9e\RegexpBuilder\Output\PCRE2')]
+#[CoversClass('s9e\RegexpBuilder\Output\PHP')]
+#[CoversClass('s9e\RegexpBuilder\Output\PrintableAscii')]
 class PHPTest extends AbstractTestClass
 {
 	public function testEnableExtendedMore()

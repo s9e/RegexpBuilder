@@ -2,12 +2,11 @@
 
 namespace s9e\RegexpBuilder\Tests\Output;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use ValueError;
 
-/**
-* @covers s9e\RegexpBuilder\Output\AbstractOutput
-* @covers s9e\RegexpBuilder\Output\Utf8
-*/
+#[CoversClass('s9e\RegexpBuilder\Output\AbstractOutput')]
+#[CoversClass('s9e\RegexpBuilder\Output\Utf8')]
 class Utf8Test extends AbstractTestClass
 {
 	public static function getOutputBodyTests()
