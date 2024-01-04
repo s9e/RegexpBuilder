@@ -9,7 +9,7 @@ namespace s9e\RegexpBuilder;
 
 use s9e\RegexpBuilder\Input\InputInterface;
 use const PREG_OFFSET_CAPTURE;
-use function array_map, array_keys, preg_match_all, implode, substr, strlen, usort;
+use function array_map, array_keys, implode, preg_match_all, preg_quote, strlen, strval, substr, usort;
 
 class InputSplitter
 {
@@ -39,7 +39,7 @@ class InputSplitter
 	public function splitStrings(array $strings): array
 	{
 		$this->map    = $this->meta->getInputMap();
-		$this->regexp = $this->getInputRegexp(array_map('strval', array_keys($this->map)));
+		$this->regexp = $this->getInputRegexp(array_map(strval(...), array_keys($this->map)));
 
 		return array_map($this->splitString(...), $strings);
 	}
@@ -74,7 +74,7 @@ class InputSplitter
 		// Sort by length descending, then lexicographical order ascending
 		usort($sequences, fn($a, $b) => (strlen($b) - strlen($a)) ?: $b <=> $a);
 
-		return '(' . implode('|', array_map('preg_quote', $sequences)) . ')';
+		return '(' . implode('|', array_map(preg_quote(...), $sequences)) . ')';
 	}
 
 	/**

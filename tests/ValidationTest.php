@@ -279,11 +279,11 @@ class ValidationTest extends TestCase
 			],
 			[
 				'[1-7][0-7]?|0',
-				array_map('decoct', range(0, 63))
+				array_map(decoct(...), range(0, 63))
 			],
 			[
 				'[0-9a-f][0-9a-f]',
-				array_map('bin2hex', array_map('chr', range(0, 255)))
+				array_map(bin2hex(...), array_map(chr(...), range(0, 255)))
 			],
 			[
 				// This shouldn't be Gooo?o?o?o?o?gle because it would backtrack exponentially

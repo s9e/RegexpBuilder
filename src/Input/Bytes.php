@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Input;
 
-use function array_map, str_split;
+use function array_map, ord, str_split;
 
 class Bytes implements InputInterface
 {
@@ -21,6 +21,6 @@ class Bytes implements InputInterface
 			return [];
 		}
 
-		return array_map('ord', str_split($string, 1));
+		return array_map(ord(...), str_split($string, 1));
 	}
 }
