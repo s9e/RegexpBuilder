@@ -55,7 +55,7 @@ class CostEstimator
 	{
 		if ($value < 32)
 		{
-			// Control codes take 1 bytes in Raw output, and either 2 or 4 in PrintableAscii
+			// Control codes take 1 byte in Raw output, and either 2 or 4 bytes in PrintableAscii
 			return 2;
 		}
 		if ($value < 128)
