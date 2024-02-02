@@ -1,8 +1,8 @@
-/.*                export-ignore
-/README.md         export-ignore
-/composer.lock     export-ignore
-/docs              export-ignore
-/phpunit.xml       export-ignore
-/scripts           export-ignore
-/tests             export-ignore
-/vendor            export-ignore
+/.*            export-ignore
+/*.md          export-ignore
+/composer.lock export-ignore
+/docs          export-ignore
+/phpunit.xml   export-ignore
+/scripts       export-ignore
+/tests         export-ignore
+/vendor        export-ignore
