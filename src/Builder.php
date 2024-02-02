@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder;
 
-use function array_filter, base64_encode, dechex, random_int;
+use function array_filter, base64_encode, dechex, is_array, random_int;
 use s9e\RegexpBuilder\Input\Bytes as BytesInput;
 use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Output\Bytes as BytesOutput;
@@ -92,7 +92,7 @@ class Builder
 	*/
 	protected function replaceExpressions(array $strings): array
 	{
-		foreach (array_filter($strings, 'is_array') as $k => $string)
+		foreach (array_filter($strings, is_array(...)) as $k => $string)
 		{
 			$strings[$k] = '';
 			foreach ($string as $element)
