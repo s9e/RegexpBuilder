@@ -7,8 +7,8 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
-use const false, true;
 use function array_filter, array_pop, array_unshift, count, end;
+use s9e\RegexpBuilder\CostEstimator;
 
 /**
 * Replaces (?:aax|bbx) with (?:aa|bb)x
