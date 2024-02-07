@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
-use function array_merge, array_slice, count, is_int, serialize;
+use function array_merge, array_slice, count, is_int, json_encode;
 use s9e\RegexpBuilder\Meta;
 
 /**
@@ -74,7 +74,7 @@ class CoalesceSingleCharacterPrefix extends AbstractPass
 		{
 			if (is_int($string[0]) && isset($string[1]) && Meta::isChar($string[0]))
 			{
-				$suffix = serialize(array_slice($string, 1));
+				$suffix = json_encode(array_slice($string, 1));
 				$eligibleKeys[$suffix][] = $k;
 			}
 		}
