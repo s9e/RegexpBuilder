@@ -28,6 +28,8 @@ class MergeSuffix extends AbstractPass
 	*/
 	protected function runPass(array $strings): array
 	{
+		$suffixes = $this->getSuffixes($strings);
+
 		$newString = [];
 		while ($this->hasMatchingSuffix($strings))
 		{
@@ -37,6 +39,22 @@ class MergeSuffix extends AbstractPass
 		array_unshift($newString, $strings);
 
 		return [$newString];
+	}
+
+	protected function getSuffixes(array $strings): array
+	{
+		// Collect the indexes of strings with the same suffix
+		$suffixGroups = [];
+		foreach ($strings as $k => $string)
+		{
+			if ($string === [])
+			{
+				continue;
+			}
+
+			$id = json_encode(end($string));
+			$suffixGroups[$id][] = $k;
+		}
 	}
 
 	/**
