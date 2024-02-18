@@ -43,18 +43,40 @@ class MergeSuffix extends AbstractPass
 
 	protected function getSuffixes(array $strings): array
 	{
-		// Collect the indexes of strings with the same suffix
+		// Collect the indexes of strings that share the same suffix
 		$suffixGroups = [];
 		foreach ($strings as $k => $string)
 		{
-			if ($string === [])
+			$suffix   = end($string);
+			$suffixId = json_encode($suffix);
+			if (!isset($suffixGroups[$suffixId]))
+			{
+				$suffixGroups[$suffixId] = ['keys' => [], 'suffix' => $suffix];
+			}
+			$suffixGroups[$suffixId]['keys'][$k] = $k;
+		}
+
+		foreach ($suffixGroups as $suffixId => &$suffixGroup)
+		{
+			if (!is_array($suffixGroup['suffix']))
 			{
 				continue;
 			}
 
-			$id = json_encode(end($string));
-			$suffixGroups[$id][] = $k;
+			// Test whether all of the elements of the suffix can be found in the list of strings
+			// and record their keys
+			$suffix          = $suffixGroup['suffix'];
+			$matchingStrings = array_intersect($strings, $suffix);
+			if (count($suffix) === count($matchingStrings))
+			{
+				$suffixGroup['keys'][array_key_first($matchingStrings)] = array_keys($matchingStrings);
+				ksort($suffixGroup['keys']);
+			}
 		}
+		unset($suffixGroup);
+
+		print_r($strings);
+		print_r($suffixGroups);exit;
 	}
 
 	/**
