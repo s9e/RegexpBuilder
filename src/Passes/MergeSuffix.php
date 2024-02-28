@@ -7,7 +7,7 @@
 */
 namespace s9e\RegexpBuilder\Passes;
 
-use function array_filter, array_pop, array_unshift, count, end;
+use function array_filter, array_intersect, array_key_first, array_keys, array_pop, array_unshift, count, end, is_array, json_encode, ksort;
 use s9e\RegexpBuilder\CostEstimator;
 
 /**
@@ -28,44 +28,78 @@ class MergeSuffix extends AbstractPass
 	*/
 	protected function runPass(array $strings): array
 	{
-		$suffixes = $this->getSuffixes($strings);
+		$suffixGroups = $this->getSuffixGroups($strings);
+		$suffixGroups = $this->filterSuffixGroups($suffixGroups);
+		$suffixGroups = $this->expandSuffixes($strings, $suffixGroups);
 
-		$newString = [];
-		while ($this->hasMatchingSuffix($strings))
-		{
-			array_unshift($newString, end($strings[0]));
-			$strings = $this->pop($strings);
-		}
-		array_unshift($newString, $strings);
-
-		return [$newString];
+		print_r($suffixGroups);exit;
 	}
 
-	protected function getSuffixes(array $strings): array
+	protected function expandGroupSuffix(array $strings, array $suffixGroup): array
+	{
+		$cnt = count($suffixGroup['suffix']);
+		$len = $cnt;
+		while ($this->stringsMatchAtLen($strings, $suffixGroup['keys'], $len + 1))
+		{
+			++$len;
+		}
+
+		if ($len > $cnt)
+		{
+			$suffixGroup['suffix'] = array_slice($strings[array_key_first($suffixGroup['keys'])], -$len);
+		}
+
+		return $suffixGroup;
+	}
+
+	protected function expandSuffixes(array $strings, array $suffixGroups): array
+	{
+		foreach ($suffixGroups as $suffixId => $suffixGroup)
+		{
+			$suffixGroups[$suffixId] = $this->expandGroupSuffix($strings, $suffixGroup);
+		}
+
+		return $suffixGroups;
+	}
+
+	protected function filterSuffixGroups(array $suffixGroups): array
+	{
+		return array_filter(
+			$suffixGroups,
+			fn($suffixGroup) => count($suffixGroup['keys']) > 1
+		);
+	}
+
+	protected function getSuffixGroups(array $strings): array
 	{
 		// Collect the indexes of strings that share the same suffix
 		$suffixGroups = [];
 		foreach ($strings as $k => $string)
 		{
-			$suffix   = end($string);
-			$suffixId = json_encode($suffix);
+			$suffix    = end($string);
+			$suffixId  = json_encode($suffix);
 			if (!isset($suffixGroups[$suffixId]))
 			{
-				$suffixGroups[$suffixId] = ['keys' => [], 'suffix' => $suffix];
+				$suffixGroups[$suffixId] = [
+					'keys'   => [],
+					'suffix' => [$suffix]
+				];
 			}
 			$suffixGroups[$suffixId]['keys'][$k] = $k;
 		}
 
+		// If a suffix is an alternation group, test whether the content of each alternation can
+		// be found individually in the list of strings
 		foreach ($suffixGroups as $suffixId => &$suffixGroup)
 		{
-			if (!is_array($suffixGroup['suffix']))
+			if (!is_array($suffixGroup['suffix'][0]))
 			{
 				continue;
 			}
 
 			// Test whether all of the elements of the suffix can be found in the list of strings
 			// and record their keys
-			$suffix          = $suffixGroup['suffix'];
+			$suffix          = $suffixGroup['suffix'][0];
 			$matchingStrings = array_intersect($strings, $suffix);
 			if (count($suffix) === count($matchingStrings))
 			{
@@ -75,28 +109,7 @@ class MergeSuffix extends AbstractPass
 		}
 		unset($suffixGroup);
 
-		print_r($strings);
-		print_r($suffixGroups);exit;
-	}
-
-	/**
-	* Test whether all given strings have the same last element
-	*
-	* @param  array[] $strings
-	* @return bool
-	*/
-	protected function hasMatchingSuffix(array $strings): bool
-	{
-		$suffix = end($strings[1]);
-		foreach ($strings as $string)
-		{
-			if (end($string) !== $suffix)
-			{
-				return false;
-			}
-		}
-
-		return ($suffix !== false);
+		return $suffixGroups;
 	}
 
 	/**
@@ -122,5 +135,57 @@ class MergeSuffix extends AbstractPass
 		}
 
 		return $strings;
+	}
+
+	/**
+	* Test whether all strings match at given suffix length
+	*/
+	protected function stringsMatchAtLen(array $strings, array $keys, int $len)
+	{
+		// Make sure that each key points to a single string, and that the string is long enough
+		foreach ($keys as $key)
+		{
+			if (!is_int($key))
+			{
+				return false;
+			}
+			$elementIdx = count($strings[$key]) - $len;
+			if (!isset($strings[$key][$elementIdx]))
+			{
+				return false;
+			}
+		}
+
+		// Keep a copy of the last element we've examined as a reference
+		$element = $strings[$key][$elementIdx];
+
+		foreach ($keys as $key)
+		{
+			$elementIdx = count($strings[$key]) - $len;
+			if ($element !== $strings[$key][$elementIdx])
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	protected function updateSuffixGroups(array $strings, array $suffixGroups): array
+	{
+		foreach ($suffixGroups as $suffixId => $suffixGroup)
+		{
+			$suffixGroup['keys'] = array_filter(
+				$suffixGroup['keys'],
+				function (array|int $key) use ($strings)
+				{
+					return (is_int($key))
+					     ? isset($strings[$key])
+					     : (array_intersect_key($key, $strings) === $key);
+				}
+			);
+		}
+
+		return $this->filterSuffixGroups($suffixGroups);
 	}
 }
