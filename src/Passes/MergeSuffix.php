@@ -99,11 +99,20 @@ class MergeSuffix extends AbstractPass
 
 			// Test whether all of the elements of the suffix can be found in the list of strings
 			// and record their keys
-			$suffix          = $suffixGroup['suffix'][0];
-			$matchingStrings = array_intersect($strings, $suffix);
-			if (count($suffix) === count($matchingStrings))
+			$suffix       = $suffixGroup['suffix'][0];
+			$matchingKeys = [];
+			foreach ($suffix as $element)
 			{
-				$suffixGroup['keys'][array_key_first($matchingStrings)] = array_keys($matchingStrings);
+				$matchingKey = array_search($element, $strings, true);
+				if (!is_int($matchingKey))
+				{
+					break;
+				}
+				$matchingKeys[] = $matchingKey;
+			}
+			if (count($suffix) === count($matchingKeys))
+			{
+				$suffixGroup['keys'][$matchingKeys[0]] = $matchingKeys;
 				ksort($suffixGroup['keys']);
 			}
 		}
