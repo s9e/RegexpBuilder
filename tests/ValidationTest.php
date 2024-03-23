@@ -17,7 +17,7 @@ use s9e\RegexpBuilder\Expression;
 class ValidationTest extends TestCase
 {
 	#[DataProvider('getValidationTests')]
-	public function test($expected, $strings, $config = [], callable $setup = null)
+	public function test($expected, $strings, $config = [], ?callable $setup = null)
 	{
 		$builder = new Builder(...$config);
 		if (isset($setup))

@@ -14,7 +14,7 @@ use s9e\RegexpBuilder\Serializer;
 class SerializerTest extends TestCase
 {
 	#[DataProvider('getSerializerTests')]
-	public function test($original, $expected, bool $groupAlternations = null)
+	public function test($original, $expected, ?bool $groupAlternations = null)
 	{
 		$args = [$original];
 		if (isset($groupAlternations))

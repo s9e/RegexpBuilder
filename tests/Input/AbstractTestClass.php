@@ -9,7 +9,7 @@ use Throwable;
 abstract class AbstractTestClass extends TestCase
 {
 	#[DataProvider('getInputTests')]
-	public function test($original, $expected, callable $setup = null)
+	public function test($original, $expected, ?callable $setup = null)
 	{
 		$className = 's9e\\RegexpBuilder\\Input\\' . preg_replace('(.*\\\\(\\w+)Test$)', '$1', static::class);
 		$input = new $className;
