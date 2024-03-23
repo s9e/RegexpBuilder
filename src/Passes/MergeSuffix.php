@@ -35,7 +35,7 @@ class MergeSuffix extends AbstractPass
 		print_r($suffixGroups);exit;
 	}
 
-	protected function expandGroupSuffix(array $strings, array $suffixGroup): array
+	protected function expandGroupSuffix(array $suffixGroup, array $strings): array
 	{
 		$cnt = count($suffixGroup['suffix']);
 		$len = $cnt;
@@ -52,11 +52,11 @@ class MergeSuffix extends AbstractPass
 		return $suffixGroup;
 	}
 
-	protected function expandSuffixes(array $strings, array $suffixGroups): array
+	protected function expandSuffixes(array $suffixGroups, array $strings): array
 	{
 		foreach ($suffixGroups as $suffixId => $suffixGroup)
 		{
-			$suffixGroups[$suffixId] = $this->expandGroupSuffix($strings, $suffixGroup);
+			$suffixGroups[$suffixId] = $this->expandGroupSuffix($suffixGroup, $strings);
 		}
 
 		return $suffixGroups;
@@ -118,32 +118,7 @@ class MergeSuffix extends AbstractPass
 		}
 		unset($suffixGroup);
 
-		return $suffixGroups;
-	}
-
-	/**
-	* Remove the last element of every string
-	*
-	* @param  array[] $strings Original strings
-	* @return array[]          Processed strings
-	*/
-	protected function pop(array $strings): array
-	{
-		$cnt = count($strings);
-		$i   = $cnt;
-		while (--$i >= 0)
-		{
-			array_pop($strings[$i]);
-		}
-
-		// Remove empty elements then prepend one back at the start of the array if applicable
-		$strings = array_filter($strings);
-		if (count($strings) < $cnt)
-		{
-			array_unshift($strings, []);
-		}
-
-		return $strings;
+		return $this->updateSuffixGroups($suffixGroups, $strings);
 	}
 
 	/**
@@ -180,8 +155,21 @@ class MergeSuffix extends AbstractPass
 		return true;
 	}
 
-	protected function updateSuffixGroups(array $strings, array $suffixGroups): array
+	protected function updateCosts(array $suffixGroups, array $strings): array
 	{
+		return array_map(
+			fn($suffixGroup) => $this->updateGroupCost($suffixGroup, $strings),
+			$strings
+		);
+	}
+
+	protected function updateGroupCost(array $suffixGroup, array $strings): array
+	{
+	}
+
+	protected function updateSuffixGroups(array $suffixGroups, array $strings): array
+	{
+		// Ensure that all keys still exist in the list of strings
 		foreach ($suffixGroups as $suffixId => $suffixGroup)
 		{
 			$suffixGroup['keys'] = array_filter(
@@ -195,6 +183,10 @@ class MergeSuffix extends AbstractPass
 			);
 		}
 
-		return $this->filterSuffixGroups($suffixGroups);
+		$suffixGroups = $this->filterSuffixGroups($suffixGroups);
+		$suffixGroups = $this->expandSuffixes($suffixGroups, $strings);
+		$suffixGroups = $this->updateCosts($suffixGroups, $strings);
+
+		return $suffixGroups;
 	}
 }
